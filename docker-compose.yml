@@ -1,0 +1,34 @@
+#파일 규격 버전
+version: "3"
+
+#실행하는 컨테이너 정의
+services:
+  # 서비스 명
+  db:
+    # 사용 이미지
+    image: nopecho/jejulu-mariadb:1.0
+
+    #컨테이너 이름
+    container_name: jejulu-mariadb
+
+    #접근 포트 [외부]:[내부]
+    ports:
+      - "3306:3306"
+
+    #컨테이너 내부 환경변수 설정
+    environment:
+      #USER
+      MYSQL_USER: jejulu
+
+      #PASSWORD
+      MYSQL_PASSWORD: jejulu
+
+      #DATABASE 이름
+      MYSQL_DATABASE: jejulu
+
+      #TIME ZONE
+      TZ: Asia/Seoul
+
+    #외부 디렉토리와 컨테이너 마운트
+    #volumes:
+      #-
