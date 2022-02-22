@@ -1,9 +1,12 @@
 # Jejulu Project
 
->jejulu !!
+>jejulu 
 
-* Java 11
+### STACK
+* Java
 * Spring Boot
-* MariaDB
-* Docker
+* Thymeleaf
 * JPA
+* Docker
+  * Nginx
+* MariaDB
