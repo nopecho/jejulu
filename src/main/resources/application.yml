@@ -1,5 +1,5 @@
 #spring 환경 설정 그룹
-#실제 운영 application.yml은 프로젝트 외부에 보관 (보안)
+#실제 운영 application-prod.yml은 프로젝트 외부에 보관 (보안)
 spring:
   profiles:
     group:
