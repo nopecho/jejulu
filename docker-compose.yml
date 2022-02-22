@@ -28,6 +28,7 @@ services:
       MYSQL_USER: jejulu
       MYSQL_PASSWORD: jejulu
       MYSQL_DATABASE: jejulu
+      MYSQL_ROOT_PASSWORD: 1234
       #TIME ZONE
       TZ: Asia/Seoul
 
