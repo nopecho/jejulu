@@ -52,5 +52,5 @@ server:
     uri-encoding: utf-8
 
 firebase:
-  config : ./serviceAccountFile.json
+  config : /Users/app/config/firebase/firebaseAdminSdk.json
   bucket: jejulu-3b679.appspot.com
