@@ -50,3 +50,7 @@ server:
       tracking-modes: COOKIE
   tomcat:
     uri-encoding: utf-8
+
+firebase:
+  config : ./serviceAccountFile.json
+  bucket: jejulu-3b679.appspot.com
