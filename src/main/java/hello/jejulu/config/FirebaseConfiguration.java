@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.PostConstruct;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Slf4j
@@ -25,7 +26,7 @@ public class FirebaseConfiguration {
     public void init(){
         try{
             FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(new ClassPathResource(configFile).getInputStream()))
+                    .setCredentials(GoogleCredentials.fromStream(new FileInputStream(configFile)))
                     .setStorageBucket(bucket)
                     .build();
 

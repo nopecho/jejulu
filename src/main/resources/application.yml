@@ -34,6 +34,9 @@ logging:
     hello:
       jejulu: debug
 
+firebase:
+  config : /Users/app/config/firebase/firebaseAdminSdk.json
+  bucket: jejulu-3b679.appspot.com
 
 #공통 환경#
 ---
@@ -51,6 +54,3 @@ server:
   tomcat:
     uri-encoding: utf-8
 
-firebase:
-  config : /Users/app/config/firebase/firebaseAdminSdk.json
-  bucket: jejulu-3b679.appspot.com
