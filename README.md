@@ -10,3 +10,4 @@
 * Docker
   * Nginx
 * MariaDB
+* Firebase Storage
