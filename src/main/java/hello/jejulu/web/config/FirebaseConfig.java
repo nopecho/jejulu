@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @Slf4j
 @Configuration
-public class FirebaseConfiguration {
+public class FirebaseConfig {
 
     @Value("${firebase.config}")
     private String configFile;
