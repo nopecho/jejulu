@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<link>
+<style>
+    .card {
+        background-color: #c76bbb78;
+        border-radius: 10px;
+        border: none;
+    }
+
+    .inner-card {
+        background: rgba(255,255,255,0.5);
+        border-radius: 10px;
+    }
+
+    .btn:focus {
+        color: #fff;
+        background-color: #414a58;
+        border-color: #ffffff;
+        box-shadow: none;
+    }
+</style>
+
+<section>
+    <div class="container my-5">
+        <div class="card p-3">
+            <div class="p-5 text-center text-white" style="-webkit-text-stroke-color: black; -webkit-text-stroke-width:0.7px;">
+                <i class="bi bi-pencil-square fs-1"></i>
+                <h2>POSTING UPDATE</h2>
+                <h6 class="lead">게시물 수정</h6>
+            </div>
+
+            <div class="inner-card p-5 mx-5 mb-5 shadow-lg">
+                <form th:action method="POST" enctype="multipart/form-data" class="px-5 needs-validation was-validated">
+                    <input type="hidden" name="_method" value="PATCH">
+                    <!--제목-->
+                    <div class="col-12 my-3">
+                        <div class="form-group">
+                            <label>TITLE *</label>
+                            <input th:value="|this is title|" type="text" class="form-control" placeholder="Post Title" required>
+                        </div>
+                    </div>
+                    <!--카테고리-->
+                    <div class="col-12 mb-5">
+                        <div class="form-group">
+                            <label>CATEGORY *</label>
+                            <select th:value="test" class="form-select" required>
+                                <option value="">select category</option>
+                                <option th:value="test" th:text="test">th:each</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--썸네일-->
+                    <div class="col-12 mt-5">
+                        <div class="form-group">
+                            <label>THUMBNAIL</label>
+                            <input id="image" class="form-control" type="file" accept="image/*" onchange="loadImage(this)">
+                            <div id="img-show" class="text-center mt-5"></div>
+                        </div>
+                    </div>
+                    <!--내용-->
+                    <div class="col-12 my-5">
+                        <div class="form-group">
+                            <label>CONTENT *</label>
+                            <textarea th:text="|this is contdsifsj fjsdofj eio dsklansdo sdfijqnv kdfap ccjaio djoisd|" class="form-control h-25" rows="20" placeholder="content.." required></textarea>
+                        </div>
+                    </div>
+                    <div class="px-2 mt-5 text-center">
+                        <button class="btn btn-success btn-lg" type="submit">
+                            UPDATE
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:inline="javascript">
+
+    //이미지 변경시 이미지 화면에 보여주기
+    function loadImage(input){
+        const file = input.files[0];
+        const maxSize = 5 * 1024 * 1024;
+        const fileSize = input.files[0].size;
+
+        if(maxSize < fileSize){
+            alert("최대 이미지는 5MB에요!");
+            input.value=null;
+            return;
+        }
+
+        const img = document.createElement('img');
+        img.setAttribute('class','img');
+        img.src = URL.createObjectURL(file);
+        img.style.width = "65%";
+        img.style.height = "50%";
+        img.style.objectFit = "cover";
+        img.style.borderRadius = "30px";
+
+        const container = document.getElementById('img-show');
+        container.appendChild(img);
+    }
+
+    //업데이트 폼 들어올 시 원래 이미지 보여주기
+    window.addEventListener("load",() => {
+        console.log("test")
+        const input = document.getElementById("image");
+        const file = input.files[0];
+        const img = document.createElement('img');
+        img.setAttribute('class','img');
+        img.src = URL.createObjectURL(file);
+        img.style.width = "65%";
+        img.style.height = "50%";
+        img.style.objectFit = "cover";
+        img.style.borderRadius = "30px";
+
+        const container = document.getElementById('img-show');
+        container.appendChild(img);
+    })
+</script>
+</html>

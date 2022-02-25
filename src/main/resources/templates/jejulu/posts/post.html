@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<link>
+<style>
+    .card {
+        background-color: #c76bbb78;
+        border-radius: 10px;
+        border: none;
+    }
+
+    .inner-card {
+        background: rgba(255,255,255,0.8);
+        border-radius: 10px;
+    }
+
+    .btn:focus {
+        color: #fff;
+        background-color: #414a58;
+        border-color: #ffffff;
+        box-shadow: none;
+    }
+
+    .img-fluid {
+        max-width: 90%;
+        height: auto;
+        border-radius: 50px;
+    }
+</style>
+
+<section>
+    <div class="container my-5 text-center">
+        <div class="card p-3">
+            <div class="inner-card p-5 row g-2 mt-1 shadow">
+                <div class="mb-5">
+                    <h1 class="my-3 mb-4">TITLE</h1>
+                    <h4>category</h4>
+                    <hr>
+                    <img th:src="@{https://images.unsplash.com/photo-1532339142463-fd0a8979791a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80}" class="img-fluid my-5"/>
+                    <p class="text-center" style="white-space: pre-line;">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit.Laudantium expedita nobis soluta cumque ad nostrum,
+                        suscipit harumprovident officiis veritatis quos tenetur voluptatem modiconsequuntur sed laboriosam, eum ex neque.Lorem ipsum dolor,
+                        sit amet consectetur adipisicing elit.Laudantium expedita nobis soluta cumque ad nostrum, suscipit harumprovident
+                        officiis veritatis quos tenetur voluptatem modiconsequuntur sed laboriosam, eum ex neque.
+                    </p>
+                </div>
+
+                <div class="col-6">
+                    <h4>Contact Info</h4>
+                    <p>Name :</p>
+                    <p>Number :</p>
+                    <p>Address :</p>
+                </div>
+
+                <div class="col-6">
+                    <h4>Book now</h4>
+                    <p style="white-space: pre-line;">Lorem ipsum dolor,
+                        sit amet consectetur adipisicing elit.
+                        Laudantium expedita nobis soluta cumque ad nostrum,</p>
+                </div>
+
+                <div class="px-2 mt-5">
+                    <button class="btn btn-primary btn-lg" type="button">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:inline="javascript"></script>
+</html>
