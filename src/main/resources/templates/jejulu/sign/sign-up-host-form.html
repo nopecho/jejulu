@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<link>
+<style></style>
+
+<section>
+    <div class="container my-5">
+        <main class="align-items-center rounded-3 border shadow-lg p-4 pe-lg-0 pt-lg-5" style="background-color: rgba(186, 218, 248, 0.102);">
+            <div class="py-4 text-center">
+                <i class="bi bi-person-bounding-box mx-auto mb-3 fs-1"></i>
+                <h2>HOST FORM</h2>
+                <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <div class="row g-5 justify-content-center">
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">Host Info</h4>
+                    <form class="needs-validation" action="#" method="post">
+                        <div class="row g-3">
+                            <div class="col-10">
+                                <label for="loginId" class="form-label">ID *</label>
+                                <input type="text" class="form-control is-invalid" id="loginId" placeholder="ID (4 ~ 20자)" required
+                                       maxlength=20>
+                                <div id="id-invalid" class="invalid-feedback">
+                                    <i class="bi bi-exclamation-circle"></i> ID 중복 확인을 해주세요.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="bi bi-check-circle"></i> 사용 가능한 ID에요!
+                                </div>
+                            </div>
+                            <div class="col-2 my-auto py-5">
+                                <button type="button" class="btn btn-outline-primary" onclick="checkId()"><i
+                                        class="bi bi-check-lg"></i></button>
+                            </div>
+
+                            <div class="col-10">
+                                <label for="password" class="form-label">Password *</label>
+                                <input type="password" class="form-control is-invalid" id="password" placeholder="PASSWORD (4 ~ 20자)"
+                                       required maxlength=20>
+                                <label for="check" class="form-label">Password Check*</label>
+                                <input type="password" class="form-control is-invalid" id="check" placeholder="PASSWORD CHECK"
+                                       aria-describedby="" required>
+                                <div class="invalid-feedback">
+                                    <i class="bi bi-exclamation-circle"></i> 비밀번호를 확인 해주세요.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="bi bi-check-circle"></i> 비밀번호 확인!
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+                            <div class="col-10">
+                                <label for="name" class="form-label">Host Name *</label>
+                                <input type="text" class="form-control is-invalid" id="name" placeholder="HOST NAME" required>
+                                <div class="invalid-feedback">
+                                    <i class="bi bi-exclamation-circle"></i> 호스트 이름은 필수로 입력 해야돼요.
+                                </div>
+                            </div>
+
+                            <div class="col-10">
+                                <label for="addr" class="form-label">Address *</label>
+                                <input type="text" class="form-control is-invalid" id="addr" placeholder="🔍 버튼을 눌러주세요"
+                                       required="required" readonly />
+                                <div class="invalid-feedback">
+                                    <i class="bi bi-exclamation-circle"></i> 주소는 필수로 입력 해야돼요.
+                                </div>
+                                <div class="valid-feedback">
+                                    <p><i class="bi bi-check-circle"></i> 찾은 주소는 여기에요!</p>
+                                </div>
+                            </div>
+                            <div class="col-2 my-auto py-5">
+                                <button type="button" class="btn btn-outline-primary" onclick="findAddr()"><i
+                                        class="bi bi-search"></i></button>
+                            </div>
+                            <div id="map" style="width:300px;height:300px;display:none;border-radius: 50%;"></div>
+
+                            <div class="col-10">
+                                <label for="phone" class="form-label">Phone *</label>
+                                <input type="tel" class="form-control phoneNumber is-invalid" id="phone" placeholder="PHONE NUMBER"
+                                       required maxlength=13>
+                                <div class="invalid-feedback">
+                                    <i class="bi bi-exclamation-circle"></i> 전화번호는 필수로 입력 해야돼요.
+                                </div>
+                            </div>
+
+                            <div class="col-10">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                <div class="invalid-feedback">
+                                    <i class="bi bi-exclamation-circle"></i> 이메일 형식이 맞지 않아요.
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <button id="submit" class="w-100 btn btn-primary btn-lg" type="submit" disabled="disabled">Sign-in</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7101ebc2d492a3cb9353b4add07670be&libraries=services"></script>
+<script th:inline="javascript">
+    //password check validation
+    $("#check, #password").on("change", () => {
+        let password = $('#password').val();
+        let passwordcheck = $('#check').val();
+        if ((password != "" && passwordcheck != "") && password == passwordcheck) {
+            $("#check, #password").removeClass('is-invalid')
+            $("#check, #password").addClass('is-valid')
+        }
+        else {
+            $("#check, #password").removeClass('is-valid')
+            $("#check, #password").addClass('is-invalid')
+        }
+    });
+
+    //phone number validation check
+    $(document).on("keyup", ".phoneNumber", function () {
+        $(this).val($(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/, "$1-$2-$3").replace("--", "-"));
+        if ($(this).val() != "") {
+            $(this).removeClass('is-invalid');
+            $(this).addClass('is-valid');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+        }
+    });
+
+    //host name validation check
+    const nameInput = document.getElementById('name');
+    nameInput.addEventListener('keyup', (e) => {
+        if (e.target.value != "") {
+            nameInput.classList.remove('is-invalid');
+            nameInput.classList.add('is-valid');
+        } else {
+            nameInput.classList.remove('is-valid');
+            nameInput.classList.add('is-invalid');
+        }
+    });
+
+    //id validation check 비동기
+    function checkId() {
+        const idInput = document.getElementById('loginId');
+        fetch(`http://localhost/hosts/id-check?v=${idInput.value}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data) {
+                    idInput.classList.remove('is-invalid')
+                    idInput.classList.add('is-valid')
+                } else {
+                    idInput.classList.remove('is-valid')
+                    idInput.classList.add('is-invalid')
+                    const invalidId = document.getElementById('id-invalid');
+                    invalidId.innerText='';
+                    invalidId.innerHTML=`<i class="bi bi-exclamation-circle"></i> 이미 사용중인 ID에요!`;
+                }
+            })
+            .catch(e => console.log(e))
+    }
+
+
+    //submit validstion check
+    const signForm = document.querySelector('.needs-validation');
+    signForm.addEventListener('change', () => {
+        const check = document.querySelectorAll('.is-invalid');
+        const submitBtn = document.getElementById('submit');
+        if (check.length == 0) {
+            submitBtn.removeAttribute('disabled')
+        } else {
+            submitBtn.setAttribute('disabled', 'disabled')
+        }
+    });
+</script>
+<script th:inline="javascript">
+    //addr validation
+    let mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
+
+    //지도를 미리 생성
+    let map = new daum.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    let geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    let marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(33.361417, 126.529417),
+        map: map
+    });
+
+    function findAddr() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                let addr = data.address; // 최종 주소 변수
+                // 주소 정보를 해당 필드에 넣는다.
+                const addrInput = document.getElementById("addr")
+                addrInput.value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function (results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+                        addrInput.classList.remove('is-invalid');
+                        addrInput.classList.add('is-valid');
+                        let result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        let coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            }
+        }).open();
+    }
+</script>
+</html>

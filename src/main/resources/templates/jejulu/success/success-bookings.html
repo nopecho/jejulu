@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<link>
+<style>
+    #bs_main {
+        background-size: cover;
+    }
+
+    #bs_icon {
+        width: 10%;
+        height: 10%;
+    }
+</style>
+
+<section>
+    <header
+            id="bs_main"
+            class="py-5 bg-image-full"
+            style="background-image: url(../../../static/image/category/About_jeju_7.jpg);"
+    >
+        <div class="text-center my-5">
+            <img
+                    id="bs_icon"
+                    class="img-fluid rounded-circle mb-4"
+                    src="../../../static/image/category/Booking_success.png"
+                    alt="..."
+            />
+            <h1 class="text-black fs-1 fw-bolder">Awesome!</h1>
+        </div>
+    </header>
+
+    <div class="py-5 text-center">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h2>Your booking has been confirmed.</h2>
+                    <br/>
+                    <h3>We'll see you soon!</h3>
+                    <p class="lead"></p>
+                    <br/>
+                    <button class="btn btn-secondary btn-lg" type="button">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:inline="javascript"></script>
+</html>

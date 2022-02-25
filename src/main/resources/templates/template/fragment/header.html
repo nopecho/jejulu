@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="header" class="mb-5">
+    <div class="container" id="header">
+        <div class="mt-5 mb-5 text-center">
+            <header>
+                <button class="btn text-dark" type="button" onclick="location.href='/home'">
+                    <h1>
+                        <i class="bi bi-tsunami"></i>
+                        JE JUL U
+                    </h1>
+                </button>
+            </header>
+            <br>
+            <i class="bi bi-wind"></i>
+            <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</span>
+        </div>
+    </div>
+    <hr>
+
+    <th:block th:if="${#session != null}">
+        <th:block th:switch="${#session.getAttributeNames().nextElement()}">
+            <div th:case="'loginAdmin'">
+                <div th:replace="/template/fragment/header/admin :: admin-header"></div>
+            </div>
+            <div th:case="*">
+                <div th:replace="/template/fragment/header/admin :: common-header"></div>
+            </div>
+        </th:block>
+    </th:block>
+
+    <th:block th:if="${#session == null}">
+        <div th:replace="/template/fragment/header/common :: common-header"></div>
+    </th:block>
+</header>
+
+</html>
