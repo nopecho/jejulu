@@ -18,7 +18,6 @@ import javax.persistence.Id;
 public class Thumbnail extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
     private String id;
 
     @Column(nullable = false)

@@ -1,4 +1,4 @@
-package hello.jejulu.service.Admin;
+package hello.jejulu.service.admin;
 
 import hello.jejulu.domain.Role;
 import hello.jejulu.domain.admin.Admin;
@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 
 @Service
 @RequiredArgsConstructor
-public class AdminService {
+public class AdminServiceImpl implements AdminService{
 
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
