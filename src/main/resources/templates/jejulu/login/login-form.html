@@ -3,240 +3,82 @@
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style>
-    #wrapper {
-        background-image: url(../../static/image/category/About_jeju_3.jpg);
-        padding: 86px;
-        max-width: 1169px;
-        min-height: 900px;
+    .user{
+        border-radius: 25px;
+        width: 100%;
+        height: 50px;
     }
-
-    .wrapper .card {
-        max-width: 400px;
-        min-height: 550px;
-        min-width: 400px;
-        margin: 30px;
-        background: rgba(255, 255, 255, 0.1);
-        overflow: hidden;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        border-radius: 15px;
-        cursor: pointer;
-        padding: 0.8rem;
-    }
-
-    .wrapper .card a {
-        text-decoration: none;
-        color: #eee;
-    }
-
-    .wrapper .card a:hover {
-        color: #fff;
-    }
-
-    .wrapper .card .input-field {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        color: #eee;
-        padding: 0.3rem;
-    }
-
-    .wrapper .card .input-field input {
-        background-color: inherit;
-    }
-
-    .wrapper .card .input-field input.form-control,
-    .wrapper .card .input-field input.form-control:focus {
+    .btn-user{
+        background-color: rgba(52, 21, 124, 0.63);
         border: none;
-        outline: none;
-        box-shadow: none;
-        color: #eee;
+        border-radius: 25px;
+        width: 100%;
+        height: 45px;
     }
-
-    .wrapper .card .input-field button.btn {
-        color: #eee;
-        padding: 0rem 0.5rem 0rem 0rem;
-    }
-
-    .wrapper .card .input-field button.btn:hover {
-        color: #fff;
-    }
-
-    .wrapper .card .input-field button.btn:focus {
+    .btn-host{
+        background-color: rgba(224, 67, 40, 0.63);
         border: none;
-        outline: none;
-        box-shadow: none;
+        border-radius: 25px;
+        width: 100%;
+        height: 45px;
     }
-
-    .wrapper .card .input-field input::placeholder {
-        color: #eee;
+    .btn-host:hover{
+        background-color: rgba(124, 67, 21, 0.699);;
     }
-
-    .wrapper .card .option {
-        display: block;
-        position: relative;
-        padding-left: 25px;
-        cursor: pointer;
-        user-select: none;
+    .card-image-top{
+        background-image: url("https://images.unsplash.com/photo-1592334424661-588cda012d6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80");
+        background-size: cover;
+        border-radius: 10px;
     }
-
-    .wrapper .card .option span.text-light-white:hover {
-        color: #fff;
-    }
-
-    .wrapper .card .option input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-    }
-
-
-    .wrapper .card .option:hover input {
-        background-color: #f1f1f1;
-    }
-
-    .wrapper .card .option input:checked {
-        border: none;
-        background-color: #333;
-        transition: 300ms ease-in-out all;
-    }
-
-    .wrapper .card .option input:checked {
-        display: block;
-    }
-
-    .wrapper .card {
-        left: 3px;
-        top: -3px;
-        width: 5px;
-        height: 10px;
-    }
-
-    .wrapper .card .btn.btn-primary {
+    .card{
+        background-color: rgba(192, 236, 250, 0.164);
         border-radius: 20px;
-        width: 100px;
-        background-color: rgba(255, 255, 255, 0.11);
-        color: rgb(196, 11, 88);
-        border: solid 1px rgba(255, 255, 255, 0.459);
-
-    }
-
-    .wrapper .card .btn.btn-primary:hover {
-        color: #fff;
-        background: rgb(231, 164, 162);
-    }
-
-    .wrapper .card .btn.btn-primary:focus {
-        border: none;
-        box-shadow: none;
-    }
-
-    .wrapper .card .text-light-white {
-        color: #ddd;
-    }
-
-    .wrapper .card .line span.connect {
-        position: absolute;
-        top: -12px;
-        left: 33%;
-        color: rgb(170, 99, 70);
-        padding: 0 0.3rem;
-        z-index: 100;
-        border-radius: 2px;
-        background-color: rgba(248, 212, 226, 0.897);
-    }
-
-    .wrapper .card .connections a img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    @media (max-width: 370px) {
-        .wrapper .card .line:after {
-            left: 27%;
-        }
-    }
-
-    @media (max-width: 350px) {
-        .wrapper {
-            margin: 10px auto;
-        }
-
-        .wrapper .card {
-            margin: 10px;
-        }
     }
 </style>
 
 <section>
-    <div id="wrapper" class="container justify-content-center text-center d-flex">
-        <div class="wrapper py-5">
-            <div class="card">
-                <form action="#" class="d-flex flex-column needs-validation was-validated">
-                    <div class="h3 text-center text-white">Login</div>
-                    <br>
-                    <div class="d-flex align-items-center input-field my-3 mb-4 col-12">
-                        <span class="far fa-user p-2"></span>
-                        <input type="text" placeholder="Username or Email" required class="form-control"/>
-                        <!-- <div style="color: #ddd;"class="invalid-feedback">
-                          The ID is not a valid.
-                           </div> -->
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 card-image-top"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">LOGIN</h1>
+                                    </div>
+                                    <form class="needs-validation was-validated">
+                                        <div class="form-group mt-5">
+                                            <input type="text" class="form-control user" placeholder="ID *" required>
+                                        </div>
+                                        <div class="form-group mt-3 mb-4">
+                                            <input type="password" class="form-control user" placeholder="PASSWORD *" required>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-user my-3" th:formaction="|@{/login/member}|">
+                                            <i class=""></i> Login with MEMBER
+                                        </button>
+                                        <button type="submit" class="btn btn-primary btn-host my-3" th:formaction="|@{/login/host}|">
+                                            <i class=""></i> Login with HOST
+                                        </button>
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="#">👉🏻 Create an Account! 👈🏻</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="d-flex align-items-center input-field mb-4">
-                        <span class="fas fa-lock p-2"></span>
-                        <input type="password" placeholder="Password" required class="form-control" id="pwd"/>
-
-                        <button class="btn" onclick="showPassword()">
-                            <span class="fas fa-eye-slash"></span>
-                        </button>
-                    </div>
-
-
-                    <div class="my-3 text-center">
-
-                        <button type="submit" class="btn btn-primary mx-4">Member</button>
-                        <button type="submit" class="btn btn-primary mx-4">Host</button>
-                    </div>
-                    <br>
-                    <div class="mb-3">
-                        <span class="text-light-white">Don't have an account?</span>
-                        <a href="#">Sign Up</a>
-                    </div>
-                    <br>
-                </form>
-                <div class="position-relative border-bottom my-3 line">
-                    <span class="connect">or connect with</span>
-                </div>
-                <div class="text-center py-3 connections">
-                    <a href="https://wwww.facebook.com" target="_blank" class="px-2">
-                        <img src="https://www.dpreview.com/files/p/articles/4698742202/facebook.jpeg" alt=""/>
-                    </a>
-                    <a href="https://www.google.com" target="_blank" class="px-2">
-                        <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
-                             alt=""/>
-                    </a>
-                    <a href="https://www.github.com" target="_blank" class="px-2">
-                        <img src="https://www.freepnglogos.com/uploads/512x512-logo-png/512x512-logo-github-icon-35.png"
-                             alt=""/>
-                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<script th:inline="javascript">
-    function showPassword() {
-        const password = document.getElementById("pwd");
-        if (password.type === "password") {
-            password.type = "text";
-        } else {
-            password.type = "password";
-        }
-    }
-</script>
+<script th:inline="javascript"></script>
 </html>
