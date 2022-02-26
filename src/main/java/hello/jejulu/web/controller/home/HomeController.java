@@ -14,20 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class HomeController {
 
     @GetMapping("/")
-    public String home(Model model){
-        log.info((String) model.getAttribute("test"));
-        return "jejulu/home/home";
-    }
-
-    @ResponseBody
-    @GetMapping("/{test}")
-    public String test(@PathVariable String test){
-        return test;
-    }
-
-    @GetMapping("/redirect")
-    public String redirect(RedirectAttributes redirectAttributes){
-        redirectAttributes.addAttribute("test","kkk123k");
-        return "redirect:/{test}";
+    public String home(){
+        return "jejulu/home";
     }
 }

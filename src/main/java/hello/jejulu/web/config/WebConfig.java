@@ -8,8 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    //HttpHiddenMethodFilter 활성화 Spring빈 등록
-    @Bean
+    @Bean //HttpHiddenMethodFilter 활성화 Spring빈 등록
     public HiddenHttpMethodFilter httpMethodFilter(){
         return new HiddenHttpMethodFilter();
     }
