@@ -1,4 +1,8 @@
 package hello.jejulu.domain.host;
 
-public interface HostRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface HostRepository extends JpaRepository<Host, Long> {
 }

@@ -16,18 +16,16 @@ import javax.servlet.http.HttpSession;
 public class ThymeleafController {
 
     @GetMapping("/home")
-    public String home(HttpServletRequest request, Model model){
+    public String home(HttpServletRequest request){
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.ADMIN,"조현준");
-
-        model.addAttribute("MEMBER",session.getAttribute(SessionConst.MEMBER));
         return "jejulu/home";
     }
     @GetMapping("/logout")
     public String memberHome(HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         session.invalidate();
-        return "redirect:/homes";
+        return "redirect:";
     }
     @GetMapping("/homes")
     public String hostHome(){
@@ -36,6 +34,7 @@ public class ThymeleafController {
     }
     @GetMapping("/login")
     public String adminHome(){
+        log.info("login!");
         return "jejulu/login/login-form";
     }
     @GetMapping("/booking")
