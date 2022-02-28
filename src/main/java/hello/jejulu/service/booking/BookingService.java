@@ -1,4 +1,4 @@
 package hello.jejulu.service.booking;
 
-public class BookingService {
+public interface BookingService {
 }

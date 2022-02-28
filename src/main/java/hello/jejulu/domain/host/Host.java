@@ -31,7 +31,7 @@ public class Host extends BaseTimeEntity {
     @Column(nullable = false, length = 13)
     private String phone;
 
-    @Column
+    @Column(length = 50)
     private String email;
 
     @Column(nullable = false)

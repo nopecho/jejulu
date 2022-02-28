@@ -1,4 +1,4 @@
 package hello.jejulu.service.host;
 
-public class HostService {
+public interface HostService {
 }
