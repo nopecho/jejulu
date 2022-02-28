@@ -51,12 +51,12 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">LOGIN</h1>
                                     </div>
-                                    <form class="needs-validation was-validated">
+                                    <form class="needs-validation was-validated" th:object="${loginDto}" method="POST">
                                         <div class="form-group mt-5">
-                                            <input type="text" class="form-control user" placeholder="ID *" required>
+                                            <input th:field="*{loginId}" type="text" class="form-control user" placeholder="ID *" required>
                                         </div>
                                         <div class="form-group mt-3 mb-4">
-                                            <input type="password" class="form-control user" placeholder="PASSWORD *" required>
+                                            <input th:field="*{password}" type="password" class="form-control user" placeholder="PASSWORD *" required>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user my-3" th:formaction="|@{/login/member}|">
