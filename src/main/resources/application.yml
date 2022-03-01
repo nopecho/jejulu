@@ -41,6 +41,11 @@ firebase:
 #공통 환경#
 ---
 spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
   config:
     activate:
       on-profile: "common"

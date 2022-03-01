@@ -32,12 +32,12 @@
             </div>
 
             <div class="inner-card p-5 mx-5 mb-5 shadow-lg">
-                <form th:action method="POST" enctype="multipart/form-data" class="px-5 needs-validation was-validated">
+                <form th:object="${save}" th:action method="POST" enctype="multipart/form-data" class="px-5 needs-validation was-validated">
                     <!--제목-->
                     <div class="col-12 my-3">
                         <div class="form-group">
                             <label>TITLE *</label>
-                            <input type="text" class="form-control" placeholder="Post Title" required>
+                            <input th:field="*{title}" type="text" class="form-control" placeholder="Post Title" required>
                         </div>
                     </div>
                     <!--카테고리-->
@@ -54,7 +54,7 @@
                     <div class="col-12 mt-5">
                         <div class="form-group">
                             <label>THUMBNAIL</label>
-                            <input class="form-control" type="file" accept="image/*" onchange="loadImage(this)">
+                            <input th:field="*{thumbnail}" class="form-control" type="file" accept="image/*" onchange="loadImage(this)">
                             <div id="img-show" class="text-center mt-5"></div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                     <div class="col-12 my-5">
                         <div class="form-group">
                             <label>CONTENT *</label>
-                            <textarea class="form-control h-25" rows="20" placeholder="content.." required></textarea>
+                            <textarea th:field="*{content}" class="form-control h-25" rows="20" placeholder="content.." required></textarea>
                         </div>
                     </div>
                     <div class="px-2 mt-5 text-center">
