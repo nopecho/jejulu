@@ -1,5 +1,6 @@
 package hello.jejulu.service.member;
 
+import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.member.MemberRepository;
 import hello.jejulu.web.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,14 @@ public class MemberServiceImpl implements MemberService{
     public MemberDto.Save add(MemberDto.Save memberSaveDto) {
         memberRepository.save(memberSaveDto.toEntity(passwordEncoder));
         return memberSaveDto;
+    }
+
+    @Override
+    public boolean isDuplicateId(String checkedId){
+        Member findMember = memberRepository.findByLoginId(checkedId).orElse(null);
+        if(findMember == null){
+            return false;
+        }
+        return true;
     }
 }

@@ -59,6 +59,13 @@
                                             <input th:field="*{password}" type="password" class="form-control user" placeholder="PASSWORD *" required>
                                         </div>
 
+                                        <div th:if="${#fields.hasGlobalErrors()}">
+                                            <div class="text-danger text-center" th:each="err : ${#fields.globalErrors()}">
+                                                <i class="bi bi-exclamation-circle"></i>
+                                                <p th:text="${err}">오류 메시지</p>
+                                            </div>
+                                        </div>
+
                                         <button type="submit" class="btn btn-primary btn-user my-3" th:formaction="|@{/login/member}|">
                                             <i class=""></i> Login with MEMBER
                                         </button>

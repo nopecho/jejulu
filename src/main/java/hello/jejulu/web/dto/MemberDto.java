@@ -27,6 +27,19 @@ public class MemberDto {
     }
 
     @Getter @Setter
+    public static class Info{
+        private Long id;
+        private String loginId;
+        private String name;
+
+        public Info(Member member){
+            this.id = member.getId();
+            this.loginId = member.getLoginId();
+            this.name = member.getName();
+        }
+    }
+
+    @Getter @Setter
     public static class Save{
         @NotBlank
         private String loginId;

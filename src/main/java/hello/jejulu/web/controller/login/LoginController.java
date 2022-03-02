@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,19 +30,24 @@ public class LoginController {
     }
 
     @PostMapping("/login/member")
-    public String memberLogin(@ModelAttribute LoginDto loginDto, HttpServletRequest request){
-        MemberDto memberDto = loginService.loginByMember(loginDto);
-        if(memberDto == null){
-            return "redirect:/login";
+    public String memberLogin(@ModelAttribute LoginDto loginDto,
+                              BindingResult bindingResult,
+                              HttpServletRequest request){
+        MemberDto.Info memberInfoDto = loginService.loginByMember(loginDto);
+        if(memberInfoDto == null){
+            bindingResult.reject("loginFail","아이디 또는 비밀번호를 확인해주세요.");
+            return "jejulu/login/login-form";
         }
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.MEMBER,memberDto);
+        session.setAttribute(SessionConst.MEMBER,memberInfoDto);
         return "redirect:/";
     }
 
     @PostMapping("/login/host")
-    public String hostLogin(@ModelAttribute LoginDto loginDto){
-        return null;
+    public String hostLogin(@ModelAttribute LoginDto loginDto, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.HOST,"");
+        return "redirect:/";
     }
 
     @GetMapping("/logout")

@@ -19,16 +19,14 @@ public class LoginService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public MemberDto loginByMember(LoginDto loginDto){
-        log.info("loginDto.getLoginId = {}",loginDto.getLoginId());
+    public MemberDto.Info loginByMember(LoginDto loginDto){
         Member loginMember = memberRepository.findByLoginId(loginDto.getLoginId()).orElse(null);
         if(loginMember == null){
             return null;
         }
         if(!passwordEncoder.matches(loginDto.getPassword(),loginMember.getPassword())){
-            log.info("encoder!");
             return null;
         }
-        return new MemberDto(loginMember);
+        return new MemberDto.Info(loginMember);
     }
 }

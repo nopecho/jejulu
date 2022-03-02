@@ -45,7 +45,7 @@ public class FirebaseService {
     private String getFirebaseImagePath(String meadiaLink){
         int start = meadiaLink.lastIndexOf("%");
         int last = meadiaLink.lastIndexOf("?");
-        return "https://firebasestorage.googleapis.com/v0/b/jejulu-3b679.appspot.com/o/thumbnail%"
+        return "https://firebasestorage.googleapis.com/v0/b/"+ firebaseBucket +"/o/thumbnail%"
                 +meadiaLink.substring(start+1,last)
                 +"?alt=media";
     }

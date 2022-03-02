@@ -129,7 +129,7 @@
         fetch(`http://localhost/members/id-check?v=${idInput.value}`)
             .then((response) => response.json())
             .then((data) => {
-                if (data) {
+                if (!data) {
                     idInput.classList.remove('is-invalid')
                     idInput.classList.add('is-valid')
                 } else {
