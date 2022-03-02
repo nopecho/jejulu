@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @Service
@@ -30,5 +32,20 @@ public class MemberServiceImpl implements MemberService{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public MemberDto lookupMember(Long memberId) {
+        Member findMember = memberRepository.findById(memberId).orElse(null);
+        return new MemberDto(findMember);
+    }
+
+    @Transactional
+    @Override
+    public MemberDto.Info edit(Long memberId,MemberDto.Update memberUpdateDto) {
+        Optional<Member> findMember = memberRepository.findById(memberId);
+        Member member = findMember.orElse(null);
+        member.updateInfo(memberUpdateDto.getName(),memberUpdateDto.getPhone(),memberUpdateDto.getEmail());
+        return new MemberDto.Info(member);
     }
 }

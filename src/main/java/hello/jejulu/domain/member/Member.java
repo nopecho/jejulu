@@ -39,4 +39,10 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member")
     private List<Booking> bookings = new ArrayList<>();
+
+    public void updateInfo(String updateName, String updatePhone, String updateEmail){
+        this.name = updateName;
+        this.phone = updatePhone;
+        this.email = updateEmail;
+    }
 }

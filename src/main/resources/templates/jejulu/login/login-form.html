@@ -61,8 +61,7 @@
 
                                         <div th:if="${#fields.hasGlobalErrors()}">
                                             <div class="text-danger text-center" th:each="err : ${#fields.globalErrors()}">
-                                                <i class="bi bi-exclamation-circle"></i>
-                                                <p th:text="${err}">오류 메시지</p>
+                                                <i class="bi bi-exclamation-circle" th:text="${err}">오류 메시지</i>
                                             </div>
                                         </div>
 

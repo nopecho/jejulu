@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Getter @Setter
 public class MemberDto {
 
+    private Long id;
     private String loginId;
     private String password;
     private String name;
@@ -19,6 +20,7 @@ public class MemberDto {
     private String email;
 
     public MemberDto(Member member){
+        this.id = member.getId();
         this.loginId = member.getLoginId();
         this.password = member.getPassword();
         this.name = member.getName();
@@ -65,5 +67,19 @@ public class MemberDto {
                     .role(Role.MEMBER)
                     .build();
         }
+    }
+
+    @Getter @Setter
+    public static class Update{
+
+        private Long id;
+
+        @NotBlank
+        private String name;
+
+        @NotBlank
+        private String phone;
+
+        private String email;
     }
 }
