@@ -15,11 +15,11 @@
             <div class="row g-5 justify-content-center">
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Member Info</h4>
-                    <form class="needs-validation" action="#" method="post">
+                    <form class="needs-validation" th:action="@{/members}" method="post" th:object="${save}">
                         <div class="row g-3">
                             <div class="col-10">
-                                <label for="loginId" class="form-label">ID *</label>
-                                <input type="text" class="form-control is-invalid" id="loginId" placeholder="ID (4 ~ 20자)" required
+                                <label th:for="loginId" class="form-label">ID *</label>
+                                <input th:field="*{loginId}" type="text" class="form-control is-invalid" placeholder="ID (4 ~ 20자)" required
                                        maxlength=20>
                                 <div id="id-invalid" class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> ID 중복 확인을 해주세요.
@@ -34,8 +34,8 @@
                             </div>
 
                             <div class="col-10">
-                                <label for="password" class="form-label">Password *</label>
-                                <input type="password" class="form-control is-invalid" id="password" placeholder="PASSWORD (4 ~ 20자)"
+                                <label th:for="password" class="form-label">Password *</label>
+                                <input th:field="*{password}" type="password" class="form-control is-invalid" placeholder="PASSWORD (4 ~ 20자)"
                                        required maxlength=20>
                                 <label for="check" class="form-label">Password Check*</label>
                                 <input type="password" class="form-control is-invalid" id="check" placeholder="PASSWORD CHECK"
@@ -50,16 +50,16 @@
 
                             <hr class="my-4">
                             <div class="col-10">
-                                <label for="name" class="form-label">Member Name *</label>
-                                <input type="text" class="form-control is-invalid" id="name" placeholder="MEMBER NAME" required>
+                                <label th:for="name" class="form-label">Member Name *</label>
+                                <input th:field="*{name}" type="text" class="form-control is-invalid" placeholder="MEMBER NAME" required>
                                 <div class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> 회원 이름은 필수로 입력 해야돼요.
                                 </div>
                             </div>
 
                             <div class="col-10">
-                                <label for="phone" class="form-label">Phone *</label>
-                                <input type="tel" class="form-control phoneNumber is-invalid" id="phone" placeholder="PHONE NUMBER"
+                                <label th:for="phone" class="form-label">Phone *</label>
+                                <input th:field="*{phone}" type="tel" class="form-control phoneNumber is-invalid" placeholder="PHONE NUMBER"
                                        required maxlength=13>
                                 <div class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> 전화번호는 필수로 입력 해야돼요.
@@ -67,8 +67,8 @@
                             </div>
 
                             <div class="col-10">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                <label th:for="email" class="form-label">Email</label>
+                                <input th:field="*{email}" type="email" class="form-control" placeholder="you@example.com">
                                 <div class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> 이메일 형식이 맞지 않아요.
                                 </div>
@@ -129,7 +129,7 @@
         fetch(`http://localhost/members/id-check?v=${idInput.value}`)
             .then((response) => response.json())
             .then((data) => {
-                if (data) {
+                if (!data) {
                     idInput.classList.remove('is-invalid')
                     idInput.classList.add('is-valid')
                 } else {
