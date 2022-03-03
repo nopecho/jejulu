@@ -36,6 +36,17 @@ public class MemberServiceImpl implements MemberService{
         return new MemberDto.Info(member);
     }
 
+    @Transactional
+    @Override
+    public boolean remove(Long memberId) {
+        Member findMember = memberRepository.findById(memberId).orElse(null);
+        if(findMember != null){
+            memberRepository.deleteById(memberId);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean isDuplicateId(String checkedId){
         Member findMember = memberRepository.findByLoginId(checkedId).orElse(null);

@@ -53,7 +53,7 @@
                     </form>
 
                     <!-- 회원삭제 -->
-                    <form action="" method="post" id="delete-form">
+                    <form th:action="@{/members/{memberId}(memberId=${update.id})}" method="post" id="delete-form">
                         <input type="hidden" name="_method" value="DELETE" />
                     </form>
                     <button type="button" class="btn btn-danger btn-lg col-12" data-bs-toggle="modal" data-bs-target="#delete">

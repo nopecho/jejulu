@@ -123,4 +123,18 @@ public class MemberController {
         session.setAttribute(SessionConst.MEMBER,updateMember);
         return "redirect:/members/{memberId}";
     }
+
+    /**
+     * 회원 삭제 핸들러
+     * @param memberId : 삭제 할 회원 번호
+     * @param session : 삭제 성공 시 세션 만료
+     */
+    @DeleteMapping("/{memberId}")
+    public String deleteMember(@PathVariable Long memberId, HttpSession session){
+        if(!memberService.remove(memberId)){
+            return null;
+        }
+        session.invalidate();
+        return "redirect:/";
+    }
 }
