@@ -1,5 +1,6 @@
 package hello.jejulu.web.controller.login;
 
+import hello.jejulu.domain.admin.Admin;
 import hello.jejulu.service.web.LoginService;
 import hello.jejulu.web.consts.SessionConst;
 import hello.jejulu.web.dto.MemberDto;
@@ -45,6 +46,17 @@ public class LoginController {
     public String hostLogin(@ModelAttribute LoginDto loginDto, HttpServletRequest request){
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.HOST,"");
+        return "redirect:/";
+    }
+
+    @PostMapping("/login/admin")
+    public String adminLogin(@ModelAttribute LoginDto loginDto, HttpServletRequest request){
+        Admin admin = loginService.loginByAdmin(loginDto);
+        if(admin == null){
+            return null;
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.ADMIN,admin);
         return "redirect:/";
     }
 
