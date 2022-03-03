@@ -11,7 +11,7 @@
                 <h4>MEMBERS INFO</h4>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover table-nowrap ">
+                <table class="table table-hover table-nowrap">
                     <thead class="table-light">
                     <tr>
                         <th scope="col">NO</th>
@@ -24,24 +24,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr th:each="member : ${members}">
                         <td data-label="NO">
-                            <p>[FIND NO]</p>
+                            <p th:text="${member.id}">[FIND NO]</p>
                         </td>
                         <td data-label="ID">
-                            <p>[FIND ID]</p>
+                            <p th:text="${member.loginId}">[FIND ID]</p>
                         </td>
                         <td data-label="NAME">
-                            <p>[FIND NAME]</p>
+                            <p th:text="${member.name}">[FIND NAME]</p>
                         </td>
                         <td data-label="PHONE">
-                            <p>[010-0000-0000]</p>
+                            <p th:text="${member.phone}">[010-0000-0000]</p>
                         </td>
                         <td data-label="EMAIL">
-                            <p>[ex@email.com]</p>
+                            <p th:text="${member.email}">[ex@email.com]</p>
                         </td>
                         <td data-label="DATE">
-                            <p>[2022-02-20]</p>
+                            <p th:text="${member.createDate}">[2022-02-20]</p>
                         </td>
                         <td data-label="">
                             <form action="" method="post" id="delete-form">

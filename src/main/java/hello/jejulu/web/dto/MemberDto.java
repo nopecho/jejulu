@@ -4,10 +4,9 @@ import hello.jejulu.domain.Role;
 import hello.jejulu.domain.member.Member;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 @Getter @Setter
 public class MemberDto {
@@ -18,6 +17,7 @@ public class MemberDto {
     private String name;
     private String phone;
     private String email;
+    private LocalDate createDate;
 
     public MemberDto(Member member){
         this.id = member.getId();
@@ -26,6 +26,7 @@ public class MemberDto {
         this.name = member.getName();
         this.phone = member.getPhone();
         this.email = member.getEmail();
+        this.createDate = LocalDate.from(member.getCreateDate());
     }
 
     @Getter @Setter

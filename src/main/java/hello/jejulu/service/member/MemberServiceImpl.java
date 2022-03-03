@@ -8,7 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -23,6 +25,15 @@ public class MemberServiceImpl implements MemberService{
     public MemberDto.Save add(MemberDto.Save memberSaveDto) {
         memberRepository.save(memberSaveDto.toEntity(passwordEncoder));
         return memberSaveDto;
+    }
+
+    @Transactional
+    @Override
+    public MemberDto.Info edit(Long memberId,MemberDto.Update memberUpdateDto) {
+        Optional<Member> findMember = memberRepository.findById(memberId);
+        Member member = findMember.orElse(null);
+        member.updateInfo(memberUpdateDto.getName(),memberUpdateDto.getPhone(),memberUpdateDto.getEmail());
+        return new MemberDto.Info(member);
     }
 
     @Override
@@ -40,12 +51,11 @@ public class MemberServiceImpl implements MemberService{
         return new MemberDto(findMember);
     }
 
-    @Transactional
     @Override
-    public MemberDto.Info edit(Long memberId,MemberDto.Update memberUpdateDto) {
-        Optional<Member> findMember = memberRepository.findById(memberId);
-        Member member = findMember.orElse(null);
-        member.updateInfo(memberUpdateDto.getName(),memberUpdateDto.getPhone(),memberUpdateDto.getEmail());
-        return new MemberDto.Info(member);
+    public List<MemberDto> selectAll() {
+        return memberRepository.findAll()
+                .stream()
+                .map(MemberDto::new)
+                .collect(Collectors.toList());
     }
 }
