@@ -39,17 +39,17 @@ public class AdminController {
     }
 
     @GetMapping("/management/hosts")
-    public String managementHosts(){
+    public String managementHosts(Model model){
         return "jejulu/admin/management-hosts";
     }
 
     @GetMapping("/management/posts")
-    public String managementPosts(){
+    public String managementPosts(Model model){
         return "jejulu/admin/management-posts";
     }
 
     @GetMapping("/management/contacts")
-    public String managementContacts(){
+    public String managementContacts(Model model){
         return "jejulu/admin/management-contact";
     }
 }
