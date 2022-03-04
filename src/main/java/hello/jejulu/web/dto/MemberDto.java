@@ -5,7 +5,10 @@ import hello.jejulu.domain.member.Member;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter @Setter
@@ -44,18 +47,19 @@ public class MemberDto {
 
     @Getter @Setter
     public static class Save{
-        @NotBlank
+        @NotBlank @Size(min=4,max=20)
         private String loginId;
 
-        @NotBlank
+        @NotBlank @Size(min=6)
         private String password;
 
-        @NotBlank
+        @NotBlank @Size(min=2, max=10)
         private String name;
 
-        @NotBlank
+        @NotBlank @Size(min=10, max=13)
         private String phone;
 
+        @Email
         private String email;
 
         public Member toEntity(PasswordEncoder passwordEncoder){
@@ -75,12 +79,13 @@ public class MemberDto {
 
         private Long id;
 
-        @NotBlank
+        @NotBlank @Size(min=2, max=10)
         private String name;
 
-        @NotBlank
+        @NotBlank @Size(min=10, max=13)
         private String phone;
 
+        @Email
         private String email;
     }
 }
