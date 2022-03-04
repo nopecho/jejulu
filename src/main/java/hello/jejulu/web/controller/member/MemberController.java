@@ -65,7 +65,7 @@ public class MemberController {
     @PostMapping
     public String memberSave(@ModelAttribute @Validated MemberDto.Save memberSaveDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            log.info(bindingResult.toString());
+            log.info(bindingResult.getFieldErrors().get(0).getDefaultMessage());
             return "jejulu/sign/sign-up-member-form";
         }
         memberService.add(memberSaveDto);
@@ -116,9 +116,12 @@ public class MemberController {
      */
     @PatchMapping("/{memberId}")
     public String updateMember(@PathVariable Long memberId,
-                               @ModelAttribute MemberDto.Update memberUpdateDto,
+                               @ModelAttribute @Validated MemberDto.Update memberUpdateDto,
+                               BindingResult bindingResult,
                                HttpSession session){
-        log.info("update!!");
+        if(bindingResult.hasErrors()){
+            return "jejulu/members/member-update-form";
+        }
         MemberDto.Info updateMember = memberService.edit(memberId, memberUpdateDto);
         session.setAttribute(SessionConst.MEMBER,updateMember);
         return "redirect:/members/{memberId}";

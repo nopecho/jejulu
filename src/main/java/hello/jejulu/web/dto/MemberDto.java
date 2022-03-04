@@ -22,7 +22,7 @@ public class MemberDto {
     private String email;
     private LocalDate createDate;
 
-    public MemberDto(Member member){
+    public MemberDto(Member member) {
         this.id = member.getId();
         this.loginId = member.getLoginId();
         this.password = member.getPassword();
@@ -33,12 +33,12 @@ public class MemberDto {
     }
 
     @Getter @Setter
-    public static class Info{
+    public static class Info {
         private Long id;
         private String loginId;
         private String name;
 
-        public Info(Member member){
+        public Info(Member member) {
             this.id = member.getId();
             this.loginId = member.getLoginId();
             this.name = member.getName();
@@ -46,23 +46,27 @@ public class MemberDto {
     }
 
     @Getter @Setter
-    public static class Save{
-        @NotBlank @Size(min=4,max=20)
+    public static class Save {
+        @NotBlank
+        @Size(min = 4, max = 20)
         private String loginId;
 
-        @NotBlank @Size(min=6)
+        @NotBlank
+        @Size(min = 6, max = 20)
         private String password;
 
-        @NotBlank @Size(min=2, max=10)
+        @NotBlank
+        @Size(min = 2, max = 10)
         private String name;
 
-        @NotBlank @Size(min=10, max=13)
+        @NotBlank
+        @Size(min = 10, max = 13)
         private String phone;
 
         @Email
         private String email;
 
-        public Member toEntity(PasswordEncoder passwordEncoder){
+        public Member toEntity(PasswordEncoder passwordEncoder) {
             return Member.builder()
                     .loginId(this.loginId)
                     .password(passwordEncoder.encode(this.password))
@@ -75,14 +79,16 @@ public class MemberDto {
     }
 
     @Getter @Setter
-    public static class Update{
+    public static class Update {
 
         private Long id;
 
-        @NotBlank @Size(min=2, max=10)
+        @NotBlank
+        @Size(min = 2, max = 10)
         private String name;
 
-        @NotBlank @Size(min=10, max=13)
+        @NotBlank
+        @Size(min = 10, max = 13)
         private String phone;
 
         @Email
