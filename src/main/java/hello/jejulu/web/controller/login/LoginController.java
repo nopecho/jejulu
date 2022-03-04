@@ -44,7 +44,7 @@ public class LoginController {
                               HttpServletRequest request){
         MemberDto.Info memberInfoDto = loginService.loginByMember(loginDto);
         if(memberInfoDto == null){
-            bindingResult.reject("loginFail","아이디 또는 비밀번호를 확인해주세요.");
+            bindingResult.reject("loginFail.Member");
             return "jejulu/login/login-form";
         }
         HttpSession session = request.getSession();
@@ -77,7 +77,7 @@ public class LoginController {
                              HttpServletRequest request){
         Admin admin = loginService.loginByAdmin(loginDto);
         if(admin == null){
-            bindingResult.reject("loginFail","관리자 아이디 또는 비밀번호를 확인해주세요.");
+            bindingResult.reject("loginFail.Admin");
             return "jejulu/admin/admin-login-form";
         }
         HttpSession session = request.getSession();
