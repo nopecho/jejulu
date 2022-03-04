@@ -23,7 +23,8 @@
 
     .img-fluid {
         max-width: 90%;
-        height: auto;
+        width: 80em;
+        height: 37em;
         border-radius: 50px;
     }
 </style>
@@ -36,7 +37,7 @@
                     <h1 class="my-3 mb-4" th:text="*{title}">TITLE</h1>
                     <h4 th:text="*{category}">category</h4>
                     <hr>
-                    <img th:src="*{thumbnail}" class="img-fluid my-5"/>
+                    <img th:src="*{imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1555354924-b72b8d4dfd6c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80'|" class="img-fluid my-5"/>
                     <p th:text="*{content}" class="text-center" style="white-space: pre-line;">
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit.Laudantium expedita nobis soluta cumque ad nostrum,
                         suscipit harumprovident officiis veritatis quos tenetur voluptatem modiconsequuntur sed laboriosam, eum ex neque.Lorem ipsum dolor,

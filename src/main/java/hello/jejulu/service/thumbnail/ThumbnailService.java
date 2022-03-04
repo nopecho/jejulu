@@ -18,6 +18,9 @@ public class ThumbnailService {
     private final FirebaseService firebaseService;
 
     public Thumbnail add(MultipartFile imageFile) throws IOException {
+        if(imageFile.isEmpty()){
+            return null;
+        }
         String originalFilename = imageFile.getOriginalFilename();
         String thumbnailId = createThumbnailId(originalFilename);
         String imagePath = firebaseService.uploadImage(imageFile, thumbnailId);

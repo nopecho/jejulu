@@ -33,14 +33,17 @@ public class PostServiceImpl implements PostService{
                 .thumbnail(thumbnail)
                 .category(Category.Tour)
                 .build());
-        return new PostDto.Detail(savePost);
+        if(thumbnail == null){
+            return new PostDto.Detail(savePost,"");
+        }
+        return new PostDto.Detail(savePost,thumbnail.getPath());
     }
 
     @Override
     public List<PostDto.Info> selectAllByCategory(Category category) {
         List<Post> posts = postRepository.findAllByCategory(category);
         return posts.stream()
-                .map(PostDto.Info::new)
+                .map(post -> post.getThumbnail() == null ? new PostDto.Info(post,"") : new PostDto.Info(post, post.getThumbnail().getPath()))
                 .collect(Collectors.toList());
     }
 }

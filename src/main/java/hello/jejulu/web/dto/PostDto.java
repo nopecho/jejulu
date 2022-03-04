@@ -38,14 +38,14 @@ public class PostDto {
         private String title;
         private String content;
         private Category category;
-        private String thumbnail;
+        private String imagePath;
         private LocalDate createDate;
 
-        public Detail(Post post){
+        public Detail(Post post,String imagePath){
             this.id=post.getId();
             this.title = post.getTitle();
             this.content = post.getContent();
-            this.thumbnail = post.getThumbnail().getPath();
+            this.imagePath = imagePath;
             this.category = post.getCategory();
             this.createDate = post.getCreateDate().toLocalDate();
         }
@@ -58,11 +58,11 @@ public class PostDto {
         private String description;
         private String imagePath;
 
-        public Info(Post post){
+        public Info(Post post,String imagePath){
             this.id = post.getId();
             this.title = post.getTitle();
             this.description = post.getContent();
-            this.imagePath = post.getThumbnail().getPath();
+            this.imagePath = imagePath;
         }
     }
 
