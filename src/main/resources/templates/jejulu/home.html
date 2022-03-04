@@ -105,7 +105,7 @@
     }
 </style>
 
-<section>
+<section th:object="${home}">
     <header class="py-5 d-flex justify-content-center" id="category-1">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
@@ -118,16 +118,15 @@
     <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
             <!-- th:each 단락 -->
-            <div class="col mb-5">
+            <div class="col mb-5" th:each="post : *{postsByTour}">
                 <div class="card h-100 text-center main-content">
-                    <a href="#">
+                    <a th:href="@{posts/{postId}(postId=${post.id})}">
                         <div class="main-content-overlay"></div>
                         <img class="card-img-top shadow main-content-image"
-                             src="https://firebasestorage.googleapis.com/v0/b/jejulu-3b679.appspot.com/o/thumbnail%2Fbc70d3bd-9149-47fe-8a3a-b6a7c3c06620.jpg?alt=media"
-                             alt="">
+                             th:src="${post.imagePath}" alt="">
                         <div class="main-content-details fadeIn-bottom">
-                            <h3>This is a title</h3>
-                            <p>This is a short description</p>
+                            <h3 th:text="${post.title}">This is a title</h3>
+                            <p th:text="${post.description}">This is a short description</p>
                         </div>
                     </a>
                 </div>
