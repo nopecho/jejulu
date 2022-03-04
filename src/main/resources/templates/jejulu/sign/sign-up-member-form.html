@@ -19,14 +19,15 @@
                         <div class="row g-3">
                             <div class="col-10">
                                 <label th:for="loginId" class="form-label">ID *</label>
-                                <input th:field="*{loginId}" type="text" class="form-control is-invalid" placeholder="ID (4 ~ 20자)" required
+                                <input th:field="*{loginId}" type="text" class="form-control is-invalid" placeholder="ID* (4 ~ 20자)" required
                                        maxlength=20>
                                 <div id="id-invalid" class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> ID 중복 확인을 해주세요.
+                                    <i class="bi bi-exclamation-circle">ID 중복 확인을 해주세요</i>
                                 </div>
                                 <div class="valid-feedback">
-                                    <i class="bi bi-check-circle"></i> 사용 가능한 ID에요!
+                                    <i class="bi bi-check-circle">사용 가능한 ID에요!</i>
                                 </div>
+                                <i th:errors="*{loginId}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
                             <div class="col-2 my-auto py-5">
                                 <button type="button" class="btn btn-outline-primary" onclick="checkId()"><i
@@ -35,43 +36,38 @@
 
                             <div class="col-10">
                                 <label th:for="password" class="form-label">Password *</label>
-                                <input th:field="*{password}" type="password" class="form-control is-invalid" placeholder="PASSWORD (4 ~ 20자)"
+                                <input th:field="*{password}" type="password" class="form-control is-invalid" placeholder="PASSWORD* (6 ~ 20자)"
                                        required maxlength=20>
                                 <label for="check" class="form-label">Password Check*</label>
                                 <input type="password" class="form-control is-invalid" id="check" placeholder="PASSWORD CHECK"
                                        aria-describedby="" required>
                                 <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 비밀번호를 확인 해주세요.
+                                    <i class="bi bi-exclamation-circle">비밀번호를 확인 해주세요.</i>
                                 </div>
                                 <div class="valid-feedback">
-                                    <i class="bi bi-check-circle"></i> 비밀번호 확인!
+                                    <i class="bi bi-check-circle">비밀번호 확인!</i>
                                 </div>
+                                <i th:errors="*{password}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
 
                             <hr class="my-4">
                             <div class="col-10">
                                 <label th:for="name" class="form-label">Member Name *</label>
-                                <input th:field="*{name}" type="text" class="form-control is-invalid" placeholder="MEMBER NAME" required>
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 회원 이름은 필수로 입력 해야돼요.
-                                </div>
+                                <input th:field="*{name}" type="text" class="form-control" th:errorclass="is-invalid" placeholder="MEMBER NAME* (2 ~ 10자)" required>
+                                <i th:errors="*{name}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
 
                             <div class="col-10">
                                 <label th:for="phone" class="form-label">Phone *</label>
-                                <input th:field="*{phone}" type="tel" class="form-control phoneNumber is-invalid" placeholder="PHONE NUMBER"
+                                <input th:field="*{phone}" type="tel" class="form-control phoneNumber" th:errorclass="is-invalid" placeholder="PHONE NUMBER*"
                                        required maxlength=13>
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 전화번호는 필수로 입력 해야돼요.
-                                </div>
+                                <i th:errors="*{phone}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
 
                             <div class="col-10">
                                 <label th:for="email" class="form-label">Email</label>
-                                <input th:field="*{email}" type="email" class="form-control" placeholder="you@example.com">
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 이메일 형식이 맞지 않아요.
-                                </div>
+                                <input th:field="*{email}" type="email" class="form-control" th:errorclass="is-invalid" placeholder="you@example.com">
+                                <i th:errors="*{email}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
                         </div>
                         <hr class="my-4">
@@ -129,7 +125,7 @@
         fetch(`http://localhost/members/id-check?v=${idInput.value}`)
             .then((response) => response.json())
             .then((data) => {
-                if (data) {
+                if (!data) {
                     idInput.classList.remove('is-invalid')
                     idInput.classList.add('is-valid')
                 } else {
@@ -137,7 +133,7 @@
                     idInput.classList.add('is-invalid')
                     const invalidId = document.getElementById('id-invalid');
                     invalidId.innerText='';
-                    invalidId.innerHTML=`<i class="bi bi-exclamation-circle"></i> 이미 사용중인 ID에요!`;
+                    invalidId.innerHTML=`<i class="bi bi-exclamation-circle">이미 사용중인 ID에요!</i>`;
                 }
             })
             .catch(e => console.log(e))
