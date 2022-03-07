@@ -41,13 +41,20 @@
                         </div>
                     </div>
                     <!--카테고리-->
-                    <div class="col-12 mb-5">
+                    <div class="col-12 mb-3">
                         <div class="form-group">
                             <label>CATEGORY *</label>
-                            <select class="form-select" required>
-                                <option value="">select category</option>
-                                <option>th:each</option>
+                            <select class="form-select" required th:field="*{category}">
+                                <option value="">*SELECT CATEGORY*</option>
+                                <option th:each="category : ${T(hello.jejulu.domain.post.Category).values()}" th:value="${category.name()}" th:text="${category.name()}">category</option>
                             </select>
+                        </div>
+                    </div>
+                    <!--설명-->
+                    <div class="col-12 mb-5">
+                        <div class="form-group">
+                            <label>DESCRIPTION *</label>
+                            <input th:field="*{description}" type="text" class="form-control" placeholder="Short Description" required>
                         </div>
                     </div>
                     <!--썸네일-->

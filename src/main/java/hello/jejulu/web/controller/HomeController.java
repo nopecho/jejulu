@@ -17,8 +17,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(@ModelAttribute PostDto.Home homePosts){
-        homePosts.setPostsByTour(postService.selectAllByCategory(Category.Tour));
-
+        homePosts.setPostsByTour(postService.getHomePostsByCategory(Category.Tour));
+        homePosts.setPostsByResturent(postService.getHomePostsByCategory(Category.Resturent));
+        homePosts.setPostsByHotel(postService.getHomePostsByCategory(Category.Hotel));
         return "jejulu/home";
     }
 

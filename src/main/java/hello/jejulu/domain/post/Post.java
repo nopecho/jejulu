@@ -27,6 +27,9 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column
+    private String description;
+
     @Column(nullable = false, length = 1)
     private Category category;
 

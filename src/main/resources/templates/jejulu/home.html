@@ -148,16 +148,15 @@
     <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
             <!-- th:each 단락 -->
-            <div class="col mb-5">
+            <div class="col mb-5" th:each="post : *{postsByHotel}">
                 <div class="card h-100 text-center main-content">
-                    <a href="#">
+                    <a th:href="@{posts/{postId}(postId=${post.id})}">
                         <div class="main-content-overlay"></div>
                         <img class="card-img-top shadow main-content-image"
-                             src="https://images.unsplash.com/photo-1537702908518-4be1d70564c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                             alt="">
+                             th:src="${post.imagePath}" alt="">
                         <div class="main-content-details fadeIn-bottom">
-                            <h3>This is a title</h3>
-                            <p>This is a short description</p>
+                            <h3 th:text="${post.title}">This is a title</h3>
+                            <p th:text="${post.description}">This is a short description</p>
                         </div>
                     </a>
                 </div>
@@ -178,16 +177,15 @@
     <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
             <!-- th:each 단락 -->
-            <div class="col mb-5">
+            <div class="col mb-5" th:each="post : *{postsByResturent}">
                 <div class="card h-100 text-center main-content">
-                    <a href="#">
+                    <a th:href="@{posts/{postId}(postId=${post.id})}">
                         <div class="main-content-overlay"></div>
                         <img class="card-img-top shadow main-content-image"
-                             src="https://images.unsplash.com/photo-1583275478491-4368ae938226?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-                             alt="">
+                             th:src="${post.imagePath}" alt="">
                         <div class="main-content-details fadeIn-bottom">
-                            <h3>This is a title</h3>
-                            <p>This is a short description</p>
+                            <h3 th:text="${post.title}">This is a title</h3>
+                            <p th:text="${post.description}">This is a short description</p>
                         </div>
                     </a>
                 </div>
