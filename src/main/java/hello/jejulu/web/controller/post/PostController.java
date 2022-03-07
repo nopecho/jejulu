@@ -5,7 +5,10 @@ import hello.jejulu.service.post.PostService;
 import hello.jejulu.web.dto.PostDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,8 +57,9 @@ public class PostController {
     }
 
     @GetMapping("/category")
-    public String postsByCategory(@RequestParam(name = "c") Category category, Model model){
-        Slice<PostDto.Info> postsByCategory = postService.getPostsByCategory(category);
+    public String postsByCategory(@RequestParam(name = "c") Category category, Model model,
+                                  @PageableDefault(size = 2, direction = Sort.Direction.DESC)Pageable pageable){
+        Slice<PostDto.Info> postsByCategory = postService.getPostsByCategory(category, pageable);
         model.addAttribute("page",postsByCategory);
         model.addAttribute("category",category);
         return "jejulu/posts/posts";

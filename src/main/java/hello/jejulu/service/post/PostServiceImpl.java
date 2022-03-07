@@ -47,9 +47,8 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Slice<PostDto.Info> getPostsByCategory(Category category) {
-        PageRequest pageRequest = PageRequest.of(0,10, Sort.by(Sort.Direction.DESC,"createDate"));
-        Slice<Post> findPosts = postRepository.findAllByCategory(category, pageRequest);
+    public Slice<PostDto.Info> getPostsByCategory(Category category, Pageable pageable) {
+        Slice<Post> findPosts = postRepository.findAllByCategory(category, pageable);
         return findPosts.map(post -> post.getThumbnail() == null ? new PostDto.Info(post,"") : new PostDto.Info(post,post.getThumbnail().getPath()));
     }
 
