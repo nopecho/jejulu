@@ -30,6 +30,7 @@ public class PostDto {
                     .title(this.title)
                     .content(this.content)
                     .description(this.description)
+                    .count(0)
                     .thumbnail(thumbnail)
                     .category(this.category)
                     .build();
@@ -42,6 +43,7 @@ public class PostDto {
         private String title;
         private String content;
         private String description;
+        private int count;
         private String imagePath;
         private Category category;
         private LocalDate createDate;
@@ -51,6 +53,7 @@ public class PostDto {
             this.title = post.getTitle();
             this.content = post.getContent();
             this.description = post.getDescription();
+            this.count = post.getCount();
             this.imagePath = imagePath;
             this.category = post.getCategory();
             this.createDate = post.getCreateDate().toLocalDate();
@@ -62,6 +65,7 @@ public class PostDto {
         private Long id;
         private String title;
         private String description;
+        private int count;
         private Category category;
         private String imagePath;
 
@@ -69,6 +73,7 @@ public class PostDto {
             this.id = post.getId();
             this.title = post.getTitle();
             this.description = post.getDescription();
+            this.count=post.getCount();
             this.category = post.getCategory();
             this.imagePath = imagePath;
         }

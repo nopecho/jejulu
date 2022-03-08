@@ -18,7 +18,7 @@
     .main-content .main-content-overlay {
         background: rgba(0, 0, 0, 0.26);
         position: absolute;
-        height: 100%;
+        height: 15rem;
         width: 100%;
         left: 0;
         top: 0;
@@ -52,7 +52,7 @@
     }
 
     .main-content:hover .main-content-details {
-        top: 50%;
+        top: 40%;
         left: 50%;
         opacity: 1;
     }
@@ -118,17 +118,23 @@
     <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
             <!-- th:each 단락 -->
-            <div class="col mb-5" th:each="post : *{postsByTour}">
+            <div class="col mb-5 " th:each="post : *{postsByTour}">
                 <div class="card h-100 text-center main-content">
                     <a th:href="@{posts/{postId}(postId=${post.id})}">
                         <div class="main-content-overlay"></div>
-                        <img class="card-img-top shadow main-content-image"
+                        <img class="card-img-top main-content-image shadow"
                              th:src="${post.imagePath}" alt="">
                         <div class="main-content-details fadeIn-bottom">
                             <h3 th:text="${post.title}">This is a title</h3>
                             <p th:text="${post.description}">This is a short description</p>
                         </div>
                     </a>
+                    <div class="card-body pt-3 px-0">
+                        <div class="card-text">
+                            <div style="float:left;">작성자</div>
+                            <i th:text="${post.count}" class="bi bi-eye-fill" style="float:right; font-style: normal">조회수</i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

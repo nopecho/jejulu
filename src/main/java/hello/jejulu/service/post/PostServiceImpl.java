@@ -65,12 +65,14 @@ public class PostServiceImpl implements PostService{
         return findPosts.map(post -> post.getThumbnail() == null ? new PostDto.Info(post,"") : new PostDto.Info(post,post.getThumbnail().getPath()));
     }
 
+    @Transactional
     @Override
     public PostDto.Detail getPostById(Long postId) {
         Post findPost = postRepository.findById(postId).orElse(null);
         if(findPost == null){
             return null;
         }
+        findPost.countPlus();
         String imagePath = "";
         if( findPost.getThumbnail() != null){
             imagePath = findPost.getThumbnail().getPath();

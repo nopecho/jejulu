@@ -32,6 +32,9 @@ public class Post extends BaseTimeEntity {
     @Column
     private String description;
 
+    @Column(nullable = false)
+    private int count;
+
     @Convert(converter = CategoryConverter.class)
     @Column(nullable = false, length = 1)
     private Category category;
@@ -46,4 +49,8 @@ public class Post extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "post")
     private List<Booking> bookings = new ArrayList<>();
+
+    public void countPlus(){
+        this.count++;
+    }
 }

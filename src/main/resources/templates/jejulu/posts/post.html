@@ -34,8 +34,15 @@
         <div class="card p-3" th:object="${detail}">
             <div class="inner-card p-5 row g-2 mt-1 shadow">
                 <div class="mb-5">
-                    <h1 class="my-3 mb-4" th:text="*{title}">제목</h1>
-                    <h4 th:text="*{category}">카테고리</h4>
+                    <h1 class="my-3 mb-4 col-12" th:text="*{title}">제목</h1>
+                    <div class="col-12 d-flex flex-row justify-content-between">
+                        <p class="">작성자</p>
+                        <h4 class="" th:text="*{category}">카테고리</h4>
+                        <div class="d-flex flex-row">
+                            <p class="">조회수</p>
+                            <p class="">작성일</p>
+                        </div>
+                    </div>
                     <hr>
                     <h5 th:text="*{description}">설명</h5>
                     <img th:src="*{imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1555354924-b72b8d4dfd6c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80'|" class="img-fluid my-5"/>
