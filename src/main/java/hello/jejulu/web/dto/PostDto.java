@@ -1,6 +1,6 @@
 package hello.jejulu.web.dto;
 
-import hello.jejulu.domain.post.Category;
+import hello.jejulu.domain.util.Category;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.thumbnail.Thumbnail;
 import lombok.Getter;

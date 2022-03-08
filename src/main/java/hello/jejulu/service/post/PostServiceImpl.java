@@ -1,6 +1,6 @@
 package hello.jejulu.service.post;
 
-import hello.jejulu.domain.post.Category;
+import hello.jejulu.domain.util.Category;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.domain.thumbnail.Thumbnail;
@@ -12,9 +12,9 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -25,6 +25,19 @@ public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
     private final ThumbnailService thumbnailService;
+
+    @PostConstruct
+    public void initPost(){
+        for(int i = 0; i<100; i++){
+            postRepository.save( Post.builder()
+                    .title("TITLE"+i)
+                    .description("description!!")
+                    .thumbnail(null)
+                    .content("testContent")
+                    .category(Category.TOUR)
+                    .build());
+        }
+    }
 
     @Transactional
     @Override

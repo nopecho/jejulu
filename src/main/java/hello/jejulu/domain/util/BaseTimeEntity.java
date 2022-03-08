@@ -1,4 +1,4 @@
-package hello.jejulu.domain;
+package hello.jejulu.domain.util;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

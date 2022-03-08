@@ -1,6 +1,6 @@
 package hello.jejulu.web.controller;
 
-import hello.jejulu.domain.post.Category;
+import hello.jejulu.domain.util.Category;
 import hello.jejulu.service.post.PostService;
 import hello.jejulu.web.dto.PostDto;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +17,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(@ModelAttribute PostDto.Home homePosts){
-        homePosts.setPostsByTour(postService.getHomePostsByCategory(Category.Tour));
-        homePosts.setPostsByResturent(postService.getHomePostsByCategory(Category.Resturent));
-        homePosts.setPostsByHotel(postService.getHomePostsByCategory(Category.Hotel));
+        homePosts.setPostsByTour(postService.getHomePostsByCategory(Category.TOUR));
+        homePosts.setPostsByResturent(postService.getHomePostsByCategory(Category.RESTURENT));
+        homePosts.setPostsByHotel(postService.getHomePostsByCategory(Category.HOTEL));
         return "jejulu/home";
     }
 

@@ -1,5 +1,6 @@
 package hello.jejulu.domain.post;
 
+import hello.jejulu.domain.util.Category;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;

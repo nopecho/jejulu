@@ -1,6 +1,6 @@
 package hello.jejulu.web.controller.post;
 
-import hello.jejulu.domain.post.Category;
+import hello.jejulu.domain.util.Category;
 import hello.jejulu.service.post.PostService;
 import hello.jejulu.web.dto.PostDto;
 import lombok.RequiredArgsConstructor;
@@ -56,12 +56,19 @@ public class PostController {
         return "jejulu/posts/post";
     }
 
-    @GetMapping("/category")
-    public String postsByCategory(@RequestParam(name = "c") Category category, Model model,
-                                  @PageableDefault(size = 2, direction = Sort.Direction.DESC)Pageable pageable){
+    @GetMapping("/categorys/{category}")
+    public String postsByCategory(@PathVariable Category category, Model model,
+                                  @PageableDefault(size = 12, sort = "createDate", direction = Sort.Direction.DESC)Pageable pageable){
         Slice<PostDto.Info> postsByCategory = postService.getPostsByCategory(category, pageable);
         model.addAttribute("page",postsByCategory);
         model.addAttribute("category",category);
         return "jejulu/posts/posts";
+    }
+
+    @ResponseBody
+    @GetMapping("/{category}/load")
+    public Slice<PostDto.Info> loadPosts(@PathVariable Category category,
+            @PageableDefault(size = 12,sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable){
+        return postService.getPostsByCategory(category,pageable);
     }
 }

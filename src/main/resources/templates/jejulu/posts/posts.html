@@ -121,8 +121,44 @@
                 </div>
             </div>
         </div>
+        <div id="posts-container" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
+        </div>
+        <button class="btn btn-class col-12" onclick="loadPosts()">더보기</button>
     </div>
 </section>
 
-<script></script>
+<script th:inline="javascript">
+    const page = [[${page}]]
+    let pageNum = page.number;
+
+    function loadPosts(){
+        const category = [[${category}]];
+        fetch(`/posts/${category}/load?page=${++pageNum}`)
+            .then(res => res.json())
+            .then(posts => render(posts.content))
+            .catch(e => console.log(e));
+    }
+
+    function render(posts){
+        const container = document.getElementById("posts-container")
+        posts.forEach(post => {
+            console.log(post)
+            const appendPost = document.createElement("div");
+            appendPost.className = "col mb-5";
+            appendPost.innerHTML =
+                `<div class="card h-100 text-center main-content">
+                    <a href="/posts/${post.id}">
+                        <div class="main-content-overlay"></div>
+                        <img class="card-img-top shadow main-content-image" src="${post.imagePath}" alt="">
+                        <div class="main-content-details fadeIn-bottom">
+                            <h3>${post.title}</h3>
+                            <p>${post.description}</p>
+                        </div>
+                    </a>
+                </div>`
+
+            container.append(appendPost);
+        })
+    }
+</script>
 </html>

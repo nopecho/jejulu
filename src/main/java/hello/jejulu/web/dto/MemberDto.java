@@ -1,6 +1,6 @@
 package hello.jejulu.web.dto;
 
-import hello.jejulu.domain.Role;
+import hello.jejulu.domain.util.Role;
 import hello.jejulu.domain.member.Member;
 import lombok.Getter;
 import lombok.Setter;

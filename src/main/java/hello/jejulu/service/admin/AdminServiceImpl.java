@@ -1,12 +1,8 @@
 package hello.jejulu.service.admin;
 
-import hello.jejulu.domain.Role;
+import hello.jejulu.domain.util.Role;
 import hello.jejulu.domain.admin.Admin;
 import hello.jejulu.domain.admin.AdminRepository;
-import hello.jejulu.domain.contact.ContactRepository;
-import hello.jejulu.domain.host.HostRepository;
-import hello.jejulu.domain.member.MemberRepository;
-import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.service.member.MemberService;
 import hello.jejulu.web.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
