@@ -130,9 +130,17 @@
                         </div>
                     </a>
                     <div class="card-body pt-3 px-0">
-                        <div class="card-text">
-                            <div style="float:left;">작성자</div>
-                            <i th:text="${post.count}" class="bi bi-eye-fill" style="float:right; font-style: normal">조회수</i>
+                        <div class="card-text d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row">
+                                <i class="bi bi-megaphone-fill"></i>&nbsp;
+                                <p th:text="작성자"></p>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <span class="d-flex flex-row">
+                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
+                                    <p th:text="${post.count}">조회수</p>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -165,6 +173,20 @@
                             <p th:text="${post.description}">This is a short description</p>
                         </div>
                     </a>
+                    <div class="card-body pt-3 px-0">
+                        <div class="card-text d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row">
+                                <i class="bi bi-megaphone-fill"></i>&nbsp;
+                                <p th:text="작성자"></p>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <span class="d-flex flex-row">
+                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
+                                    <p th:text="${post.count}">조회수</p>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -194,6 +216,20 @@
                             <p th:text="${post.description}">This is a short description</p>
                         </div>
                     </a>
+                    <div class="card-body pt-3 px-0">
+                        <div class="card-text d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row">
+                                <i class="bi bi-megaphone-fill"></i>&nbsp;
+                                <p th:text="작성자"></p>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <span class="d-flex flex-row">
+                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
+                                    <p th:text="${post.count}">조회수</p>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

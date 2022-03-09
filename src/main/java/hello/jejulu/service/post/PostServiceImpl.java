@@ -30,11 +30,29 @@ public class PostServiceImpl implements PostService{
     public void initPost(){
         for(int i = 0; i<100; i++){
             postRepository.save( Post.builder()
-                    .title("TITLE"+i)
+                    .title("TITLE tours"+i)
                     .description("description!!")
                     .thumbnail(null)
                     .content("testContent")
                     .category(Category.TOUR)
+                    .build());
+        }
+        for(int i = 0; i<100; i++){
+            postRepository.save( Post.builder()
+                    .title("TITLE resturent"+i)
+                    .description("description!!")
+                    .thumbnail(null)
+                    .content("testContent")
+                    .category(Category.RESTURENT)
+                    .build());
+        }
+        for(int i = 0; i<100; i++){
+            postRepository.save( Post.builder()
+                    .title("TITLE hotel"+i)
+                    .description("description!!")
+                    .thumbnail(null)
+                    .content("testContent")
+                    .category(Category.HOTEL)
                     .build());
         }
     }
