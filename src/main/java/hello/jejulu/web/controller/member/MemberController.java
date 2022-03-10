@@ -67,7 +67,6 @@ public class MemberController {
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
-            log.info(bindingResult.getFieldErrors().get(0).getDefaultMessage());
             return "jejulu/sign/sign-up-member-form";
         }
         MemberDto.Info saveMember = memberService.add(memberSaveDto);
