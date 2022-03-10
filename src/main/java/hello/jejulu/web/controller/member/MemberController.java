@@ -3,6 +3,8 @@ package hello.jejulu.web.controller.member;
 import hello.jejulu.service.member.MemberService;
 import hello.jejulu.web.consts.SessionConst;
 import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.exception.CustomException;
+import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -50,8 +52,8 @@ public class MemberController {
     public String lookupMemberInfo(@RequestParam(name = "v") String lookupInfo,
                                    @SessionAttribute(name = SessionConst.MEMBER) MemberDto.Info loginMember,
                                    RedirectAttributes redirectAttributes){
-        if(!lookupInfo.equals("member") || loginMember == null){
-            return null;
+        if(!lookupInfo.equals("member")){
+            throw new CustomException(ErrorCode.BAD_REQUEST);
         }
         redirectAttributes.addAttribute("memberId",loginMember.getId());
         return "redirect:/members/{memberId}";
@@ -84,13 +86,12 @@ public class MemberController {
     public String memberInfo(@PathVariable Long memberId,
                              @SessionAttribute(name = SessionConst.MEMBER) MemberDto.Info loginMember,
                              Model model){
-        if(loginMember == null || loginMember.getId() != memberId){
-            return null;
+        if(loginMember.getId() != memberId){
+            throw new CustomException(ErrorCode.INVALID_AUTH);
         }
-
         MemberDto lookupMember = memberService.lookupMember(memberId);
         if(lookupMember == null){
-            return null;
+            throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
         }
 
         model.addAttribute("update",lookupMember);
@@ -137,7 +138,7 @@ public class MemberController {
     @DeleteMapping("/{memberId}")
     public String deleteMember(@PathVariable Long memberId, HttpSession session){
         if(!memberService.remove(memberId)){
-            return null;
+            throw new CustomException(ErrorCode.MEMBER_REMOVE_FAIL);
         }
         session.invalidate();
         return "redirect:/";
