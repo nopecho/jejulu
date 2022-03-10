@@ -22,9 +22,4 @@ public class HomeController {
         homePosts.setPostsByHotel(postService.getHomePostsByCategory(Category.HOTEL));
         return "jejulu/home";
     }
-
-    @GetMapping("/sign-up")
-    public String signUpSelect(){
-        return "jejulu/sign/sign-select";
-    }
 }

@@ -63,13 +63,16 @@ public class MemberController {
      * @param bindingResult : 유효성 검증 실패 시 해당 객체에 오류를 담음
      */
     @PostMapping
-    public String memberSave(@ModelAttribute @Validated MemberDto.Save memberSaveDto, BindingResult bindingResult){
+    public String memberSave(@ModelAttribute @Validated MemberDto.Save memberSaveDto,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             log.info(bindingResult.getFieldErrors().get(0).getDefaultMessage());
             return "jejulu/sign/sign-up-member-form";
         }
-        memberService.add(memberSaveDto);
-        return "jejulu/success/success-sign-up";
+        MemberDto.Info saveMember = memberService.add(memberSaveDto);
+        redirectAttributes.addAttribute("name",saveMember.getName());
+        return "redirect:/success/sign-up";
     }
 
     /**

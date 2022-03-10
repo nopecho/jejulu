@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class MemberServiceImpl implements MemberService{
 
@@ -22,9 +22,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional
     @Override
-    public MemberDto.Save add(MemberDto.Save memberSaveDto) {
-        memberRepository.save(memberSaveDto.toEntity(passwordEncoder));
-        return memberSaveDto;
+    public MemberDto.Info add(MemberDto.Save memberSaveDto) {
+        Member saveMember = memberRepository.save(memberSaveDto.toEntity(passwordEncoder));
+        return new MemberDto.Info(saveMember);
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package hello.jejulu.web.controller.login;
 import hello.jejulu.domain.admin.Admin;
 import hello.jejulu.service.web.LoginService;
 import hello.jejulu.web.consts.SessionConst;
+import hello.jejulu.web.dto.HostDto;
 import hello.jejulu.web.dto.MemberDto;
 import hello.jejulu.web.dto.login.LoginDto;
 import lombok.RequiredArgsConstructor;
@@ -42,13 +43,13 @@ public class LoginController {
     public String memberLogin(@ModelAttribute LoginDto loginDto,
                               BindingResult bindingResult,
                               HttpServletRequest request){
-        MemberDto.Info memberInfoDto = loginService.loginByMember(loginDto);
-        if(memberInfoDto == null){
+        MemberDto.Info loginMember = loginService.loginByMember(loginDto);
+        if(loginMember == null){
             bindingResult.reject("loginFail.Member");
             return "jejulu/login/login-form";
         }
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.MEMBER,memberInfoDto);
+        session.setAttribute(SessionConst.MEMBER,loginMember);
         return "redirect:/";
     }
 
@@ -59,9 +60,16 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login/host")
-    public String hostLogin(@ModelAttribute LoginDto loginDto, HttpServletRequest request){
+    public String hostLogin(@ModelAttribute LoginDto loginDto,
+                            BindingResult bindingResult,
+                            HttpServletRequest request){
+        HostDto.Info loginHost = loginService.loginByHost(loginDto);
+        if(loginHost == null){
+            bindingResult.reject("loginFail.Host");
+            return "jejulu/login/login-form";
+        }
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.HOST,"");
+        session.setAttribute(SessionConst.HOST,loginHost);
         return "redirect:/";
     }
 
