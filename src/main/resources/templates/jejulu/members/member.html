@@ -39,6 +39,11 @@
                                     이메일이에요.</label>
                                 <hr class="mt-0">
                             </div>
+
+                            <div class="col-12">
+                                <label class="fw-light text-secondary fst-italic">마지막 수정일 : </label>
+                                <p class="text-primary" th:text="*{updateDate}">날짜</p>
+                            </div>
                         </div>
                         <button class="btn btn-success btn-lg col-12 my-5" type="button"
                                 th:onclick="|location.href='@{/members/{memberId}/edit(memberId=*{id})}'|">GO TO UPDATE</button>

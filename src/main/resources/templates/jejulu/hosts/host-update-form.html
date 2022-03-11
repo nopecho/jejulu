@@ -60,17 +60,20 @@
                                 <hr class="mt-0">
                             </div>
                         </div>
-                        <button id="submit" class="btn btn-success btn-lg col-12 my-5" type="submit"
-                                disabled="disabled">UPDATE</button>
+                        <div class="mt-5">
+                            <button class="btn btn-secondary btn-lg col-5" type="button" th:onclick="|location.href='@{/hosts/{hostId}(hostId=${id})}'|">BACK</button>
+                            <button id="submit" class="btn btn-success btn-lg col-5" type="submit"
+                                    disabled="disabled">UPDATE</button>
+                        </div>
+                        <button type="button" class="btn btn-danger btn-lg col-5 mt-3" data-bs-toggle="modal" data-bs-target="#delete">
+                            <i class="bi bi-trash"></i> DELETE
+                        </button>
                     </form>
+
 
                     <form th:action="@{/hosts/{hostId}(hostId=${id})}" method="post" id="delete-form">
                         <input type="hidden" name="_method" value="DELETE" />
                     </form>
-                    <button type="button" class="btn btn-danger btn-lg col-12" data-bs-toggle="modal" data-bs-target="#delete">
-                        <i class="bi bi-trash"></i> DELETE
-                    </button>
-
                     <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
                         <div class="modal-dialog">
                             <div class="modal-content">
