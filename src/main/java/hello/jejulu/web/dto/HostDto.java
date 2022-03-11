@@ -9,8 +9,42 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 public class HostDto {
+
+
+    @Getter @Setter
+    public static class Info{
+        private Long id;
+        private String loginId;
+        private String name;
+
+        public Info(Host host){
+            this.id = host.getId();
+            this.loginId = host.getLoginId();
+            this.name = host.getName();
+        }
+    }
+
+    @Getter @Setter
+    public static class Detail {
+        private Long id;
+        private String name;
+        private String phone;
+        private String email;
+        private String addr;
+        private LocalDateTime updateDate;
+
+        public Detail(Host host){
+            this.id = host.getId();
+            this.name = host.getName();
+            this.phone = host.getPhone();
+            this.email = host.getEmail();
+            this.addr = host.getAddr();
+            this.updateDate = host.getModifiedDate();
+        }
+    }
 
     @Getter @Setter
     public static class Save{
@@ -50,15 +84,22 @@ public class HostDto {
     }
 
     @Getter @Setter
-    public static class Info{
+    public static class Update {
+
         private Long id;
-        private String loginId;
+
+        @NotBlank
+        @Size(min = 4, max = 20)
         private String name;
 
-        public Info(Host host){
-            this.id = host.getId();
-            this.loginId = host.getLoginId();
-            this.name = host.getName();
-        }
+        @NotBlank
+        @Size(min = 10, max = 13)
+        private String phone;
+
+        @NotBlank
+        private String addr;
+
+        @Email
+        private String email;
     }
 }

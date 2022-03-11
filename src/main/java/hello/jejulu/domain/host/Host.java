@@ -44,4 +44,11 @@ public class Host extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "host")
     private List<Post> posts = new ArrayList<>();
+
+    public void updateInfo(String name, String phone, String addr, String email){
+        this.name = name;
+        this.phone = phone;
+        this.addr = addr;
+        this.email = email;
+    }
 }
