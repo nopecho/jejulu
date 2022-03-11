@@ -46,13 +46,13 @@
             <div class="col mb-5" th:each=" info : *{content}">
                 <div class="card h-100 shadow main-content">
                     <img class="card-img-top" th:src="${info.imagePath}" alt="">
-                    <div class="card-header bg-light">
+                    <div class="card-header pb-0 bg-light">
                         <h5 th:text="${info.title}">제목</h5>
                     </div>
                     <div class="card-body bg-light border-light">
                         <p th:text="${info.description}">설명</p>
                     </div>
-                    <div class="card-footer pt-3 px-0 bg-light border-light">
+                    <div class="card-footer pt-3 pb-0 px-0 bg-light border-light" style="font-size: smaller">
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row">
                                 &emsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
