@@ -1,6 +1,7 @@
 package hello.jejulu.web.config;
 
 import hello.jejulu.web.converter.CategoryConverter;
+import hello.jejulu.web.interceptor.AdminAuthInterceptor;
 import hello.jejulu.web.interceptor.HostAuthInterceptor;
 import hello.jejulu.web.interceptor.MemberAuthInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -42,15 +43,17 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MemberAuthInterceptor())
                 .addPathPatterns("/members/**")
-                .addPathPatterns("/admin/**")
                 .excludePathPatterns(MEMBER_INTERCEPTOR_EXCLUDE_LIST);
 
         registry.addInterceptor(new HostAuthInterceptor())
                 .addPathPatterns("/hosts/**")
-                .addPathPatterns("/admin/**")
                 .addPathPatterns("/posts/create")
                 .addPathPatterns("/posts")
                 .excludePathPatterns(HOST_INTERCEPTOR_EXCLUDE_LIST);
+
+        registry.addInterceptor(new AdminAuthInterceptor())
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/login");
     }
 }
 
