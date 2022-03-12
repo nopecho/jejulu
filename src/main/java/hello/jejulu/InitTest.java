@@ -34,7 +34,7 @@ public class InitTest {
                 .addr("대구 광역시 중구 남산동 290")
                 .build());
 
-        for(int i = 0; i<1000; i++){
+        for(int i = 0; i<100; i++){
             Post post = postRepository.save(Post.builder()
                     .title("TITLE tours" + i)
                     .description("description!!")
@@ -44,7 +44,7 @@ public class InitTest {
                     .host(save)
                     .build());
         }
-        for(int i = 0; i<1000; i++){
+        for(int i = 0; i<100; i++){
             Post post = postRepository.save(Post.builder()
                     .title("TITLE resturent" + i)
                     .description("description!!")
@@ -54,7 +54,7 @@ public class InitTest {
                     .host(save)
                     .build());
         }
-        for(int i = 0; i<1000; i++){
+        for(int i = 0; i<100; i++){
             Post post = postRepository.save(Post.builder()
                     .title("TITLE hotel" + i)
                     .description("description!!")
