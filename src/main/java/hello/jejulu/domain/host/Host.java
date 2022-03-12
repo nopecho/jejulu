@@ -51,8 +51,4 @@ public class Host extends BaseTimeEntity {
         this.addr = addr;
         this.email = email;
     }
-
-    public void addPosts(Post post) {
-        this.posts.add(post);
-    }
 }

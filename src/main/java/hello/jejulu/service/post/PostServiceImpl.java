@@ -37,7 +37,6 @@ public class PostServiceImpl implements PostService{
         Host writerHost = hostRepository.getById(loginHost.getId());
         Thumbnail thumbnail = thumbnailService.add(postSaveDto.getFile());
         Post savePost = postRepository.save(postSaveDto.toEntity(thumbnail, writerHost));
-        writerHost.addPosts(savePost);
         if(thumbnail == null){
             return new PostDto.Info(savePost,"");
         }
@@ -46,8 +45,7 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public List<PostDto.Info> getHomePostsByCategory(Category category) {
-        Sort sort = sortByCreateDate();
-        List<Post> homePosts = postRepository.findTop4ByCategory(category, sort);
+        List<Post> homePosts = postRepository.findTop4ByCategory(category, sortByCreateDate());
         return homePosts.stream()
                 .map(post -> post.getThumbnail() == null ? new PostDto.Info(post,"") : new PostDto.Info(post, post.getThumbnail().getPath()))
                 .collect(Collectors.toList());
