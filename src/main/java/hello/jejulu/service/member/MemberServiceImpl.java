@@ -53,7 +53,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberDto.Detail lookupMember(Long memberId) {
+    public MemberDto.Detail getMemberById(Long memberId) {
         Optional<Member> findMember = memberRepository.findById(memberId);
         Member member = memberNullCheck(findMember);
         return new MemberDto.Detail(member);

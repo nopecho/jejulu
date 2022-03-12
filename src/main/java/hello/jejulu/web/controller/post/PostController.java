@@ -2,7 +2,11 @@ package hello.jejulu.web.controller.post;
 
 import hello.jejulu.domain.util.Category;
 import hello.jejulu.service.post.PostService;
+import hello.jejulu.web.consts.SessionConst;
+import hello.jejulu.web.dto.HostDto;
 import hello.jejulu.web.dto.PostDto;
+import hello.jejulu.web.exception.CustomException;
+import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -12,8 +16,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -38,8 +44,10 @@ public class PostController {
      * @param model
      */
     @PostMapping
-    public String postSave(@ModelAttribute PostDto.Save postSaveDto, Model model) throws IOException {
-        PostDto.Info savePostInfo = postService.add(postSaveDto);
+    public String postSave(@ModelAttribute PostDto.Save postSaveDto,
+                           @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+                           Model model) throws IOException {
+        PostDto.Info savePostInfo = postService.add(postSaveDto, loginHost);
         model.addAttribute("info",savePostInfo);
         return "jejulu/success/success-post";
     }
@@ -68,7 +76,24 @@ public class PostController {
     @ResponseBody
     @GetMapping("/{category}/load")
     public Slice<PostDto.Info> loadPosts(@PathVariable Category category,
-            @PageableDefault(size = 12,sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable){
+                                         @PageableDefault(size = 12,sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable){
         return postService.getPostsByCategory(category,pageable);
+    }
+
+    @GetMapping("/host/info")
+    public String lookupHostInfo(@SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+                                 RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("hostId",loginHost.getId());
+        return "redirect:/posts/host/{hostId}";
+    }
+
+    @ResponseBody
+    @GetMapping("/host/{hostId}")
+    public List<PostDto.Info> testApi(@PathVariable Long hostId,
+                                      @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost){
+        if(!loginHost.getId().equals(hostId)){
+            throw new CustomException(ErrorCode.INVALID_AUTH);
+        }
+        return postService.getPostsByHost(hostId);
     }
 }

@@ -48,6 +48,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new HostAuthInterceptor())
                 .addPathPatterns("/hosts/**")
                 .addPathPatterns("/posts/create")
+                .addPathPatterns("/posts/host/**")
                 .addPathPatterns("/posts")
                 .excludePathPatterns(HOST_INTERCEPTOR_EXCLUDE_LIST);
 

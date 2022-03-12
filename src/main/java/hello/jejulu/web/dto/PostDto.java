@@ -1,5 +1,6 @@
 package hello.jejulu.web.dto;
 
+import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.util.Category;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.thumbnail.Thumbnail;
@@ -25,7 +26,7 @@ public class PostDto {
         private String content;
         private String description;
 
-        public Post toEntity(Thumbnail thumbnail){
+        public Post toEntity(Thumbnail thumbnail, Host host){
             return Post.builder()
                     .title(this.title)
                     .content(this.content)
@@ -33,6 +34,7 @@ public class PostDto {
                     .count(0)
                     .thumbnail(thumbnail)
                     .category(this.category)
+                    .host(host)
                     .build();
         }
     }

@@ -3,6 +3,7 @@ package hello.jejulu.web.controller.host;
 import hello.jejulu.service.host.HostService;
 import hello.jejulu.web.consts.SessionConst;
 import hello.jejulu.web.dto.HostDto;
+import hello.jejulu.web.dto.PostDto;
 import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -61,14 +62,14 @@ public class HostController {
         if(!loginHost.getId().equals(hostId)){
             throw new CustomException(ErrorCode.INVALID_AUTH);
         }
-        HostDto.Detail lookupHost = hostService.lookupHost(hostId);
+        HostDto.Detail lookupHost = hostService.getHostById(hostId);
         model.addAttribute("detail",lookupHost);
         return "jejulu/hosts/host";
     }
 
     @GetMapping("/{hostId}/edit")
     public String hostUpdateForm(@PathVariable Long hostId, Model model){
-        HostDto.Detail lookupHost = hostService.lookupHost(hostId);
+        HostDto.Detail lookupHost = hostService.getHostById(hostId);
         model.addAttribute("update",lookupHost);
         model.addAttribute("id",hostId);
         return "jejulu/hosts/host-update-form";

@@ -1,11 +1,16 @@
 package hello.jejulu.service.post;
 
+import hello.jejulu.domain.host.Host;
+import hello.jejulu.domain.host.HostRepository;
 import hello.jejulu.domain.util.Category;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.domain.thumbnail.Thumbnail;
 import hello.jejulu.service.thumbnail.ThumbnailService;
+import hello.jejulu.web.dto.HostDto;
 import hello.jejulu.web.dto.PostDto;
+import hello.jejulu.web.exception.CustomException;
+import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
@@ -24,11 +29,12 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
+    private final HostRepository hostRepository;
     private final ThumbnailService thumbnailService;
 
     @PostConstruct
     public void initPost(){
-        for(int i = 0; i<100; i++){
+        for(int i = 0; i<1000; i++){
             postRepository.save( Post.builder()
                     .title("TITLE tours"+i)
                     .description("description!!")
@@ -37,7 +43,7 @@ public class PostServiceImpl implements PostService{
                     .category(Category.TOUR)
                     .build());
         }
-        for(int i = 0; i<100; i++){
+        for(int i = 0; i<1000; i++){
             postRepository.save( Post.builder()
                     .title("TITLE resturent"+i)
                     .description("description!!")
@@ -46,7 +52,7 @@ public class PostServiceImpl implements PostService{
                     .category(Category.RESTURENT)
                     .build());
         }
-        for(int i = 0; i<100; i++){
+        for(int i = 0; i<1000; i++){
             postRepository.save( Post.builder()
                     .title("TITLE hotel"+i)
                     .description("description!!")
@@ -59,9 +65,11 @@ public class PostServiceImpl implements PostService{
 
     @Transactional
     @Override
-    public PostDto.Info add(PostDto.Save postSaveDto) throws IOException {
+    public PostDto.Info add(PostDto.Save postSaveDto, HostDto.Info loginHost) throws IOException {
+        Host writerHost = hostRepository.getById(loginHost.getId());
         Thumbnail thumbnail = thumbnailService.add(postSaveDto.getFile());
-        Post savePost = postRepository.save(postSaveDto.toEntity(thumbnail));
+        Post savePost = postRepository.save(postSaveDto.toEntity(thumbnail, writerHost));
+        writerHost.addPosts(savePost);
         if(thumbnail == null){
             return new PostDto.Info(savePost,"");
         }
@@ -83,12 +91,23 @@ public class PostServiceImpl implements PostService{
         return findPosts.map(post -> post.getThumbnail() == null ? new PostDto.Info(post,"") : new PostDto.Info(post,post.getThumbnail().getPath()));
     }
 
+    @Override
+    public List<PostDto.Info> getPostsByHost(Long hostId) {
+        Host host = hostRepository.findById(hostId).orElse(null);
+        if (host == null) {
+            throw new CustomException(ErrorCode.HOST_NOT_FOUND);
+        }
+        return host.getPosts().stream()
+                .map(post -> post.getThumbnail() == null ? new PostDto.Info(post,"") : new PostDto.Info(post, post.getThumbnail().getPath()))
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     @Override
     public PostDto.Detail getPostById(Long postId) {
         Post findPost = postRepository.findById(postId).orElse(null);
         if(findPost == null){
-            return null;
+            throw new CustomException(ErrorCode.POST_NOT_FOUND);
         }
         findPost.countPlus();
         String imagePath = "";

@@ -50,7 +50,7 @@ public class HostServiceImpl implements HostService{
     }
 
     @Override
-    public HostDto.Detail lookupHost(Long hostId) {
+    public HostDto.Detail getHostById(Long hostId) {
         Optional<Host> findHost = hostRepository.findById(hostId);
         Host host = hostNullCheck(findHost);
         return new HostDto.Detail(host);

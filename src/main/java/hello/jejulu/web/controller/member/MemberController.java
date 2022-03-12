@@ -84,7 +84,7 @@ public class MemberController {
         if(!loginMember.getId().equals(memberId)){
             throw new CustomException(ErrorCode.INVALID_AUTH);
         }
-        MemberDto.Detail lookupMember = memberService.lookupMember(memberId);
+        MemberDto.Detail lookupMember = memberService.getMemberById(memberId);
         model.addAttribute("detail",lookupMember);
         return "jejulu/members/member";
     }
@@ -96,7 +96,7 @@ public class MemberController {
      */
     @GetMapping("/{memberId}/edit")
     public String memberUpdateForm(@PathVariable Long memberId, Model model){
-        MemberDto.Detail lookupMember = memberService.lookupMember(memberId);
+        MemberDto.Detail lookupMember = memberService.getMemberById(memberId);
         model.addAttribute("update",lookupMember);
         model.addAttribute("id",memberId);
         return "jejulu/members/member-update-form";
