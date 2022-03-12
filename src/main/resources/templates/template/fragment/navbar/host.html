@@ -6,7 +6,7 @@
         <button type="button" class="btn btn-dark btn-sm" style="border-radius: 20px" th:onclick="|location.href='@{/posts/create}'|">게시물 작성</button>
     </li>&nbsp;&nbsp;&nbsp;&nbsp;
     <li class="nav-item m-auto">
-        <span th:text="${#session.getAttribute('loginHost').getName()}">[HOST NAME]</span>
+        <span th:text="${#session.getAttribute('loginHost').getName()}">호스트 이름</span>
     </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
@@ -21,7 +21,7 @@
                 <i class="bi bi bi-journal-check m-2"></i>
                 예약현황
             </a>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="/posts/host/info">
                 <i class="bi bi-person-check m-2"></i>
                 게시물 관리
             </a>
