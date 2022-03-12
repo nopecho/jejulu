@@ -42,7 +42,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean remove(Long memberId) {
         Member member = memberNullCheck(memberRepository.findById(memberId));
-        memberRepository.delete(member);
+        memberRepository.deleteById(member.getId());
         return true;
     }
 

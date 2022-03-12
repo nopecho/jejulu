@@ -36,10 +36,11 @@ public class HostServiceImpl implements HostService{
         return new HostDto.Info(host);
     }
 
+    @Transactional
     @Override
     public boolean remove(Long hostId) {
         Host host = hostNullCheck(hostRepository.findById(hostId));
-        hostRepository.delete(host);
+        hostRepository.deleteById(host.getId());
         return true;
     }
 

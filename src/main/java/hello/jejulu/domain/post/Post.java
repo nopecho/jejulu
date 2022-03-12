@@ -39,7 +39,7 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false, length = 1)
     private Category category;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "thumnailId")
     private Thumbnail thumbnail;
 

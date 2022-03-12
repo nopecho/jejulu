@@ -42,7 +42,7 @@ public class Host extends BaseTimeEntity {
     @Column(nullable = false, length = 1)
     private Role role;
 
-    @OneToMany(mappedBy = "host")
+    @OneToMany(mappedBy = "host", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
     public void updateInfo(String name, String phone, String addr, String email) {
