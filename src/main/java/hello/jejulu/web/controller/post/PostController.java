@@ -41,15 +41,15 @@ public class PostController {
     /**
      * 게시물 작성 핸들러
      * @param postSaveDto
-     * @param model
+     * @param redirectAttributes
      */
     @PostMapping
     public String postSave(@ModelAttribute PostDto.Save postSaveDto,
                            @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
-                           Model model) throws IOException {
+                           RedirectAttributes redirectAttributes) throws IOException {
         PostDto.Info savePostInfo = postService.add(postSaveDto, loginHost);
-        model.addAttribute("info",savePostInfo);
-        return "jejulu/success/success-post";
+        redirectAttributes.addAttribute("postId",savePostInfo.getId());
+        return "redirect:/success/post/{postId}";
     }
 
     /**
@@ -118,5 +118,8 @@ public class PostController {
         return postService.getPostsByHost(hostId);
     }
 
-
+    @GetMapping("/{postId}/edit")
+    public String postUpdateForm(@PathVariable Long postId){
+        return "jejulu/posts/post-update-form";
+    }
 }

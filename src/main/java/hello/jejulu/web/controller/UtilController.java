@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
@@ -19,5 +20,11 @@ public class UtilController {
     public String successSignUp(@RequestParam String name, Model model){
         model.addAttribute("name",name);
         return "jejulu/success/success-sign-up";
+    }
+
+    @GetMapping("/success/post/{postId}")
+    public String successPost(@PathVariable Long postId, Model model){
+        model.addAttribute("id",postId);
+        return "jejulu/success/success-post";
     }
 }
