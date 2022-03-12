@@ -56,7 +56,7 @@
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row">
                                 &emsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
-                                <p th:text="작성자"></p>
+                                <p th:text="${info.writer}"></p>
                             </div>
                             <div class="d-flex flex-row">
                                 <span class="d-flex flex-row">
@@ -104,11 +104,11 @@
                     <div class="card-body bg-light border-light">
                         <p>${post.description}</p>
                     </div>
-                    <div class="card-footer pt-3 px-0 bg-light border-light">
+                    <div class="card-footer pt-3 px-0 bg-light border-light" style="font-size: smaller">
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row">
                                 &emsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
-                                <p th:text="작성자"></p>
+                                <p>${post.writer}</p>
                             </div>
                             <div class="d-flex flex-row">
                                 <span class="d-flex flex-row">

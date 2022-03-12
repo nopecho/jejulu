@@ -49,6 +49,7 @@ public class PostDto {
         private String imagePath;
         private Category category;
         private LocalDate createDate;
+        private String writer;
 
         public Detail(Post post,String imagePath){
             this.id=post.getId();
@@ -59,6 +60,7 @@ public class PostDto {
             this.imagePath = imagePath;
             this.category = post.getCategory();
             this.createDate = post.getCreateDate().toLocalDate();
+            this.writer = post.getHost().getName();
         }
     }
 
@@ -70,6 +72,7 @@ public class PostDto {
         private int count;
         private Category category;
         private String imagePath;
+        private String writer;
 
         public Info(Post post,String imagePath){
             this.id = post.getId();
@@ -78,6 +81,7 @@ public class PostDto {
             this.count=post.getCount();
             this.category = post.getCategory();
             this.imagePath = imagePath;
+            this.writer = post.getHost().getName();
         }
     }
 

@@ -17,7 +17,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,37 +30,6 @@ public class PostServiceImpl implements PostService{
     private final PostRepository postRepository;
     private final HostRepository hostRepository;
     private final ThumbnailService thumbnailService;
-
-    @PostConstruct
-    public void initPost(){
-        for(int i = 0; i<1000; i++){
-            postRepository.save( Post.builder()
-                    .title("TITLE tours"+i)
-                    .description("description!!")
-                    .thumbnail(null)
-                    .content("testContent")
-                    .category(Category.TOUR)
-                    .build());
-        }
-        for(int i = 0; i<1000; i++){
-            postRepository.save( Post.builder()
-                    .title("TITLE resturent"+i)
-                    .description("description!!")
-                    .thumbnail(null)
-                    .content("testContent")
-                    .category(Category.RESTURENT)
-                    .build());
-        }
-        for(int i = 0; i<1000; i++){
-            postRepository.save( Post.builder()
-                    .title("TITLE hotel"+i)
-                    .description("description!!")
-                    .thumbnail(null)
-                    .content("testContent")
-                    .category(Category.HOTEL)
-                    .build());
-        }
-    }
 
     @Transactional
     @Override

@@ -64,6 +64,12 @@ public class PostController {
         return "jejulu/posts/post";
     }
 
+    /**
+     * 카테고리별 게시물 목록 조회 핸들러
+     * @param category
+     * @param model
+     * @param pageable
+     */
     @GetMapping("/categorys/{category}")
     public String postsByCategory(@PathVariable Category category, Model model,
                                   @PageableDefault(size = 12, sort = "createDate", direction = Sort.Direction.DESC)Pageable pageable){
@@ -73,6 +79,11 @@ public class PostController {
         return "jejulu/posts/posts";
     }
 
+    /**
+     * 카테고리별 게시물 목록 추가 조회 핸들러
+     * @param category
+     * @param pageable
+     */
     @ResponseBody
     @GetMapping("/{category}/load")
     public Slice<PostDto.Info> loadPosts(@PathVariable Category category,
@@ -80,6 +91,11 @@ public class PostController {
         return postService.getPostsByCategory(category,pageable);
     }
 
+    /**
+     * 호스트가 작성한 게시물 목록 리다이렉트 핸들러
+     * @param loginHost
+     * @param redirectAttributes
+     */
     @GetMapping("/host/info")
     public String lookupHostInfo(@SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
                                  RedirectAttributes redirectAttributes){
@@ -87,6 +103,11 @@ public class PostController {
         return "redirect:/posts/host/{hostId}";
     }
 
+    /**
+     * 호스트가 작성한 게시물 목록 조회 핸들러
+     * @param hostId
+     * @param loginHost
+     */
     @ResponseBody
     @GetMapping("/host/{hostId}")
     public List<PostDto.Info> testApi(@PathVariable Long hostId,
@@ -96,4 +117,6 @@ public class PostController {
         }
         return postService.getPostsByHost(hostId);
     }
+
+
 }
