@@ -71,16 +71,16 @@ public class PostServiceImpl implements PostService{
     @Transactional
     @Override
     public PostDto.Detail getPostById(Long postId) {
-        Post findPost = postRepository.findById(postId).orElse(null);
-        if(findPost == null){
+        Post post = postRepository.findById(postId).orElse(null);
+        if(post == null){
             throw new CustomException(ErrorCode.POST_NOT_FOUND);
         }
-        findPost.countPlus();
+        post.countPlus();
         String imagePath = "";
-        if( findPost.getThumbnail() != null){
-            imagePath = findPost.getThumbnail().getPath();
+        if( post.getThumbnail() != null){
+            imagePath = post.getThumbnail().getPath();
         }
-        return new PostDto.Detail(findPost,imagePath);
+        return new PostDto.Detail(post,imagePath,post.getHost());
     }
 
     private Sort sortByCreateDate(){
