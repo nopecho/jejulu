@@ -11,12 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter @Setter
 public class PostDto {
-    private Long id;
-    private String title;
-    private String content;
-    private Category category;
 
     @Getter @Setter
     public static class Save{

@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 
 public class HostDto {
 
-
     @Getter @Setter
     public static class Info{
         private Long id;
