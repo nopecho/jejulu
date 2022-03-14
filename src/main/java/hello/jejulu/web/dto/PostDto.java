@@ -40,6 +40,7 @@ public class PostDto {
         private Category category;
         private MultipartFile file;
         private String description;
+        private String content;
     }
 
     @Getter @Setter

@@ -136,8 +136,8 @@ public class PostController {
 
     @PatchMapping("/{postId}")
     public String updatePost(@PathVariable Long postId,
-                             @ModelAttribute PostDto.Update postUpdateDto){
-        log.info(postUpdateDto.getFile().getName());
+                             @ModelAttribute PostDto.Update postUpdateDto) throws IOException {
+        postService.edit(postId, postUpdateDto);
         return "redirect:/posts/{postId}";
     }
 }

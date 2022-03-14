@@ -38,7 +38,7 @@ public class PostServiceImpl implements PostService{
         Host writerHost = hostRepository.getById(loginHost.getId());
         Thumbnail thumbnail = thumbnailService.create(postSaveDto.getFile());
         Post savePost = postRepository.save(postSaveDto.toEntity(thumbnail, writerHost));
-        if(thumbnail == null){
+        if (thumbnail == null){
             return new PostDto.Info(savePost,"");
         }
         return new PostDto.Info(savePost,thumbnail.getPath());
@@ -46,9 +46,14 @@ public class PostServiceImpl implements PostService{
 
     @Transactional
     @Override
-    public void edit(Long postId ,PostDto.Update postUpdateDto) {
+    public void edit(Long postId ,PostDto.Update postUpdateDto) throws IOException {
         Post post = getPostByNullCheck(postRepository.findById(postId));
-
+        Thumbnail thumbnail = thumbnailService.update(postUpdateDto.getFile(), post.getThumbnail());
+        post.updateInfo(postUpdateDto.getTitle(),
+                postUpdateDto.getDescription(),
+                postUpdateDto.getCategory(),
+                postUpdateDto.getContent(),
+                thumbnail);
     }
 
     @Override

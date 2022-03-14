@@ -53,4 +53,12 @@ public class Post extends BaseTimeEntity {
     public void countPlus(){
         this.count++;
     }
+
+    public void updateInfo(String title, String description, Category category, String content, Thumbnail thumbnail){
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.content = content;
+        this.thumbnail = thumbnail;
+    }
 }

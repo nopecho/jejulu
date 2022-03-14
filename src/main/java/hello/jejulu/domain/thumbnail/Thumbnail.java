@@ -24,4 +24,9 @@ public class Thumbnail extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String originName;
+
+    public void updateInfo(String path, String originName){
+        this.path = path;
+        this.originName = originName;
+    }
 }
