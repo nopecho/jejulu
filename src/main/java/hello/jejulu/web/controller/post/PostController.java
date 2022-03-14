@@ -134,6 +134,11 @@ public class PostController {
         return "jejulu/posts/post-update-form";
     }
 
+    /**
+     * 게시물 수정 핸들러
+     * @param postId
+     * @param postUpdateDto
+     */
     @PatchMapping("/{postId}")
     public String updatePost(@PathVariable Long postId,
                              @ModelAttribute PostDto.Update postUpdateDto) throws IOException {
