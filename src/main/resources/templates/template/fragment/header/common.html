@@ -8,8 +8,19 @@
         <div class="col-lg-3 col-sm-6 text-center">
             <button class="btn text-secondary" type="button" onclick="location.href='#'">MAP</button>
         </div>
-        <div class="col-lg-3 col-sm-6 text-center">
-            <button class="btn text-secondary" type="button" onclick="location.href='#'">CATEGORY</button>
+        <div class="col-lg-3 col-sm-6 text-center dropdown">
+            <button class="btn text-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">CATEGORY</button>
+            <ul class="dropdown-menu bg-light">
+                <a class="dropdown-item" th:href="@{/posts/categorys/1}">
+                    <span class="bi bi-flower1">&nbsp;&nbsp;여행</span>
+                </a>
+                <a class="dropdown-item" th:href="@{/posts/categorys/2}">
+                    <span class="bi bi-flower2">&nbsp;&nbsp;음식</span>
+                </a>
+                <a class="dropdown-item" th:href="@{/posts/categorys/3}">
+                    <span class="bi bi-flower3">&nbsp;&nbsp;숙박</span>
+                </a>
+            </ul>
         </div>
         <div class="col-lg-3 col-sm-6 text-center">
             <button class="btn text-secondary" type="button" onclick="location.href='#'">CONTACT US</button>

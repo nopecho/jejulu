@@ -1,7 +1,8 @@
 package hello.jejulu.domain.member;
 
-import hello.jejulu.domain.BaseTimeEntity;
-import hello.jejulu.domain.Role;
+import hello.jejulu.domain.converter.RoleConverter;
+import hello.jejulu.domain.util.BaseTimeEntity;
+import hello.jejulu.domain.util.Role;
 import hello.jejulu.domain.booking.Booking;
 import lombok.*;
 
@@ -34,6 +35,7 @@ public class Member extends BaseTimeEntity {
     @Column(length = 50)
     private String email;
 
+    @Convert(converter = RoleConverter.class)
     @Column(nullable = false, length = 1)
     private Role role;
 

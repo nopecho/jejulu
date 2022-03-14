@@ -1,6 +1,6 @@
 package hello.jejulu.domain.booking;
 
-import hello.jejulu.domain.BaseTimeEntity;
+import hello.jejulu.domain.util.BaseTimeEntity;
 import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.post.Post;
 import lombok.*;

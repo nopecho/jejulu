@@ -1,25 +1,25 @@
 package hello.jejulu.web.controller;
 
+import hello.jejulu.domain.util.Category;
+import hello.jejulu.service.post.PostService;
+import hello.jejulu.web.dto.PostDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @Slf4j
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
-    public String home(){
-        return "jejulu/home";
-    }
+    private final PostService postService;
 
-    @GetMapping("/sign-up")
-    public String signUpSelect(){
-        return "jejulu/sign/sign-select";
+    @GetMapping("/")
+    public String home(@ModelAttribute PostDto.Home homePosts){
+        homePosts.setPostsByTour(postService.getHomePostsByCategory(Category.TOUR));
+        homePosts.setPostsByResturent(postService.getHomePostsByCategory(Category.RESTURENT));
+        homePosts.setPostsByHotel(postService.getHomePostsByCategory(Category.HOTEL));
+        return "jejulu/home";
     }
 }

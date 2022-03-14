@@ -1,7 +1,8 @@
 package hello.jejulu.domain.admin;
 
-import hello.jejulu.domain.BaseTimeEntity;
-import hello.jejulu.domain.Role;
+import hello.jejulu.domain.converter.RoleConverter;
+import hello.jejulu.domain.util.BaseTimeEntity;
+import hello.jejulu.domain.util.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Admin extends BaseTimeEntity {
     @Column(nullable = false)
     private String password;
 
+    @Convert(converter = RoleConverter.class)
     @Column(nullable = false, length = 1)
     private Role role;
 }

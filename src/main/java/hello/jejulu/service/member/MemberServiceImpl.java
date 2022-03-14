@@ -3,6 +3,8 @@ package hello.jejulu.service.member;
 import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.member.MemberRepository;
 import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.exception.CustomException;
+import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class MemberServiceImpl implements MemberService{
 
@@ -22,16 +24,16 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional
     @Override
-    public MemberDto.Save add(MemberDto.Save memberSaveDto) {
-        memberRepository.save(memberSaveDto.toEntity(passwordEncoder));
-        return memberSaveDto;
+    public MemberDto.Info add(MemberDto.Save memberSaveDto) {
+        Member saveMember = memberRepository.save(memberSaveDto.toEntity(passwordEncoder));
+        return new MemberDto.Info(saveMember);
     }
 
     @Transactional
     @Override
     public MemberDto.Info edit(Long memberId,MemberDto.Update memberUpdateDto) {
         Optional<Member> findMember = memberRepository.findById(memberId);
-        Member member = findMember.orElse(null);
+        Member member = memberNullCheck(findMember);
         member.updateInfo(memberUpdateDto.getName(),memberUpdateDto.getPhone(),memberUpdateDto.getEmail());
         return new MemberDto.Info(member);
     }
@@ -39,27 +41,22 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     @Override
     public boolean remove(Long memberId) {
-        Member findMember = memberRepository.findById(memberId).orElse(null);
-        if(findMember != null){
-            memberRepository.deleteById(memberId);
-            return true;
-        }
-        return false;
+        Member member = memberNullCheck(memberRepository.findById(memberId));
+        memberRepository.deleteById(member.getId());
+        return true;
     }
 
     @Override
     public boolean isDuplicateId(String checkedId){
         Member findMember = memberRepository.findByLoginId(checkedId).orElse(null);
-        if(findMember == null){
-            return false;
-        }
-        return true;
+        return findMember != null;
     }
 
     @Override
-    public MemberDto lookupMember(Long memberId) {
-        Member findMember = memberRepository.findById(memberId).orElse(null);
-        return new MemberDto(findMember);
+    public MemberDto.Detail getMemberById(Long memberId) {
+        Optional<Member> findMember = memberRepository.findById(memberId);
+        Member member = memberNullCheck(findMember);
+        return new MemberDto.Detail(member);
     }
 
     @Override
@@ -68,5 +65,13 @@ public class MemberServiceImpl implements MemberService{
                 .stream()
                 .map(MemberDto::new)
                 .collect(Collectors.toList());
+    }
+
+    private Member memberNullCheck(Optional<Member> findMember){
+        Member member = findMember.orElse(null);
+        if(member == null){
+            throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
+        }
+        return member;
     }
 }
