@@ -1,7 +1,8 @@
 package hello.jejulu.domain.host;
 
-import hello.jejulu.domain.BaseTimeEntity;
-import hello.jejulu.domain.Role;
+import hello.jejulu.domain.converter.RoleConverter;
+import hello.jejulu.domain.util.BaseTimeEntity;
+import hello.jejulu.domain.util.Role;
 import hello.jejulu.domain.post.Post;
 import lombok.*;
 
@@ -37,9 +38,17 @@ public class Host extends BaseTimeEntity {
     @Column(nullable = false)
     private String addr;
 
+    @Convert(converter = RoleConverter.class)
     @Column(nullable = false, length = 1)
     private Role role;
 
-    @OneToMany(mappedBy = "host")
+    @OneToMany(mappedBy = "host", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
+
+    public void updateInfo(String name, String phone, String addr, String email) {
+        this.name = name;
+        this.phone = phone;
+        this.addr = addr;
+        this.email = email;
+    }
 }

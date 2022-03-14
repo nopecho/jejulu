@@ -1,6 +1,6 @@
 package hello.jejulu.domain.thumbnail;
 
-import hello.jejulu.domain.BaseTimeEntity;
+import hello.jejulu.domain.util.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Getter

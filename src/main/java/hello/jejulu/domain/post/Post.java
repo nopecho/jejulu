@@ -1,9 +1,11 @@
 package hello.jejulu.domain.post;
 
-import hello.jejulu.domain.BaseTimeEntity;
+import hello.jejulu.domain.converter.CategoryConverter;
+import hello.jejulu.domain.util.BaseTimeEntity;
 import hello.jejulu.domain.booking.Booking;
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.thumbnail.Thumbnail;
+import hello.jejulu.domain.util.Category;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,10 +29,17 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column
+    private String description;
+
+    @Column(nullable = false)
+    private int count;
+
+    @Convert(converter = CategoryConverter.class)
     @Column(nullable = false, length = 1)
     private Category category;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "thumnailId")
     private Thumbnail thumbnail;
 
@@ -40,4 +49,8 @@ public class Post extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "post")
     private List<Booking> bookings = new ArrayList<>();
+
+    public void countPlus(){
+        this.count++;
+    }
 }

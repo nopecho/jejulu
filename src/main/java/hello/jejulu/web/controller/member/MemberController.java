@@ -3,6 +3,8 @@ package hello.jejulu.web.controller.member;
 import hello.jejulu.service.member.MemberService;
 import hello.jejulu.web.consts.SessionConst;
 import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.exception.CustomException;
+import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -42,17 +44,12 @@ public class MemberController {
 
     /**
      * 회원 정보 조회 핸들러
-     * @param lookupInfo : @RequestParam 값으로 member요청인지 확인
      * @param loginMember : @SessionAttribute(name)으로 해당 요청 클라이언트의 세션을 name으로 조회, 로그인 된 회원정보DTO 반환
      * @param redirectAttributes : redirect시 redirect값을 설정해서 return
      */
     @GetMapping("/info")
-    public String lookupMemberInfo(@RequestParam(name = "v") String lookupInfo,
-                                   @SessionAttribute(name = SessionConst.MEMBER) MemberDto.Info loginMember,
+    public String lookupMemberInfo(@SessionAttribute(name = SessionConst.MEMBER) MemberDto.Info loginMember,
                                    RedirectAttributes redirectAttributes){
-        if(!lookupInfo.equals("member") || loginMember == null){
-            return null;
-        }
         redirectAttributes.addAttribute("memberId",loginMember.getId());
         return "redirect:/members/{memberId}";
     }
@@ -63,13 +60,15 @@ public class MemberController {
      * @param bindingResult : 유효성 검증 실패 시 해당 객체에 오류를 담음
      */
     @PostMapping
-    public String memberSave(@ModelAttribute @Validated MemberDto.Save memberSaveDto, BindingResult bindingResult){
+    public String memberSave(@ModelAttribute @Validated MemberDto.Save memberSaveDto,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
-            log.info(bindingResult.getFieldErrors().get(0).getDefaultMessage());
             return "jejulu/sign/sign-up-member-form";
         }
-        memberService.add(memberSaveDto);
-        return "jejulu/success/success-sign-up";
+        MemberDto.Info saveMember = memberService.add(memberSaveDto);
+        redirectAttributes.addAttribute("name",saveMember.getName());
+        return "redirect:/success/sign-up";
     }
 
     /**
@@ -82,17 +81,11 @@ public class MemberController {
     public String memberInfo(@PathVariable Long memberId,
                              @SessionAttribute(name = SessionConst.MEMBER) MemberDto.Info loginMember,
                              Model model){
-        if(loginMember == null || loginMember.getId() != memberId){
-            return null;
+        if(!loginMember.getId().equals(memberId)){
+            throw new CustomException(ErrorCode.INVALID_AUTH);
         }
-
-        MemberDto lookupMember = memberService.lookupMember(memberId);
-        if(lookupMember == null){
-            return null;
-        }
-
-        model.addAttribute("update",lookupMember);
-
+        MemberDto.Detail lookupMember = memberService.getMemberById(memberId);
+        model.addAttribute("detail",lookupMember);
         return "jejulu/members/member";
     }
 
@@ -103,8 +96,9 @@ public class MemberController {
      */
     @GetMapping("/{memberId}/edit")
     public String memberUpdateForm(@PathVariable Long memberId, Model model){
-        MemberDto lookupMember = memberService.lookupMember(memberId);
+        MemberDto.Detail lookupMember = memberService.getMemberById(memberId);
         model.addAttribute("update",lookupMember);
+        model.addAttribute("id",memberId);
         return "jejulu/members/member-update-form";
     }
 
@@ -118,8 +112,10 @@ public class MemberController {
     public String updateMember(@PathVariable Long memberId,
                                @ModelAttribute @Validated MemberDto.Update memberUpdateDto,
                                BindingResult bindingResult,
+                               Model model,
                                HttpSession session){
         if(bindingResult.hasErrors()){
+            model.addAttribute("id",memberId);
             return "jejulu/members/member-update-form";
         }
         MemberDto.Info updateMember = memberService.edit(memberId, memberUpdateDto);
@@ -135,7 +131,7 @@ public class MemberController {
     @DeleteMapping("/{memberId}")
     public String deleteMember(@PathVariable Long memberId, HttpSession session){
         if(!memberService.remove(memberId)){
-            return null;
+            throw new CustomException(ErrorCode.MEMBER_REMOVE_FAIL);
         }
         session.invalidate();
         return "redirect:/";

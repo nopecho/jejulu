@@ -38,7 +38,9 @@
                     <h3>Please check your posting on Homepage</h3>
                     <p class="lead"></p>
                     <br />
-                    <button class="btn btn-secondary btn-lg" type="button">Done</button>
+                    <button class="btn btn-secondary btn-lg" type="button">목록으로</button>
+                    <button class="btn btn-secondary btn-lg" type="button"
+                            th:onclick="|location.href='@{/posts/{postId}(postId=${id})}'|">게시물 보기</button>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 package hello.jejulu.domain.contact;
 
-import hello.jejulu.domain.BaseTimeEntity;
-import hello.jejulu.domain.Role;
+import hello.jejulu.domain.util.BaseTimeEntity;
+import hello.jejulu.domain.util.Role;
 import lombok.*;
 
 import javax.persistence.*;

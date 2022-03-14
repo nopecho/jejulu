@@ -40,16 +40,19 @@ public class AdminController {
 
     @GetMapping("/management/hosts")
     public String managementHosts(Model model){
+        model.addAttribute("hosts",null);
         return "jejulu/admin/management-hosts";
     }
 
     @GetMapping("/management/posts")
     public String managementPosts(Model model){
+        model.addAttribute("posts",null);
         return "jejulu/admin/management-posts";
     }
 
     @GetMapping("/management/contacts")
     public String managementContacts(Model model){
+        model.addAttribute("contacts",null);
         return "jejulu/admin/management-contact";
     }
 }
