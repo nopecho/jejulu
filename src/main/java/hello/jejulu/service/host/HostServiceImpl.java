@@ -31,7 +31,7 @@ public class HostServiceImpl implements HostService{
     @Override
     public HostDto.Info edit(Long hostId, HostDto.Update updateDto) {
         Optional<Host> findHost = hostRepository.findById(hostId);
-        Host host = hostNullCheck(findHost);
+        Host host = getHostByNullCheck(findHost);
         host.updateInfo(updateDto.getName(), updateDto.getPhone(), updateDto.getAddr(), updateDto.getEmail());
         return new HostDto.Info(host);
     }
@@ -39,7 +39,7 @@ public class HostServiceImpl implements HostService{
     @Transactional
     @Override
     public boolean remove(Long hostId) {
-        Host host = hostNullCheck(hostRepository.findById(hostId));
+        Host host = getHostByNullCheck(hostRepository.findById(hostId));
         hostRepository.deleteById(host.getId());
         return true;
     }
@@ -53,11 +53,11 @@ public class HostServiceImpl implements HostService{
     @Override
     public HostDto.Detail getHostById(Long hostId) {
         Optional<Host> findHost = hostRepository.findById(hostId);
-        Host host = hostNullCheck(findHost);
+        Host host = getHostByNullCheck(findHost);
         return new HostDto.Detail(host);
     }
 
-    private Host hostNullCheck(Optional<Host> findHost){
+    private Host getHostByNullCheck(Optional<Host> findHost){
         Host host = findHost.orElse(null);
         if(host == null){
             throw new CustomException(ErrorCode.HOST_NOT_FOUND);

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -35,12 +36,19 @@ public class PostServiceImpl implements PostService{
     @Override
     public PostDto.Info add(PostDto.Save postSaveDto, HostDto.Info loginHost) throws IOException {
         Host writerHost = hostRepository.getById(loginHost.getId());
-        Thumbnail thumbnail = thumbnailService.add(postSaveDto.getFile());
+        Thumbnail thumbnail = thumbnailService.create(postSaveDto.getFile());
         Post savePost = postRepository.save(postSaveDto.toEntity(thumbnail, writerHost));
         if(thumbnail == null){
             return new PostDto.Info(savePost,"");
         }
         return new PostDto.Info(savePost,thumbnail.getPath());
+    }
+
+    @Transactional
+    @Override
+    public void edit(Long postId ,PostDto.Update postUpdateDto) {
+        Post post = getPostByNullCheck(postRepository.findById(postId));
+
     }
 
     @Override
@@ -71,10 +79,7 @@ public class PostServiceImpl implements PostService{
     @Transactional
     @Override
     public PostDto.Detail getPostById(Long postId) {
-        Post post = postRepository.findById(postId).orElse(null);
-        if(post == null){
-            throw new CustomException(ErrorCode.POST_NOT_FOUND);
-        }
+        Post post = getPostByNullCheck(postRepository.findById(postId));
         post.countPlus();
         String imagePath = "";
         if( post.getThumbnail() != null){
@@ -85,12 +90,20 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public boolean isPostByHost(Long postId, HostDto.Info loginHost) {
-        Post post = postRepository.findById(postId).orElse(null);
+        Post post = getPostByNullCheck(postRepository.findById(postId));
         Host host = post.getHost();
         return host.getId().equals(loginHost.getId());
     }
 
     private Sort sortByCreateDate(){
         return Sort.by(Sort.Direction.DESC,"createDate");
+    }
+
+    private Post getPostByNullCheck(Optional<Post> findPost){
+        Post post = findPost.orElse(null);
+        if(post == null){
+            throw new CustomException(ErrorCode.POST_NOT_FOUND);
+        }
+        return post;
     }
 }

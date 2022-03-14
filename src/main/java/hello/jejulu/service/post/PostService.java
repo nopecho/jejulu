@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface PostService {
     PostDto.Info add(PostDto.Save postSaveDto, HostDto.Info loginHost) throws IOException;
+    void edit(Long postId, PostDto.Update postUpdateDto);
     PostDto.Detail getPostById(Long postId);
     List<PostDto.Info> getHomePostsByCategory(Category category);
     Slice<PostDto.Info> getPostsByCategory(Category category, Pageable pageable);

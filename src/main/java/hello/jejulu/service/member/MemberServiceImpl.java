@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberDto.Info edit(Long memberId,MemberDto.Update memberUpdateDto) {
         Optional<Member> findMember = memberRepository.findById(memberId);
-        Member member = memberNullCheck(findMember);
+        Member member = getMemberByNullCheck(findMember);
         member.updateInfo(memberUpdateDto.getName(),memberUpdateDto.getPhone(),memberUpdateDto.getEmail());
         return new MemberDto.Info(member);
     }
@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     @Override
     public boolean remove(Long memberId) {
-        Member member = memberNullCheck(memberRepository.findById(memberId));
+        Member member = getMemberByNullCheck(memberRepository.findById(memberId));
         memberRepository.deleteById(member.getId());
         return true;
     }
@@ -55,7 +55,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberDto.Detail getMemberById(Long memberId) {
         Optional<Member> findMember = memberRepository.findById(memberId);
-        Member member = memberNullCheck(findMember);
+        Member member = getMemberByNullCheck(findMember);
         return new MemberDto.Detail(member);
     }
 
@@ -67,7 +67,7 @@ public class MemberServiceImpl implements MemberService{
                 .collect(Collectors.toList());
     }
 
-    private Member memberNullCheck(Optional<Member> findMember){
+    private Member getMemberByNullCheck(Optional<Member> findMember){
         Member member = findMember.orElse(null);
         if(member == null){
             throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);

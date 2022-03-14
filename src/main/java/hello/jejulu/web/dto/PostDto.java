@@ -35,6 +35,14 @@ public class PostDto {
     }
 
     @Getter @Setter
+    public static class Update{
+        private String title;
+        private Category category;
+        private MultipartFile file;
+        private String description;
+    }
+
+    @Getter @Setter
     public static class Detail{
         private Long id;
         private String title;

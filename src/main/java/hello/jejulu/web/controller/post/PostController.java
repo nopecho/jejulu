@@ -135,7 +135,9 @@ public class PostController {
     }
 
     @PatchMapping("/{postId}")
-    public String updatePost(@PathVariable Long postId){
+    public String updatePost(@PathVariable Long postId,
+                             @ModelAttribute PostDto.Update postUpdateDto){
+        log.info(postUpdateDto.getFile().getName());
         return "redirect:/posts/{postId}";
     }
 }

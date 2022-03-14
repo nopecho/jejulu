@@ -17,7 +17,7 @@ public class ThumbnailService {
     private final ThumbnailRepository thumbnailRepository;
     private final FirebaseService firebaseService;
 
-    public Thumbnail add(MultipartFile imageFile) throws IOException {
+    public Thumbnail create(MultipartFile imageFile) throws IOException {
         if(imageFile.isEmpty()){
             return null;
         }
@@ -25,6 +25,13 @@ public class ThumbnailService {
         String thumbnailId = createThumbnailId(originalFilename);
         String imagePath = firebaseService.uploadImage(imageFile, thumbnailId);
         return thumbnailRepository.save(new Thumbnail(thumbnailId, imagePath, originalFilename));
+    }
+
+    public Thumbnail update(MultipartFile imageFile) throws IOException {
+        if(imageFile.isEmpty()){
+            return null;
+        }
+        return null;
     }
 
     private String createThumbnailId(String originFileName){
