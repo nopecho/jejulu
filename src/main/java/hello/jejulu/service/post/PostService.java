@@ -17,5 +17,6 @@ public interface PostService {
     List<PostDto.Info> getHomePostsByCategory(Category category);
     Slice<PostDto.Info> getPostsByCategory(Category category, Pageable pageable);
     List<PostDto.Info> getPostsByHost(Long hostId);
+    void delete(Long postId);
     boolean isPostByHost(Long postId, HostDto.Info loginHost);
 }

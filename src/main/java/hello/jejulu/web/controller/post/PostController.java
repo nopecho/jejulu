@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -144,5 +145,15 @@ public class PostController {
                              @ModelAttribute PostDto.Update postUpdateDto) throws IOException {
         postService.edit(postId, postUpdateDto);
         return "redirect:/posts/{postId}";
+    }
+
+    /**
+     * 게시물 삭제 핸들러
+     * @param postId
+     */
+    @DeleteMapping("/{postId}")
+    public String deletePost(@PathVariable Long postId) {
+        postService.delete(postId);
+        return "redirect:/posts/categorys/1";
     }
 }

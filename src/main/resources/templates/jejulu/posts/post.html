@@ -58,8 +58,8 @@
                             <p th:text="*{createDate}" class="text-secondary">작성일</p>
                             <th:block th:if="${session.loginHost != null}">
                                 <th:block th:if="${session.loginHost.id} == *{hostId}">
-                                    &emsp;<a th:href="@{/posts/{postId}/edit(postId=*{id})}" class="text-secondary">수정</a>&nbsp;&nbsp;
-                                    <a href="#" class="text-secondary">삭제</a>
+                                    &emsp;<a th:href="@{/posts/{postId}/edit(postId=*{id})}" class="text-success">수정</a>&nbsp;&nbsp;
+                                    <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#delete">삭제</a>
                                 </th:block>
                             </th:block>
                         </div>
@@ -77,13 +77,13 @@
                     <div class="col-12 mb-5 text-center">
                         <h4>HOST INFO 🌏</h4>
                         <hr>
-                        <span class="d-flex flex-row justify-content-center">📞 CALL :
+                        <span class="d-flex flex-row justify-content-center">📞 CALL |&nbsp;
                             <p th:text="*{hostPhone}">전화번호</p>
                         </span>
-                        <span class="d-flex flex-row justify-content-center">📧 EMAIL :
+                        <span class="d-flex flex-row justify-content-center">📧 EMAIL |&nbsp;
                             <p th:text="*{hostEmail}">이메일</p>
                         </span>
-                        <span class="d-flex flex-row justify-content-center">📍 ADDR :
+                        <span class="d-flex flex-row justify-content-center">📍 ADDR |&nbsp;
                             <p id="addr" th:text="*{hostAddr}">대구광역시 중구 남산동 290</p>
                         </span>
                         <div class="my-2 mb-5" id="map" style="width:250px;height:250px;border-radius: 50%;margin: 0 auto"></div>
@@ -99,6 +99,39 @@
                     <button class="btn btn-primary btn-lg" type="button">Book Now</button>
                 </div>
             </div>
+
+            <!-- 회원삭제 -->
+            <form th:action="@{/posts/{postId}(postId=*{id})}" method="post" id="delete-form">
+                <input type="hidden" name="_method" value="DELETE" />
+            </form>
+            <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <h4 class="modal-title" id="test"></h4>
+                        <div class="modal-body text-center pb-5">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-12">
+                                        <h2 class="text-danger text-uppercase mb-0"><i class="bi bi-exclamation-triangle"></i> DELETE
+                                            CHECK</h2>
+                                        <p class="my-4">해당 게시물을 삭제 할까요?</p>
+                                    </div>
+                                    <button class="btn btn-danger col-4 mx-3" data-bs-dismiss="modal" onclick="deleteSubmit()">
+                                        <i class="bi bi-exclamation-triangle"></i> DELETE
+                                    </button>
+                                    <button class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
+                                        CLOSE
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -132,5 +165,12 @@
             }
         });
     });
+
+    //delete form submit check
+    function deleteSubmit() {
+        const deleteForm = document.getElementById('delete-form')
+        deleteForm.submit()
+        console.log("삭제해!")
+    }
 </script>
 </html>

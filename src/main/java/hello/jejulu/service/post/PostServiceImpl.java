@@ -83,6 +83,13 @@ public class PostServiceImpl implements PostService {
 
     @Transactional
     @Override
+    public void delete(Long postId) {
+        Post post = getPostByNullCheck(postRepository.findById(postId));
+        postRepository.delete(post);
+    }
+
+    @Transactional
+    @Override
     public PostDto.Detail getPostById(Long postId) {
         Post post = getPostByNullCheck(postRepository.findById(postId));
         post.countPlus();
