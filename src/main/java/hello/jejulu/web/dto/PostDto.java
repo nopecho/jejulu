@@ -53,6 +53,7 @@ public class PostDto {
         private String imagePath;
         private Category category;
         private LocalDate createDate;
+        private Long hostId;
         private String hostName;
         private String hostPhone;
         private String hostEmail;
@@ -67,6 +68,7 @@ public class PostDto {
             this.imagePath = imagePath;
             this.category = post.getCategory();
             this.createDate = post.getCreateDate().toLocalDate();
+            this.hostId = host.getId();
             this.hostName = host.getName();
             this.hostPhone = host.getPhone();
             this.hostEmail = host.getEmail();

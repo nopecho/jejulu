@@ -13,6 +13,7 @@ public interface PostService {
     PostDto.Info add(PostDto.Save postSaveDto, HostDto.Info loginHost) throws IOException;
     void edit(Long postId, PostDto.Update postUpdateDto) throws IOException;
     PostDto.Detail getPostById(Long postId);
+    PostDto.Detail getUpdatePostById(Long postId);
     List<PostDto.Info> getHomePostsByCategory(Category category);
     Slice<PostDto.Info> getPostsByCategory(Category category, Pageable pageable);
     List<PostDto.Info> getPostsByHost(Long hostId);

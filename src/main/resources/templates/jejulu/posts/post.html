@@ -56,6 +56,12 @@
                                 <p th:text="*{count}">조회수</p>
                             </span>&emsp;&emsp;
                             <p th:text="*{createDate}" class="text-secondary">작성일</p>
+                            <th:block th:if="${session.loginHost != null}">
+                                <th:block th:if="${session.loginHost.id} == *{hostId}">
+                                    &emsp;<a th:href="@{/posts/{postId}/edit(postId=*{id})}" class="text-secondary">수정</a>&nbsp;&nbsp;
+                                    <a href="#" class="text-secondary">삭제</a>
+                                </th:block>
+                            </th:block>
                         </div>
                     </div>
                     <hr class="mt-0">

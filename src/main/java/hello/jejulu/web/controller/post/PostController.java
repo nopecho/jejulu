@@ -129,7 +129,7 @@ public class PostController {
         if(!postService.isPostByHost(postId,loginHost)){
             throw new CustomException(ErrorCode.INVALID_AUTH);
         }
-        PostDto.Detail post = postService.getPostById(postId);
+        PostDto.Detail post = postService.getUpdatePostById(postId);
         model.addAttribute("update",post);
         return "jejulu/posts/post-update-form";
     }

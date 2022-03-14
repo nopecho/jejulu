@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Transactional(readOnly = true)
 @Service
-public class PostServiceImpl implements PostService{
+public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final HostRepository hostRepository;
@@ -38,15 +38,15 @@ public class PostServiceImpl implements PostService{
         Host writerHost = hostRepository.getById(loginHost.getId());
         Thumbnail thumbnail = thumbnailService.create(postSaveDto.getFile());
         Post savePost = postRepository.save(postSaveDto.toEntity(thumbnail, writerHost));
-        if (thumbnail == null){
-            return new PostDto.Info(savePost,"");
+        if (thumbnail == null) {
+            return new PostDto.Info(savePost, "");
         }
-        return new PostDto.Info(savePost,thumbnail.getPath());
+        return new PostDto.Info(savePost, thumbnail.getPath());
     }
 
     @Transactional
     @Override
-    public void edit(Long postId ,PostDto.Update postUpdateDto) throws IOException {
+    public void edit(Long postId, PostDto.Update postUpdateDto) throws IOException {
         Post post = getPostByNullCheck(postRepository.findById(postId));
         Thumbnail thumbnail = thumbnailService.update(postUpdateDto.getFile(), post.getThumbnail());
         post.updateInfo(postUpdateDto.getTitle(),
@@ -60,14 +60,14 @@ public class PostServiceImpl implements PostService{
     public List<PostDto.Info> getHomePostsByCategory(Category category) {
         List<Post> homePosts = postRepository.findTop4ByCategory(category, sortByCreateDate());
         return homePosts.stream()
-                .map(post -> post.getThumbnail() == null ? new PostDto.Info(post,"") : new PostDto.Info(post, post.getThumbnail().getPath()))
+                .map(post -> post.getThumbnail() == null ? new PostDto.Info(post, "") : new PostDto.Info(post, post.getThumbnail().getPath()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Slice<PostDto.Info> getPostsByCategory(Category category, Pageable pageable) {
         Slice<Post> findPosts = postRepository.findAllByCategory(category, pageable);
-        return findPosts.map(post -> post.getThumbnail() == null ? new PostDto.Info(post,"") : new PostDto.Info(post,post.getThumbnail().getPath()));
+        return findPosts.map(post -> post.getThumbnail() == null ? new PostDto.Info(post, "") : new PostDto.Info(post, post.getThumbnail().getPath()));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class PostServiceImpl implements PostService{
             throw new CustomException(ErrorCode.HOST_NOT_FOUND);
         }
         return host.getPosts().stream()
-                .map(post -> post.getThumbnail() == null ? new PostDto.Info(post,"") : new PostDto.Info(post, post.getThumbnail().getPath()))
+                .map(post -> post.getThumbnail() == null ? new PostDto.Info(post, "") : new PostDto.Info(post, post.getThumbnail().getPath()))
                 .collect(Collectors.toList());
     }
 
@@ -86,11 +86,15 @@ public class PostServiceImpl implements PostService{
     public PostDto.Detail getPostById(Long postId) {
         Post post = getPostByNullCheck(postRepository.findById(postId));
         post.countPlus();
-        String imagePath = "";
-        if( post.getThumbnail() != null){
-            imagePath = post.getThumbnail().getPath();
-        }
-        return new PostDto.Detail(post,imagePath,post.getHost());
+        String imagePath = extractPath(post.getThumbnail());
+        return new PostDto.Detail(post, imagePath, post.getHost());
+    }
+
+    @Override
+    public PostDto.Detail getUpdatePostById(Long postId) {
+        Post post = getPostByNullCheck(postRepository.findById(postId));
+        String imagePath = extractPath(post.getThumbnail());
+        return new PostDto.Detail(post, imagePath, post.getHost());
     }
 
     @Override
@@ -100,15 +104,23 @@ public class PostServiceImpl implements PostService{
         return host.getId().equals(loginHost.getId());
     }
 
-    private Sort sortByCreateDate(){
-        return Sort.by(Sort.Direction.DESC,"createDate");
+    private Sort sortByCreateDate() {
+        return Sort.by(Sort.Direction.DESC, "createDate");
     }
 
-    private Post getPostByNullCheck(Optional<Post> findPost){
+    private Post getPostByNullCheck(Optional<Post> findPost) {
         Post post = findPost.orElse(null);
-        if(post == null){
+        if (post == null) {
             throw new CustomException(ErrorCode.POST_NOT_FOUND);
         }
         return post;
+    }
+
+    private String extractPath(Thumbnail thumbnail){
+        String imagePath = "";
+        if (thumbnail != null){
+            imagePath = thumbnail.getPath();
+        }
+        return imagePath;
     }
 }
