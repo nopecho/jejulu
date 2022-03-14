@@ -83,6 +83,13 @@ public class PostServiceImpl implements PostService{
         return new PostDto.Detail(post,imagePath,post.getHost());
     }
 
+    @Override
+    public boolean isPostByHost(Long postId, HostDto.Info loginHost) {
+        Post post = postRepository.findById(postId).orElse(null);
+        Host host = post.getHost();
+        return host.getId().equals(loginHost.getId());
+    }
+
     private Sort sortByCreateDate(){
         return Sort.by(Sort.Direction.DESC,"createDate");
     }

@@ -50,6 +50,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/posts/create")
                 .addPathPatterns("/posts/host/**")
                 .addPathPatterns("/posts")
+                .addPathPatterns("/posts/{postId}/edit")
                 .excludePathPatterns(HOST_INTERCEPTOR_EXCLUDE_LIST);
 
         registry.addInterceptor(new AdminAuthInterceptor())

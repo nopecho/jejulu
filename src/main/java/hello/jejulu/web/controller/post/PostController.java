@@ -118,8 +118,24 @@ public class PostController {
         return postService.getPostsByHost(hostId);
     }
 
+    /**
+     * 게시물 수정 폼 요청 핸들러
+     * @param postId
+     */
     @GetMapping("/{postId}/edit")
-    public String postUpdateForm(@PathVariable Long postId){
+    public String postUpdateForm(@PathVariable Long postId,
+                                 @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+                                 Model model){
+        if(!postService.isPostByHost(postId,loginHost)){
+            throw new CustomException(ErrorCode.INVALID_AUTH);
+        }
+        PostDto.Detail post = postService.getPostById(postId);
+        model.addAttribute("update",post);
         return "jejulu/posts/post-update-form";
+    }
+
+    @PatchMapping("/{postId}")
+    public String updatePost(@PathVariable Long postId){
+        return "redirect:/posts/{postId}";
     }
 }
