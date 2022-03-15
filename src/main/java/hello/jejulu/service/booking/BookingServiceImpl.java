@@ -6,11 +6,11 @@ import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.service.util.ServiceUtil;
 import hello.jejulu.web.dto.PostDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
-@Slf4j
+@Transactional(readOnly = true)
 @Service
 public class BookingServiceImpl implements BookingService{
 
