@@ -1,6 +1,7 @@
 package hello.jejulu.web.controller.host;
 
 import hello.jejulu.service.host.HostService;
+import hello.jejulu.web.annotation.Login;
 import hello.jejulu.web.consts.SessionConst;
 import hello.jejulu.web.dto.HostDto;
 import hello.jejulu.web.dto.PostDto;
@@ -49,7 +50,7 @@ public class HostController {
     }
 
     @GetMapping("/info")
-    public String lookupHost(@SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+    public String lookupHost(@Login HostDto.Info loginHost,
                              RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("hostId",loginHost.getId());
         return "redirect:/hosts/{hostId}";
@@ -57,7 +58,7 @@ public class HostController {
 
     @GetMapping("/{hostId}")
     public String hostInfo(@PathVariable Long hostId,
-                           @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+                           @Login HostDto.Info loginHost,
                            Model model){
         if(!loginHost.getId().equals(hostId)){
             throw new CustomException(ErrorCode.INVALID_AUTH);

@@ -2,6 +2,7 @@ package hello.jejulu.web.controller.post;
 
 import hello.jejulu.domain.util.Category;
 import hello.jejulu.service.post.PostService;
+import hello.jejulu.web.annotation.Login;
 import hello.jejulu.web.consts.SessionConst;
 import hello.jejulu.web.dto.HostDto;
 import hello.jejulu.web.dto.PostDto;
@@ -46,7 +47,7 @@ public class PostController {
      */
     @PostMapping
     public String postSave(@ModelAttribute PostDto.Save postSaveDto,
-                           @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+                           @Login HostDto.Info loginHost,
                            RedirectAttributes redirectAttributes) throws IOException {
         PostDto.Info savePostInfo = postService.add(postSaveDto, loginHost);
         redirectAttributes.addAttribute("postId",savePostInfo.getId());
@@ -98,7 +99,7 @@ public class PostController {
      * @param redirectAttributes
      */
     @GetMapping("/host/info")
-    public String lookupHostInfo(@SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+    public String lookupHostInfo(@Login HostDto.Info loginHost,
                                  RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("hostId",loginHost.getId());
         return "redirect:/posts/host/{hostId}";
@@ -112,7 +113,7 @@ public class PostController {
     @ResponseBody
     @GetMapping("/host/{hostId}")
     public List<PostDto.Info> testApi(@PathVariable Long hostId,
-                                      @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost){
+                                      @Login HostDto.Info loginHost){
         if(!loginHost.getId().equals(hostId)){
             throw new CustomException(ErrorCode.INVALID_AUTH);
         }
@@ -125,7 +126,7 @@ public class PostController {
      */
     @GetMapping("/{postId}/edit")
     public String postUpdateForm(@PathVariable Long postId,
-                                 @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+                                 @Login HostDto.Info loginHost,
                                  Model model){
         if(!postService.isPostByHost(postId,loginHost)){
             throw new CustomException(ErrorCode.INVALID_AUTH);

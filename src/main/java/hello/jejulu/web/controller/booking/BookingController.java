@@ -1,6 +1,7 @@
 package hello.jejulu.web.controller.booking;
 
 import hello.jejulu.service.booking.BookingService;
+import hello.jejulu.web.annotation.Login;
 import hello.jejulu.web.consts.SessionConst;
 import hello.jejulu.web.dto.BookingDto;
 import hello.jejulu.web.dto.MemberDto;
@@ -34,7 +35,7 @@ public class BookingController {
     public String bookingCreate(@PathVariable Long postId,
                                 @ModelAttribute @Validated BookingDto.Save bookingSaveDto,
                                 BindingResult bindingResult,
-                                @SessionAttribute(name = SessionConst.MEMBER) MemberDto.Info loginMember,
+                                @Login MemberDto.Info loginMember,
                                 Model model){
         if(bindingResult.hasErrors()){
             PostDto.Info postInfo = bookingService.getPostToBooking(postId);
