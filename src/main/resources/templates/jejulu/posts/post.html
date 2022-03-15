@@ -103,6 +103,7 @@
             <!-- 회원삭제 -->
             <form th:action="@{/posts/{postId}(postId=*{id})}" method="post" id="delete-form">
                 <input type="hidden" name="_method" value="DELETE" />
+                <input type="hidden" th:field="*{category}">
             </form>
             <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
                 <div class="modal-dialog">
@@ -115,9 +116,11 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-12">
-                                        <h2 class="text-danger text-uppercase mb-0"><i class="bi bi-exclamation-triangle"></i> DELETE
-                                            CHECK</h2>
-                                        <p class="my-4">해당 게시물을 삭제 할까요?</p>
+                                        <h2 class="text-danger text-uppercase mb-0">
+                                            <i class="bi bi-exclamation-triangle"></i> 게시물 삭제
+                                        </h2>
+                                        <h5 class="my-4">해당 게시물을 삭제 할까요?</h5>
+                                        <p class="text-danger">관련 예약 및 게시물 정보가 모두 없어져요!</p>
                                     </div>
                                     <button class="btn btn-danger col-4 mx-3" data-bs-dismiss="modal" onclick="deleteSubmit()">
                                         <i class="bi bi-exclamation-triangle"></i> DELETE

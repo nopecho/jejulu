@@ -152,8 +152,11 @@ public class PostController {
      * @param postId
      */
     @DeleteMapping("/{postId}")
-    public String deletePost(@PathVariable Long postId) {
+    public String deletePost(@PathVariable Long postId,
+                             @RequestParam Category category,
+                             RedirectAttributes redirectAttributes) {
         postService.delete(postId);
-        return "redirect:/posts/categorys/1";
+        redirectAttributes.addAttribute("category",category);
+        return "redirect:/posts/categorys/{category}";
     }
 }

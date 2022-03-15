@@ -47,7 +47,7 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "hostId")
     private Host host;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
     private List<Booking> bookings = new ArrayList<>();
 
     public void countPlus(){
