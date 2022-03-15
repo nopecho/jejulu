@@ -31,7 +31,7 @@
             </div>
 
             <div class="inner-card p-3 mx-5 mb-5 shadow-lg row">
-                <form th:object="${save}" th:action="@{/posts}" method="POST" enctype="multipart/form-data" class="px-5 needs-validation was-validated">
+                <form th:object="${save}" th:action="@{/posts}" method="POST" enctype="multipart/form-data" class="px-5 needs-validation was-validated" id="submit-form">
                     <!--제목-->
                     <div class="col-12 my-3">
                         <div class="form-group">
@@ -74,8 +74,9 @@
                             <textarea th:field="*{content}" class="form-control h-25 editor" rows="20" placeholder="content.." required></textarea>
                         </div>
                     </div>
+                    <button id="submit-button" type="submit" style="display: none"></button>
                     <div class="px-2 mt-5 text-center">
-                        <button class="btn btn-primary btn-lg" type="submit">
+                        <button class="btn btn-primary btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#post-check" onclick="imageCheck()">
                             POSTING
                         </button>
                     </div>
@@ -83,10 +84,48 @@
             </div>
         </div>
     </div>
+
+    <!--게시물 등록 확인 모달-->
+    <div class="modal fade" id="post-check" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <h4 class="modal-title" id="test"></h4>
+                <div class="modal-body text-center pb-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <h2 class="text-success mb-0">
+                                    게시물 등록
+                                </h2>
+                                <h5 class="my-4">게시물을 등록 할까요?</h5>
+                                <p id="modal-result" class="text-secondary"></p>
+                            </div>
+                            <button class="btn btn-success col-4 mx-3" data-bs-dismiss="modal" aria-label="Close" onclick="submit()">
+                                확인
+                            </button>
+                            <button class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
+                                취소
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 <script src="//cdn.ckeditor.com/4.17.2/basic/ckeditor.js"></script>
 <script th:inline="javascript">
+    const image = "작성 한 내용으로 게시물을 등록할까요?😄";
+    const noimage = "선택 한 이미지가 없어요, 기본 이미지로 게시물을 등록할까요?😢";
+
     window.addEventListener("load", () => {
         const editor = document.querySelector(".editor");
         const ckeditor_config = {
@@ -124,6 +163,22 @@
         img.style.borderRadius = "30px";
 
         container.appendChild(img);
+    }
+
+    function imageCheck(){
+        const modalContent = document.getElementById("modal-result");
+        const thumbnailInput = document.getElementById("file");
+        modalContent.innerText = "";
+        if(thumbnailInput.value === ""){
+            modalContent.innerText = noimage;
+            return;
+        }
+        modalContent.innerText = image;
+    }
+
+    function submit(){
+        const submitBtn = document.getElementById('submit-button')
+        submitBtn.click();
     }
 </script>
 </html>
