@@ -7,10 +7,9 @@ import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.domain.thumbnail.Thumbnail;
 import hello.jejulu.service.thumbnail.ThumbnailService;
+import hello.jejulu.service.util.ServiceUtil;
 import hello.jejulu.web.dto.HostDto;
 import hello.jejulu.web.dto.PostDto;
-import hello.jejulu.web.exception.CustomException;
-import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -38,13 +36,13 @@ public class PostServiceImpl implements PostService {
         Host writerHost = hostRepository.getById(loginHost.getId());
         Thumbnail thumbnail = thumbnailService.create(postSaveDto.getFile());
         Post savePost = postRepository.save(postSaveDto.toEntity(thumbnail, writerHost));
-        return new PostDto.Info(savePost, extractPath(thumbnail));
+        return new PostDto.Info(savePost, ServiceUtil.extractedPath(thumbnail));
     }
 
     @Transactional
     @Override
     public void edit(Long postId, PostDto.Update postUpdateDto) throws IOException {
-        Post post = getPostByNullCheck(postRepository.findById(postId));
+        Post post = ServiceUtil.getEntityByNullCheck(postRepository.findById(postId));
         Thumbnail thumbnail = thumbnailService.update(postUpdateDto.getFile(), post.getThumbnail());
         post.updateInfo(postUpdateDto.getTitle(),
                 postUpdateDto.getDescription(),
@@ -57,74 +55,55 @@ public class PostServiceImpl implements PostService {
     public List<PostDto.Info> getHomePostsByCategory(Category category) {
         List<Post> homePosts = postRepository.findTop4ByCategory(category, sortByCreateDate());
         return homePosts.stream()
-                .map(post -> new PostDto.Info(post, extractPath(post.getThumbnail())))
+                .map(post -> new PostDto.Info(post, ServiceUtil.extractedPath(post.getThumbnail())))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Slice<PostDto.Info> getPostsByCategory(Category category, Pageable pageable) {
         Slice<Post> findPosts = postRepository.findAllByCategory(category, pageable);
-        return findPosts.map(post -> new PostDto.Info(post, extractPath(post.getThumbnail())));
+        return findPosts.map(post -> new PostDto.Info(post, ServiceUtil.extractedPath(post.getThumbnail())));
     }
 
     @Override
     public List<PostDto.Info> getPostsByHost(Long hostId) {
-        Host host = hostRepository.findById(hostId).orElse(null);
-        if (host == null) {
-            throw new CustomException(ErrorCode.HOST_NOT_FOUND);
-        }
+        Host host = ServiceUtil.getEntityByNullCheck(hostRepository.findById(hostId));
         return host.getPosts().stream()
-                .map(post -> new PostDto.Info(post, extractPath(post.getThumbnail())))
+                .map(post -> new PostDto.Info(post, ServiceUtil.extractedPath(post.getThumbnail())))
                 .collect(Collectors.toList());
     }
 
     @Transactional
     @Override
     public void delete(Long postId) {
-        Post post = getPostByNullCheck(postRepository.findById(postId));
+        Post post = ServiceUtil.getEntityByNullCheck(postRepository.findById(postId));
         postRepository.delete(post);
     }
 
     @Transactional
     @Override
     public PostDto.Detail getPostById(Long postId) {
-        Post post = getPostByNullCheck(postRepository.findById(postId));
+        Post post = ServiceUtil.getEntityByNullCheck(postRepository.findById(postId));
         post.countPlus();
-        String imagePath = extractPath(post.getThumbnail());
+        String imagePath = ServiceUtil.extractedPath(post.getThumbnail());
         return new PostDto.Detail(post, imagePath, post.getHost());
     }
 
     @Override
     public PostDto.Detail getUpdatePostById(Long postId) {
-        Post post = getPostByNullCheck(postRepository.findById(postId));
-        String imagePath = extractPath(post.getThumbnail());
+        Post post = ServiceUtil.getEntityByNullCheck(postRepository.findById(postId));
+        String imagePath = ServiceUtil.extractedPath(post.getThumbnail());
         return new PostDto.Detail(post, imagePath, post.getHost());
     }
 
     @Override
     public boolean isPostByHost(Long postId, HostDto.Info loginHost) {
-        Post post = getPostByNullCheck(postRepository.findById(postId));
+        Post post = ServiceUtil.getEntityByNullCheck(postRepository.findById(postId));
         Host host = post.getHost();
         return host.getId().equals(loginHost.getId());
     }
 
     private Sort sortByCreateDate() {
         return Sort.by(Sort.Direction.DESC, "createDate");
-    }
-
-    private Post getPostByNullCheck(Optional<Post> findPost) {
-        Post post = findPost.orElse(null);
-        if (post == null) {
-            throw new CustomException(ErrorCode.POST_NOT_FOUND);
-        }
-        return post;
-    }
-
-    private String extractPath(Thumbnail thumbnail){
-        String imagePath = "";
-        if (thumbnail != null){
-            imagePath = thumbnail.getPath();
-        }
-        return imagePath;
     }
 }

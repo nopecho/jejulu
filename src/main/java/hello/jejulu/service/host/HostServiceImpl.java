@@ -2,9 +2,8 @@ package hello.jejulu.service.host;
 
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.host.HostRepository;
+import hello.jejulu.service.util.ServiceUtil;
 import hello.jejulu.web.dto.HostDto;
-import hello.jejulu.web.exception.CustomException;
-import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,7 @@ public class HostServiceImpl implements HostService{
     @Override
     public HostDto.Info edit(Long hostId, HostDto.Update updateDto) {
         Optional<Host> findHost = hostRepository.findById(hostId);
-        Host host = getHostByNullCheck(findHost);
+        Host host = ServiceUtil.getEntityByNullCheck(findHost);
         host.updateInfo(updateDto.getName(), updateDto.getPhone(), updateDto.getAddr(), updateDto.getEmail());
         return new HostDto.Info(host);
     }
@@ -39,7 +38,7 @@ public class HostServiceImpl implements HostService{
     @Transactional
     @Override
     public boolean remove(Long hostId) {
-        Host host = getHostByNullCheck(hostRepository.findById(hostId));
+        Host host = ServiceUtil.getEntityByNullCheck(hostRepository.findById(hostId));
         hostRepository.deleteById(host.getId());
         return true;
     }
@@ -53,15 +52,7 @@ public class HostServiceImpl implements HostService{
     @Override
     public HostDto.Detail getHostById(Long hostId) {
         Optional<Host> findHost = hostRepository.findById(hostId);
-        Host host = getHostByNullCheck(findHost);
+        Host host = ServiceUtil.getEntityByNullCheck(findHost);
         return new HostDto.Detail(host);
-    }
-
-    private Host getHostByNullCheck(Optional<Host> findHost){
-        Host host = findHost.orElse(null);
-        if(host == null){
-            throw new CustomException(ErrorCode.HOST_NOT_FOUND);
-        }
-        return host;
     }
 }

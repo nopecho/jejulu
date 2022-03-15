@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum ErrorCode {
     INVALID_AUTH("권한이 없습니다."),
     BAD_REQUEST("잘못된 요청입니다."),
+    ENTITY_NOT_FOUND("해당 요청 정보가 존재하지 않습니다."),
     MEMBER_NOT_FOUND("해당 회원가 존재하지 않습니다."),
     HOST_NOT_FOUND("해당 호스트가 존재하지 않습니다."),
     POST_NOT_FOUND("해당 게시물이 존재하지 않습니다."),
