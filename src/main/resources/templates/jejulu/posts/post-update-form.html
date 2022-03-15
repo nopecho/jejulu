@@ -68,7 +68,7 @@
                             <label>THUMBNAIL</label>
                             <input th:name="file" class="btn btn-primary" type="file" accept="image/*" onchange="loadImage(this)">
                             <div id="img-show" class="mt-3">
-                                <img th:src="*{imagePath}" class="img" style="width: 65%; height: 50%; object-fit: cover; border-radius: 30px">
+                                <img th:src="*{imagePath}" th:onerror="|this.src='https://www.adecco.co.kr/media/COMMON/images/no-image.png'|" class="img" style="width: 65%; height: 50%; object-fit: cover; border-radius: 30px">
                             </div>
                         </div>
                     </div>

@@ -45,7 +45,7 @@
             <!-- th:each 단락 -->
             <div class="col mb-5" th:each=" info : *{content}">
                 <div class="card h-100 shadow main-content">
-                    <img class="card-img-top" th:src="${info.imagePath}" alt="">
+                    <img class="card-img-top" th:src="${info.imagePath}" th:onerror="|this.src='https://www.adecco.co.kr/media/COMMON/images/no-image.png'|" alt="">
                     <div class="card-header pb-0 bg-light">
                         <h5 th:text="${info.title}">제목</h5>
                     </div>

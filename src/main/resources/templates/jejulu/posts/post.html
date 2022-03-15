@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="col-8">
-                    <img th:src="*{imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1555354924-b72b8d4dfd6c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80'|" class="img-fluid text-center mb-5"/>
+                    <img th:src="*{imagePath}" th:onerror="|this.src='https://www.adecco.co.kr/media/COMMON/images/no-image.png'|" class="img-fluid text-center mb-5"/>
                     <div th:utext="*{content}">내용</div>
                 </div>
 
@@ -84,7 +84,7 @@
                             <p th:text="*{hostEmail}">이메일</p>
                         </span>
                         <span class="d-flex flex-row justify-content-center">📍 ADDR |&nbsp;
-                            <p id="addr" th:text="*{hostAddr}">대구광역시 중구 남산동 290</p>
+                            <p id="addr" th:text="*{hostAddr}">주소</p>
                         </span>
                         <div class="my-2 mb-5" id="map" style="width:250px;height:250px;border-radius: 50%;margin: 0 auto"></div>
                         <hr>
@@ -100,7 +100,7 @@
                 </div>
             </div>
 
-            <!-- 회원삭제 -->
+            <!-- 게시물 삭제 모달 -->
             <form th:action="@{/posts/{postId}(postId=*{id})}" method="post" id="delete-form">
                 <input type="hidden" name="_method" value="DELETE" />
                 <input type="hidden" th:field="*{category}">

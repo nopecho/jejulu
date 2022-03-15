@@ -38,10 +38,7 @@ public class PostServiceImpl implements PostService {
         Host writerHost = hostRepository.getById(loginHost.getId());
         Thumbnail thumbnail = thumbnailService.create(postSaveDto.getFile());
         Post savePost = postRepository.save(postSaveDto.toEntity(thumbnail, writerHost));
-        if (thumbnail == null) {
-            return new PostDto.Info(savePost, "");
-        }
-        return new PostDto.Info(savePost, thumbnail.getPath());
+        return new PostDto.Info(savePost, extractPath(thumbnail));
     }
 
     @Transactional
@@ -60,14 +57,14 @@ public class PostServiceImpl implements PostService {
     public List<PostDto.Info> getHomePostsByCategory(Category category) {
         List<Post> homePosts = postRepository.findTop4ByCategory(category, sortByCreateDate());
         return homePosts.stream()
-                .map(post -> post.getThumbnail() == null ? new PostDto.Info(post, "") : new PostDto.Info(post, post.getThumbnail().getPath()))
+                .map(post -> new PostDto.Info(post, extractPath(post.getThumbnail())))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Slice<PostDto.Info> getPostsByCategory(Category category, Pageable pageable) {
         Slice<Post> findPosts = postRepository.findAllByCategory(category, pageable);
-        return findPosts.map(post -> post.getThumbnail() == null ? new PostDto.Info(post, "") : new PostDto.Info(post, post.getThumbnail().getPath()));
+        return findPosts.map(post -> new PostDto.Info(post, extractPath(post.getThumbnail())));
     }
 
     @Override
@@ -77,7 +74,7 @@ public class PostServiceImpl implements PostService {
             throw new CustomException(ErrorCode.HOST_NOT_FOUND);
         }
         return host.getPosts().stream()
-                .map(post -> post.getThumbnail() == null ? new PostDto.Info(post, "") : new PostDto.Info(post, post.getThumbnail().getPath()))
+                .map(post -> new PostDto.Info(post, extractPath(post.getThumbnail())))
                 .collect(Collectors.toList());
     }
 
