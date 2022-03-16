@@ -19,19 +19,19 @@ public class BookingDto {
     @Getter @Setter
     public static class Save{
 
-        @NotBlank
+        @NotBlank(message = "이름은 필수로 입력 해야돼요.")
         private String name;
 
-        @NotNull
-        @FutureOrPresent
+        @NotNull(message = "날짜는 필수로 입력 해야돼요.")
+        @FutureOrPresent(message = "오늘 이전의 날짜는 예약할 수 없어요.")
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate bookDate;
 
-        @Range(min = 1,max = 6)
+        @Range(min = 1,max = 6,message = "인원 수는 1 ~ 6명 사이여야 돼요.")
         private int personCount;
 
-        @NotBlank
-        @Size(min = 10, max = 13)
+        @NotBlank(message = "전화번호는 필수로 입력 해야돼요.")
+        @Size(min = 10, max = 13, message = "전화번호를 다시 확인해주세요.")
         private String phone;
 
         public Booking toEntity(Member member, Post post){

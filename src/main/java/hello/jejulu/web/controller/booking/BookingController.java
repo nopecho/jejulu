@@ -8,6 +8,7 @@ import hello.jejulu.web.dto.MemberDto;
 import hello.jejulu.web.dto.PostDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,26 +24,25 @@ public class BookingController {
     private final BookingService bookingService;
 
     @GetMapping("/posts/{postId}")
-    public String bookingForm(@PathVariable Long postId,
-                              @ModelAttribute BookingDto.Save bookingSaveDto,
-                              Model model){
-        PostDto.Info postInfo = bookingService.getPostToBooking(postId);
-        model.addAttribute("postInfo",postInfo);
-        return "jejulu/bookings/booking-form";
+    public String bookingForm(@PathVariable Long postId){
+        return "redirect:/posts/{postId}";
     }
 
     @PostMapping("/posts/{postId}")
-    public String bookingCreate(@PathVariable Long postId,
-                                @ModelAttribute @Validated BookingDto.Save bookingSaveDto,
-                                BindingResult bindingResult,
-                                @Login MemberDto.Info loginMember,
-                                Model model){
-        if(bindingResult.hasErrors()){
-            PostDto.Info postInfo = bookingService.getPostToBooking(postId);
-            model.addAttribute("postInfo",postInfo);
-            return "jejulu/bookings/booking-form";
+    public ResponseEntity<?> bookingCreate(@PathVariable Long postId,
+                                        @RequestBody @Validated BookingDto.Save bookingSaveDto,
+                                        BindingResult bindingResult,
+
+                                        @Login MemberDto.Info loginMember,
+                                        Model model){
+        if( bindingResult.hasErrors() ){
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        bookingService.addBooking(bookingSaveDto, loginMember.getId(), postId);
-        return "jejulu/success/success-bookings";
+        return ResponseEntity.ok(bookingSaveDto);
+//        if(bindingResult.hasErrors()){
+//            bookingForm(postId, bookingSaveDto, model);
+//        }
+//        bookingService.addBooking(bookingSaveDto, loginMember.getId(), postId);
+//        return "jejulu/success/success-bookings";
     }
 }

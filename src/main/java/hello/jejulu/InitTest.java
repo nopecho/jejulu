@@ -2,6 +2,8 @@ package hello.jejulu;
 
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.host.HostRepository;
+import hello.jejulu.domain.member.Member;
+import hello.jejulu.domain.member.MemberRepository;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.domain.util.Category;
@@ -19,6 +21,7 @@ public class InitTest {
 
     private final PostRepository postRepository;
     private final HostRepository hostRepository;
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -32,6 +35,15 @@ public class InitTest {
                 .phone("01054784056")
                 .name("테스트 호스트")
                 .addr("대구 광역시 중구 남산동 290")
+                .build());
+
+        memberRepository.save(Member.builder()
+                .loginId("test")
+                .password(passwordEncoder.encode("testtt"))
+                .role(Role.MEMBER)
+                .email("test@email.com")
+                .phone("010-1234-5678")
+                .name("임시 회원")
                 .build());
 
         for(int i = 0; i<100; i++){

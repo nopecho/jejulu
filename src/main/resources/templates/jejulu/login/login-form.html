@@ -65,10 +65,10 @@
                                             </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-user my-3" th:formaction="|@{/login/member}|">
+                                        <button type="submit" class="btn btn-primary btn-user my-3" th:formaction="|@{/login/member(uri=${param.uri})}|">
                                             <i class=""></i> Login with MEMBER
                                         </button>
-                                        <button type="submit" class="btn btn-primary btn-host my-3" th:formaction="|@{/login/host}|">
+                                        <button type="submit" class="btn btn-primary btn-host my-3" th:formaction="|@{/login/host(uri=${param.uri})}|">
                                             <i class=""></i> Login with HOST
                                         </button>
                                     </form>

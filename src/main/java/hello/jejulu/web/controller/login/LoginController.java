@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -42,7 +43,8 @@ public class LoginController {
     @PostMapping("/login/member")
     public String memberLogin(@ModelAttribute LoginDto loginDto,
                               BindingResult bindingResult,
-                              HttpServletRequest request){
+                              HttpServletRequest request,
+                              @RequestParam(defaultValue = "/") String uri){
         MemberDto.Info loginMember = loginService.loginByMember(loginDto);
         if(loginMember == null){
             bindingResult.reject("loginFail.Member");
@@ -50,7 +52,7 @@ public class LoginController {
         }
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.MEMBER,loginMember);
-        return "redirect:/";
+        return "redirect:"+uri;
     }
 
     /**
@@ -62,7 +64,8 @@ public class LoginController {
     @PostMapping("/login/host")
     public String hostLogin(@ModelAttribute LoginDto loginDto,
                             BindingResult bindingResult,
-                            HttpServletRequest request){
+                            HttpServletRequest request,
+                            @RequestParam(defaultValue = "/") String uri){
         HostDto.Info loginHost = loginService.loginByHost(loginDto);
         if(loginHost == null){
             bindingResult.reject("loginFail.Host");
@@ -70,7 +73,7 @@ public class LoginController {
         }
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.HOST,loginHost);
-        return "redirect:/";
+        return "redirect:"+uri;
     }
 
     /**

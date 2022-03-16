@@ -32,6 +32,10 @@
         border-radius: 20px;
         height: 25px;
     }
+
+    .book {
+        border-radius: 20px;
+    }
 </style>
 
 <section>
@@ -96,7 +100,7 @@
                             sit amet consectetur adipisicing elit.
                             Laudantium expedita nobis soluta cumque ad nostrum,</p>
                     </div>
-                    <button class="btn btn-primary btn-lg" type="button">Book Now</button>
+                    <button class="btn btn-success btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#booking" onclick="hostCheck()">예약 하기</button>
                 </div>
             </div>
 
@@ -128,6 +132,54 @@
                                     <button class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
                                         CLOSE
                                     </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--예약 모달-->
+            <div class="modal fade" id="booking" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <h4 id="booking-title"class="modal-title text-center">예약 정보</h4>
+                        <div class="modal-body pb-5">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div id="form-container" class="col-lg-12">
+                                        <form id="booking-form" class="needs-validation was-validated">
+                                            <div>
+                                                <label>예약자</label>
+                                                <input th:id="name" type="text" class="form-control book" required>
+                                            </div>
+                                            <div>
+                                                <label>인원 수</label>
+                                                <input th:id="personCount" class="form-control book" required>
+                                            </div>
+                                            <div>
+                                                <label>전화번호</label>
+                                                <input th:id="phone" type="tel" class="form-control book" required>
+                                            </div>
+                                            <div>
+                                                <label>예약일</label>
+                                                <input th:id="bookDate" type="date" class="form-control book" required>
+                                            </div>
+                                            <div class="text-center">
+                                                <button type="button" class="btn btn-success col-4 mx-3" onclick="bookingSubmit()">
+                                                    예약
+                                                </button>
+                                                <button type="button" class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
+                                                    취소
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <div id="booking-container" class="text-center">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -174,6 +226,48 @@
         const deleteForm = document.getElementById('delete-form')
         deleteForm.submit()
         console.log("삭제해!")
+    }
+
+    function hostCheck(){
+        const formContainer = document.getElementById("form-container");
+        if ([[${session.loginHost}]] != null){
+            const form = document.getElementById("booking-form");
+            const hostModallMessege = document.getElementById("booking-container");
+            const hostModalTitle = document.getElementById("booking-title");
+            formContainer.removeChild(form);
+            hostModalTitle.innerText = "";
+            hostModalTitle.innerText = "예약 오류";
+            hostModallMessege.innerHTML = "";
+            hostModallMessege.innerHTML = `<h4 class="text-danger my-3">호스트는 예약할 수 없어요!🤭</h4>
+<p>회원으로 로그인 후 다시 예약해주세요😄</p>
+<button type="button" class="btn btn-secondary col-4 my-3" data-bs-dismiss="modal" aria-label="Close">취소</button>`;
+        }
+    }
+
+    function bookingSubmit(){
+        const name = document.getElementById("name");
+        const personCount = document.getElementById("personCount");
+        const phone = document.getElementById("phone");
+        const bookDate = document.getElementById("bookDate");
+        const postId = [[${detail.id}]];
+
+        const bookingSave = {
+            "name":`${name.value}`,
+            "personCount" : personCount.value,
+            "phone" : `${phone.value}`,
+            "bookDate" : `${bookDate.value}`
+        };
+
+        fetch(`/bookings/posts/${postId}`,{
+            method : "post",
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            redirect : "follow",
+            body : JSON.stringify(bookingSave)
+        }).then(res => res.redirected ? window.location.href = res.url : res.json())
+            .then(result => console.log(result))
+            .catch(e => console.log(e));
     }
 </script>
 </html>

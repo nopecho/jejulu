@@ -45,6 +45,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MemberAuthInterceptor())
                 .addPathPatterns("/members/**")
+                .addPathPatterns("/bookings/**")
                 .excludePathPatterns(MEMBER_INTERCEPTOR_EXCLUDE_LIST);
 
         registry.addInterceptor(new HostAuthInterceptor())
