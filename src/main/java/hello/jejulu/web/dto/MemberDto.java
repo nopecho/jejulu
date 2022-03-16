@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -79,6 +80,7 @@ public class MemberDto {
 
         @NotBlank
         @Size(min = 10, max = 13)
+        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식을 다시 확인 해주세요")
         private String phone;
 
         @Email
@@ -107,6 +109,7 @@ public class MemberDto {
 
         @NotBlank
         @Size(min = 10, max = 13)
+        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식을 다시 확인 해주세요")
         private String phone;
 
         @Email

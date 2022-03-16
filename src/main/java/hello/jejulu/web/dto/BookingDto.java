@@ -8,10 +8,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class BookingDto {
@@ -27,11 +24,12 @@ public class BookingDto {
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate bookDate;
 
-        @Range(min = 1,max = 6,message = "인원 수는 1 ~ 6명 사이여야 돼요.")
+        @Range(min = 1,max = 5,message = "인원 수는 1 ~ 5명 사이여야 돼요.")
         private int personCount;
 
         @NotBlank(message = "전화번호는 필수로 입력 해야돼요.")
         @Size(min = 10, max = 13, message = "전화번호를 다시 확인해주세요.")
+        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식을 다시 확인 해주세요")
         private String phone;
 
         public Booking toEntity(Member member, Post post){

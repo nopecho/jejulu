@@ -142,7 +142,7 @@
             <!--예약 모달-->
             <div class="modal fade" id="booking" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
                 <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div class="modal-content" style="background-color: rgba(255,255,255,0.85)">
                         <div class="modal-header">
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
@@ -152,23 +152,30 @@
                                 <div class="row justify-content-center">
                                     <div id="form-container" class="col-lg-12">
                                         <form id="booking-form" class="needs-validation was-validated">
-                                            <div>
-                                                <label>예약자</label>
+                                            <div class="mb-3">
+                                                <label class="form-label">예약자*</label>
                                                 <input th:id="name" type="text" class="form-control book" required>
                                             </div>
-                                            <div>
-                                                <label>인원 수</label>
-                                                <input th:id="personCount" class="form-control book" required>
+                                            <div class="mb-3">
+                                                <label class="form-label">인원 수*</label>
+                                                <select th:id="personCount" class="form-select book" required>
+                                                    <option value="" class="text-secondary">인원수를 입력해주세요</option>
+                                                    <option th:value="1" th:text="|1인🧍|">1</option>
+                                                    <option th:value="2" th:text="|2인👫🏻|">2</option>
+                                                    <option th:value="3" th:text="|3인👨‍👩‍👧|">3</option>
+                                                    <option th:value="4" th:text="|4인👨‍👩‍👧‍👦|">4</option>
+                                                    <option th:value="5" th:text="|5인🔥|">5</option>
+                                                </select>
                                             </div>
-                                            <div>
-                                                <label>전화번호</label>
-                                                <input th:id="phone" type="tel" class="form-control book" required>
+                                            <div class="mb-3">
+                                                <label class="form-label">전화번호*</label>
+                                                <input th:id="phone" type="tel" class="form-control book" oninput="phoneCheck(this)" required maxlength="13">
                                             </div>
-                                            <div>
-                                                <label>예약일</label>
+                                            <div class="mb-3">
+                                                <label class="form-label">예약일*</label>
                                                 <input th:id="bookDate" type="date" class="form-control book" required>
                                             </div>
-                                            <div class="text-center">
+                                            <div class="text-center mt-5">
                                                 <button type="button" class="btn btn-success col-4 mx-3" onclick="bookingSubmit()">
                                                     예약
                                                 </button>
@@ -240,7 +247,7 @@
             hostModallMessege.innerHTML = "";
             hostModallMessege.innerHTML = `<h4 class="text-danger my-3">호스트는 예약할 수 없어요!🤭</h4>
 <p>회원으로 로그인 후 다시 예약해주세요😄</p>
-<button type="button" class="btn btn-secondary col-4 my-3" data-bs-dismiss="modal" aria-label="Close">취소</button>`;
+<button type="button" class="btn btn-secondary col-4 my-3" data-bs-dismiss="modal" aria-label="Close">돌아가기</button>`;
         }
     }
 
@@ -268,6 +275,14 @@
         }).then(res => res.redirected ? window.location.href = res.url : res.json())
             .then(result => console.log(result))
             .catch(e => console.log(e));
+    }
+
+    //전화번호 하이픈 자동 완성
+    const phoneCheck = (target) => {
+        target.value = target.value
+            .replace(/[^0-9]/g, "")
+            .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/, `$1-$2-$3`)
+            .replace("--", "-");
     }
 </script>
 </html>
