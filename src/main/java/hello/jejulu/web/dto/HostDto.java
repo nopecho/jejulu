@@ -57,14 +57,13 @@ public class HostDto {
         private String password;
 
         @NotBlank
-        @Size(min = 2, max = 10)
+        @Pattern(regexp = "^[가-힣a-zA-Z]+$", message = "이름에 공백, 숫자, 특수문자가 들어갈 수 없어요")
         private String name;
 
         @NotBlank
         private String addr;
 
         @NotBlank
-        @Size(min = 10, max = 13)
         @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식을 다시 확인 해주세요")
         private String phone;
 
@@ -90,7 +89,7 @@ public class HostDto {
         private Long id;
 
         @NotBlank
-        @Size(min = 2, max = 20)
+        @Pattern(regexp = "^[가-힣a-zA-Z]+$", message = "이름에 공백, 숫자, 특수문자가 들어갈 수 없어요")
         private String name;
 
         @NotBlank

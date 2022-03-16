@@ -17,6 +17,7 @@ public class BookingDto {
     public static class Save{
 
         @NotBlank(message = "이름은 필수로 입력 해야돼요.")
+        @Pattern(regexp = "^[가-힣a-zA-Z]+$", message = "이름에 공백, 숫자, 특수문자가 들어갈 수 없어요")
         private String name;
 
         @NotNull(message = "날짜는 필수로 입력 해야돼요.")
@@ -28,7 +29,6 @@ public class BookingDto {
         private int personCount;
 
         @NotBlank(message = "전화번호는 필수로 입력 해야돼요.")
-        @Size(min = 10, max = 13, message = "전화번호를 다시 확인해주세요.")
         @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식을 다시 확인 해주세요")
         private String phone;
 

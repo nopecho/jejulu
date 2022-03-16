@@ -143,23 +143,23 @@
             <div class="modal fade" id="booking" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content" style="background-color: rgba(255,255,255,0.85)">
-                        <div class="modal-header">
+                        <div class="modal-header" style="border:none">
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <h4 id="booking-title"class="modal-title text-center">예약 정보</h4>
+                        <h4 id="booking-title"class="modal-title text-center">예약 정보🌴</h4>
                         <div class="modal-body pb-5">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div id="form-container" class="col-lg-12">
-                                        <form id="booking-form" class="needs-validation was-validated">
-                                            <div class="mb-3">
+                                        <form id="booking-form" class="needs-validation" novalidate>
+                                            <div id="name-box" class="mb-3">
                                                 <label class="form-label">예약자*</label>
-                                                <input th:id="name" type="text" class="form-control book" required>
+                                                <input th:id="name" type="text" class="form-control book" placeholder="예약자 이름을 입력해 주세요" required>
                                             </div>
-                                            <div class="mb-3">
+                                            <div id="count-box" class="mb-3">
                                                 <label class="form-label">인원 수*</label>
                                                 <select th:id="personCount" class="form-select book" required>
-                                                    <option value="" class="text-secondary">인원수를 입력해주세요</option>
+                                                    <option value="" class="text-secondary">인원수를 입력해 주세요</option>
                                                     <option th:value="1" th:text="|1인🧍|">1</option>
                                                     <option th:value="2" th:text="|2인👫🏻|">2</option>
                                                     <option th:value="3" th:text="|3인👨‍👩‍👧|">3</option>
@@ -167,13 +167,13 @@
                                                     <option th:value="5" th:text="|5인🔥|">5</option>
                                                 </select>
                                             </div>
-                                            <div class="mb-3">
+                                            <div id="phone-box" class="mb-3">
                                                 <label class="form-label">전화번호*</label>
-                                                <input th:id="phone" type="tel" class="form-control book" oninput="phoneCheck(this)" required maxlength="13">
+                                                <input th:id="phone" type="tel" class="form-control book" oninput="phoneCheck(this)" placeholder="예약자 전화번호를 입력해 주세요" required maxlength="13">
                                             </div>
-                                            <div class="mb-3">
+                                            <div id="date-box" class="mb-3">
                                                 <label class="form-label">예약일*</label>
-                                                <input th:id="bookDate" type="date" class="form-control book" required>
+                                                <input th:id="bookDate" type="date" class="form-control book" placeholder="예약 날짜를 선택해 주세요" required>
                                             </div>
                                             <div class="text-center mt-5">
                                                 <button type="button" class="btn btn-success col-4 mx-3" onclick="bookingSubmit()">
@@ -251,13 +251,13 @@
         }
     }
 
+    //유효성 검증 비동기 처리
+    const name = document.getElementById("name");
+    const personCount = document.getElementById("personCount");
+    const phone = document.getElementById("phone");
+    const bookDate = document.getElementById("bookDate");
     function bookingSubmit(){
-        const name = document.getElementById("name");
-        const personCount = document.getElementById("personCount");
-        const phone = document.getElementById("phone");
-        const bookDate = document.getElementById("bookDate");
         const postId = [[${detail.id}]];
-
         const bookingSave = {
             "name":`${name.value}`,
             "personCount" : personCount.value,
@@ -273,8 +273,58 @@
             redirect : "follow",
             body : JSON.stringify(bookingSave)
         }).then(res => res.redirected ? window.location.href = res.url : res.json())
-            .then(result => console.log(result))
+            .then(rejects => rejectRender(rejects))
             .catch(e => console.log(e));
+    }
+
+    function rejectRender(rejects) {
+        name.classList.remove("is-invalid");
+        personCount.classList.remove("is-invalid");
+        phone.classList.remove("is-invalid");
+        bookDate.classList.remove("is-invalid");
+        const invalided = document.querySelectorAll(".invalidBox");
+        invalided.forEach(obj => obj.remove());
+        rejects.forEach(reject => resolveField(reject.field, reject.defaultMessage))
+    }
+
+    function resolveField(field, messege) {
+        const nameBox = document.getElementById("name-box");
+        const countBox = document.getElementById("count-box");
+        const phoneBox = document.getElementById("phone-box");
+        const dateBox = document.getElementById("date-box");
+
+        switch (field){
+            case "name":
+                name.classList.add("is-invalid");
+                const nameInvalid = document.createElement("div");
+                nameInvalid.className = "invalidBox"
+                nameInvalid.innerHTML = `<span class="bi bi-exclamation-circle invalid-feedback" style="display: inline">${messege}</span>`;
+                nameBox.appendChild(nameInvalid);
+                break;
+            case "personCount":
+                personCount.classList.add("is-invalid");
+                const countInvalid = document.createElement("div");
+                countInvalid.className = "invalidBox";
+                countInvalid.innerHTML = `<span class="bi bi-exclamation-circle invalid-feedback" style="display: inline">${messege}</span>`;
+                countBox.appendChild(countInvalid);
+                break;
+            case "phone":
+                phone.classList.add("is-invalid");
+                const phoneInvalid = document.createElement("div");
+                phoneInvalid.className = "invalidBox";
+                phoneInvalid.innerHTML = `<span class="bi bi-exclamation-circle invalid-feedback" style="display: inline">${messege}</span>`;
+                phoneBox.appendChild(phoneInvalid);
+                break;
+            case "bookDate":
+                bookDate.classList.add("is-invalid");
+                const dateInvalid = document.createElement("div");
+                dateInvalid.className = "invalidBox";
+                dateInvalid.innerHTML = `<span class="bi bi-exclamation-circle invalid-feedback" style="display: inline">${messege}</span>`;
+                dateBox.appendChild(dateInvalid);
+                break;
+            default :
+                return;
+        }
     }
 
     //전화번호 하이픈 자동 완성

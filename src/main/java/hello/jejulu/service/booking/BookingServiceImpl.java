@@ -32,8 +32,16 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public PostDto.Info getPostToBooking(Long postId) {
-        Post post = ServiceUtil.getEntityByNullCheck(postRepository.findById(postId));
-        return new PostDto.Info(post, ServiceUtil.extractedPath(post.getThumbnail()));
+    public boolean isBookedByLoginMember(Long bookId, Long memberId) {
+        Member loginMember = ServiceUtil.getEntityByNullCheck(memberRepository.findById(memberId));
+        return loginMember.getBookings()
+                .stream()
+                .anyMatch(booking -> booking.getId().equals(bookId));
+    }
+
+    @Override
+    public BookingDto.Info getBookingInfoById(Long bookingId) {
+        Booking booking = ServiceUtil.getEntityByNullCheck(bookingRepository.findById(bookingId));
+        return new BookingDto.Info(booking);
     }
 }
