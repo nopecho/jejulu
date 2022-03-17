@@ -26,6 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
         MEMBER_INTERCEPTOR_EXCLUDE_LIST.add("/members");
         MEMBER_INTERCEPTOR_EXCLUDE_LIST.add("/members/sign-up");
         MEMBER_INTERCEPTOR_EXCLUDE_LIST.add("/members/id-check");
+        MEMBER_INTERCEPTOR_EXCLUDE_LIST.add("/bookings/hosts/**");
         HOST_INTERCEPTOR_EXCLUDE_LIST.add("/hosts");
         HOST_INTERCEPTOR_EXCLUDE_LIST.add("/hosts/sign-up");
         HOST_INTERCEPTOR_EXCLUDE_LIST.add("/hosts/id-check");
@@ -54,6 +55,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/posts/host/**")
                 .addPathPatterns("/posts")
                 .addPathPatterns("/posts/{postId}/edit")
+                .addPathPatterns("/bookings/hosts/**")
                 .excludePathPatterns(HOST_INTERCEPTOR_EXCLUDE_LIST);
 
         registry.addInterceptor(new AdminAuthInterceptor())

@@ -3,6 +3,8 @@ package hello.jejulu.web.dto;
 import hello.jejulu.domain.booking.Booking;
 import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.post.Post;
+import hello.jejulu.domain.util.Category;
+import hello.jejulu.service.util.ServiceUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
@@ -58,6 +60,79 @@ public class BookingDto {
             this.bookDate = booking.getDate();
             this.personCount = booking.getPersonCount();
             this.phone = booking.getPhone();
+        }
+    }
+
+    @Getter @Setter
+    public static class MyDetail{
+        private Long id;
+        private Category category;
+        private LocalDate bookDate;
+        private int personCount;
+        private String imagePath;
+
+        public MyDetail(Booking booking){
+            this.id = booking.getId();
+            this.category = booking.getPost().getCategory();
+            this.bookDate = booking.getDate();
+            this.personCount = booking.getPersonCount();
+            this.imagePath = ServiceUtil.extractedPath(booking.getPost().getThumbnail());
+        }
+    }
+
+    @Getter @Setter
+    public static class Detail{
+        private Long id;
+        private String name;
+        private LocalDate bookDate;
+        private int personCount;
+        private String phone;
+        private Long postId;
+        private Category category;
+        private String postTitle;
+        private String hostName;
+        private String hostPhone;
+        private String hostEmail;
+        private String hostAddr;
+
+        public Detail(Booking booking){
+            this.id = booking.getId();
+            this.name = booking.getName();
+            this.bookDate = booking.getDate();
+            this.personCount = booking.getPersonCount();
+            this.phone = booking.getPhone();
+            this.postId = booking.getPost().getId();
+            this.category = booking.getPost().getCategory();
+            this.postTitle = booking.getPost().getTitle();
+            this.hostName = booking.getPost().getHost().getName();
+            this.hostPhone = booking.getPost().getHost().getPhone();
+            this.hostEmail = booking.getPost().getHost().getEmail();
+            this.hostAddr = booking.getPost().getHost().getAddr();
+        }
+    }
+
+    @Getter @Setter
+    public static class MemberDetail{
+        private Long id;
+        private String name;
+        private LocalDate bookDate;
+        private int personCount;
+        private Long postId;
+        private String imagePath;
+        private String memberName;
+        private String memberPhone;
+        private String memberEmail;
+
+        public MemberDetail(Booking booking){
+            this.id = booking.getId();
+            this.name = booking.getName();
+            this.bookDate = booking.getDate();
+            this.personCount = booking.getPersonCount();
+            this.postId = booking.getPost().getId();
+            this.imagePath = ServiceUtil.extractedPath(booking.getPost().getThumbnail());
+            this.memberName = booking.getMember().getName();
+            this.memberPhone = booking.getMember().getPhone();
+            this.memberEmail = booking.getMember().getEmail();
         }
     }
 }

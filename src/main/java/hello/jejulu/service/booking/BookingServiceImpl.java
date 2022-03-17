@@ -8,8 +8,9 @@ import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.service.util.ServiceUtil;
 import hello.jejulu.web.dto.BookingDto;
-import hello.jejulu.web.dto.PostDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,5 +44,17 @@ public class BookingServiceImpl implements BookingService{
     public BookingDto.Info getBookingInfoById(Long bookingId) {
         Booking booking = ServiceUtil.getEntityByNullCheck(bookingRepository.findById(bookingId));
         return new BookingDto.Info(booking);
+    }
+
+    @Override
+    public Page<BookingDto.MyDetail> getBookingsByMember(Long memberId, Pageable pageable) {
+        Page<Booking> bookings = bookingRepository.findAllByMemberId(memberId, pageable);
+        return bookings.map(BookingDto.MyDetail::new);
+    }
+
+    @Override
+    public Page<BookingDto.MemberDetail> getBookingsByHost(Long hostId, Pageable pageable) {
+        Page<Booking> bookings = bookingRepository.findAllByHostId(hostId, pageable);
+        return bookings.map(BookingDto.MemberDetail::new);
     }
 }
