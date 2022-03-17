@@ -61,6 +61,7 @@ public class HostDto {
         private String name;
 
         @NotBlank
+        @Pattern(regexp = "^(?=제주).+", message = "주소는 제주 지역만 등록할 수 있어요")
         private String addr;
 
         @NotBlank
@@ -98,6 +99,7 @@ public class HostDto {
         private String phone;
 
         @NotBlank
+        @Pattern(regexp = "^(?=제주).+", message = "주소는 제주 지역만 등록할 수 있어요")
         private String addr;
 
         @Email

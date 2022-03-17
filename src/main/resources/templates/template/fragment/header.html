@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<header th:fragment="header" class="mb-5">
+<header th:fragment="header">
     <div class="container" id="header">
-        <div class="mt-5 mb-5 text-center">
+        <div class="my-5 text-center">
             <header>
                 <button class="btn text-dark" type="button" onclick="location.href='/'">
                     <h1>
@@ -12,7 +12,6 @@
                     </h1>
                 </button>
             </header>
-            <br>
             <i class="bi bi-wind"></i>
             <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</span>
         </div>
@@ -32,6 +31,7 @@
     <th:block th:if="${#session == null}">
         <div th:replace="/template/fragment/header/common :: common-header"></div>
     </th:block>
+    <hr class="mb-0">
 </header>
 
 </html>

@@ -46,16 +46,16 @@
                 <div class="card h-100 shadow main-content">
                     <img class="card-img-top" th:src="${info.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">
                     <div class="card-body bg-light border-light">
-                        <span class="d-flex flex-row">카테고리🌴 :&nbsp;
+                        <span class="d-flex flex-row">카테고리 🌴 :&nbsp;
                             <p th:text="${info.category}" class="fw-bold text-success">카테고리</p>
                         </span>
 
-                        <span class="d-flex flex-row">예약일🗓 :&nbsp;
+                        <span class="d-flex flex-row">예약일 🗓 :&nbsp;
                             <p th:text="${info.bookDate}" class="fw-bold text-success">예약일</p>
                         </span>
 
-                        <span class="d-flex flex-row">인원 수🙋🏻‍️ :&nbsp;
-                            <p th:text="${info.personCount}" class="fw-bold text-success">인원수</p>
+                        <span class="d-flex flex-row">인원 🙋🏻‍️ :&nbsp;
+                            <p th:text="${info.personCount}" class="fw-bold text-success">인원수</p>명
                         </span>
                     </div>
                     <a class="stretched-link" th:href="@{/bookings/{bookId}(bookId=${info.id})}" style="text-decoration: none; color: black">
@@ -109,7 +109,7 @@
                 </li>
 
                 <li class="page-item" th:each="num : ${#numbers.sequence(1,page.totalPages,1)}">
-                    <a class="page-link" th:text="${num}" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=${num})}">?</a>
+                    <a class="page-link" th:text="${num}" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=${num}-1)}">?</a>
                 </li>
 
                 <li class="page-item">

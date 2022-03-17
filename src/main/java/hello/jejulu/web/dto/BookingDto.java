@@ -116,23 +116,23 @@ public class BookingDto {
         private Long id;
         private String name;
         private LocalDate bookDate;
+        private String phone;
         private int personCount;
         private Long postId;
         private String imagePath;
-        private String memberName;
-        private String memberPhone;
-        private String memberEmail;
+        private String postTitle;
+        private Category category;
 
         public MemberDetail(Booking booking){
             this.id = booking.getId();
             this.name = booking.getName();
             this.bookDate = booking.getDate();
+            this.phone = booking.getPhone();
             this.personCount = booking.getPersonCount();
             this.postId = booking.getPost().getId();
             this.imagePath = ServiceUtil.extractedPath(booking.getPost().getThumbnail());
-            this.memberName = booking.getMember().getName();
-            this.memberPhone = booking.getMember().getPhone();
-            this.memberEmail = booking.getMember().getEmail();
+            this.postTitle = booking.getPost().getTitle();
+            this.category = booking.getPost().getCategory();
         }
     }
 }

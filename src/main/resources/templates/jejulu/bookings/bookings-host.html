@@ -3,88 +3,23 @@
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style>
-    .card {
-        border: none;
-    }
-
     .main-content {
+        border: none;
         position: relative;
         width: 100%;
         max-width: 400px;
         margin: auto;
         overflow: hidden;
+        transition: all 0.3s;
     }
 
-    .main-content .main-content-overlay {
-        background: rgba(0, 0, 0, 0.26);
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        opacity: 0;
-        -webkit-transition: all 0.4s ease-in-out 0s;
-        -moz-transition: all 0.4s ease-in-out 0s;
-        transition: all 0.4s ease-in-out 0s;
-    }
-
-    .main-content:hover .main-content-overlay {
-        opacity: 1;
-    }
-
-    .main-content-details {
-        position: absolute;
-        text-align: center;
-        padding-left: 1em;
-        padding-right: 1em;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        opacity: 0;
-        -webkit-transform: translate(-50%, -50%);
-        -moz-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        -webkit-transition: all 0.3s ease-in-out 0s;
-        -moz-transition: all 0.3s ease-in-out 0s;
-        transition: all 0.3s ease-in-out 0s;
-    }
-
-    .main-content:hover .main-content-details {
-        top: 50%;
-        left: 50%;
-        opacity: 1;
-    }
-
-    .main-content-details h3 {
-        color: #fff;
-        font-size: 1em;
-        font-weight: 300;
-        letter-spacing: 0.15em;
-        margin-bottom: 0.5em;
-        text-transform: uppercase;
-    }
-
-    .main-content-details p {
-        color: #fff;
-        font-size: 0.8em;
-    }
-
-    .fadeIn-bottom {
-        top: 80%;
-    }
-
-    *, *:before, *:after {
-        margin: 0;
-        padding: 0;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
+    .main-content:hover {
+        transform: translateY(-15px);
+        transition: all 0.3s;
     }
 
     #category-1 {
-        background-image: url(https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80);
+        background-image: url(https://images.unsplash.com/photo-1623989255105-bff4d7f9fda6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&h=500&q=80);
         background-size: cover;
         flex-direction: column;
     }
@@ -93,155 +28,107 @@
         height: 15rem;
         object-fit: cover;
     }
-
-    /* Next & previous buttons */
-    .prev,
-    .next {
-        cursor: pointer;
-        position: relative;
-        top: 50%;
-        width: auto;
-        margin-top: -22px;
-        padding: 16px;
-        color: rgb(47, 112, 17);
-        font-weight: bold;
-        font-size: 18px;
-        transition: 0.6s ease;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
-    }
-
-    /* Position the "next button" to the right */
-    .prev {
-        left: 0;
-        border-radius: 3px 0 0 3px;
-    }
-
-    .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
-    }
-
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover,
-    .next:hover {
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    /* The dots/bullets/indicators */
-    .dot {
-        cursor: pointer;
-        height: 15px;
-        width: 15px;
-        margin: 0 2px;
-        background-color: #bbb;
-        border-radius: 50%;
-        display: inline-block;
-        transition: background-color 0.6s ease;
-    }
-
-    .dot:hover {
-        background-color: #0f386d;
-    }
-
-    @keyframes fade {
-        from {
-            opacity: .4
-        }
-
-        to {
-            opacity: 1
-        }
-    }
 </style>
 
-<section>
+<section th:object="${page}">
     <header class="py-5 d-flex justify-content-center" id="category-1">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-border">Booked - Host </h1>
+                <h1 class="display-4 fw-border">Booked - MEMBER </h1>
                 <p class="lead fw-normal text-white-50">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             </div>
         </div>
     </header>
-    <div class="p-3"></div>
-    <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
-        <div class="slideshow-container">
-
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    <div class="container-field px-4 px-lg-5 mt-5 mb-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
             <!-- th:each 단락 -->
-            <!-- mySlides로 묶어준 후 bootstrap스타일 적용 -->
-            <div class="mySlides">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
-                    <!-- 최소컴포넌트 -->
-                    <div class="col mb-5">
-                        <div class="card h-100 text-center main-content">
-                            <a href="#">
-                                <div class="main-content-overlay"></div>
-                                <img class="card-img-top shadow main-content-image"
-                                     src="https://images.unsplash.com/photo-1524946274118-e7680e33ccc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJlYWNoJTIwYmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                                     alt="">
-                                <div class="main-content-details fadeIn-bottom">
-                                    <h3>Title1-1 : </h3>
-                                    <p>Name : </p>
-                                    <p>Number : </p>
-                                    <p>Date : </p>
-                                    <p>Guests : </p>
+            <div class="col mb-5 text-center" th:each=" info : *{content}">
+                <div class="card h-100 shadow main-content">
+                    <img class="card-img-top" th:src="${info.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">
+                    <div class="card-body bg-light border-light pb-0 pt-5">
+                        <span class="d-flex flex-row">글 제목 🏷 :&nbsp;
+                            <p th:text="${info.postTitle}" class="fw-bold text-primary">제목</p>
+                        </span>
+
+                        <span class="d-flex flex-row">카테고리 🌴 :&nbsp;
+                            <p th:text="${info.category}" class="fw-bold text-primary">카테고리</p>
+                        </span>
+
+                        <span class="d-flex flex-row">예약자 ✏️ :&nbsp;
+                            <p th:text="${info.name}" class="fw-bold text-success">예약자</p>
+                        </span>
+
+                        <span class="d-flex flex-row">전화번호 ☎️ :&nbsp;
+                            <p th:text="${info.phone}" class="fw-bold text-success">전화번호</p>
+                        </span>
+
+                        <span class="d-flex flex-row">예약일 📅 :&nbsp;
+                            <p th:text="${info.bookDate}" class="fw-bold text-success">예약일</p>
+                        </span>
+
+                        <span class="d-flex flex-row">인원 🙋🏻‍ :&nbsp;
+                            <p th:text="${info.personCount}" class="fw-bold text-success">인원</p> 명
+                        </span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-m text-center mt-4" data-bs-toggle="modal" th:data-bs-target="|#posts${info.postId}|" style="margin: 0 auto">
+                    게시물로 이동⚡️
+                </button>
+
+                <!--예약취소 모달-->
+                <div class="modal fade" th:id="posts+${info.postId}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <h4 class="modal-title" id="test"></h4>
+                            <div class="modal-body text-center pb-5">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-12">
+                                            <h2 class="text-primary mb-0">
+                                                게시물 이동 ⚡️
+                                            </h2>
+                                            <p class="my-4">해당 게시물로 이동할까요?</p>
+                                        </div>
+                                        <button class="btn btn-primary col-4 mx-3" data-bs-dismiss="modal" th:onclick="|location.href='@{/posts/{postId}(postId=${info.postId})}'|">
+                                            보러가기
+                                        </button>
+                                        <button class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
+                                            돌아가기
+                                        </button>
+                                    </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
+        <ul class="pagination text-center d-flex flex-row justify-content-center mt-5" style="margin: 0 auto">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/bookings/hosts/{hostId}(hostId=${session.loginHost.id},page=${page.number}-1)}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:each="num : ${#numbers.sequence(1,page.totalPages,1)}">
+                <a class="page-link" th:text="${num}" th:href="@{/bookings/hosts/{hostsId}(hostsId=${session.loginHost.id},page=${num}-1)}">?</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/bookings/hosts/{hostId}(hostId=${session.loginHost.id},page=${page.number}+1)}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
     </div>
 </section>
 
-<script th:inline="javascript">
-    let slideIndex = 1;
-    showSlides(slideIndex); // 제일 처음 화면에서 첫번째 mySlides가 보임
-
-    // Next/previous controls
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-
-    // Thumbnail image controls
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {
-            slideIndex = 1
-        }
-        if (n < 1) {
-            slideIndex = slides.length
-        } // btn1에서 prev버튼을 누른경우 btn마지막으로 이동
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none"; // 먼저 모든 mySlide를 비활성화 시킴
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", ""); // 먼저 모든 버튼을 비활성화시킴
-        }
-        slides[slideIndex - 1].style.display = "block"; //클릭한 btn의 mySlide만 활성화 시킴
-        dots[slideIndex - 1].className += " active"; // 클릭한 btn을 활성화 시킴(색상변경)
-    }
-
-    // 컴포넌트 생성 함수
-    // 1. 서버에서 가져온 리스트 길이를 파라미터로 조건 이용
-    // 2. mySlides당 게시물은 4개씩 생성
-    // 3. 그에 따른 버튼 생성 함수 안쪽에 넣어서 실행되도록 구성
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script th:inline="javascript"></script>
 </html>
