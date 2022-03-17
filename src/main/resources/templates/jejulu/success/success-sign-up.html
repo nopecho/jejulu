@@ -3,9 +3,6 @@
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style>
-    #bs_main {
-        background-size: cover;
-    }
     #bs_icon {
         width: 10%;
         height: 10%;
@@ -13,20 +10,11 @@
 </style>
 
 <section>
-    <header
-            id="bs_main"
-            class="py-5 bg-image-full"
-            style="background-image: url(../../../static/image/category/About_jeju_7.jpg);"
-    >
-        <div class="text-center my-5">
-            <img
-                    id="bs_icon"
-                    class="img-fluid rounded-circle mb-4"
-                    src="../../../static/image/category/Booking_success.png"
-                    alt="..."
-            />
+    <header class="pt-5">
+        <div class="text-center">
+            <img id="bs_icon" class="img-fluid rounded-circle mb-4" th:src="@{/image/success.png}" alt="..."/>
             <h2 th:text="${name}+' 님'" class="text-primary"></h2>
-            <h1 class="text-black fs-1 fw-bolder">Thanks for your sign-up!</h1>
+            <h1 class="text-success fs-1 fw-bolder">Thanks for your sign-up!</h1>
         </div>
     </header>
 
