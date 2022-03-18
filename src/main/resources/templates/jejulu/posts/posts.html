@@ -18,8 +18,20 @@
         transition: all 0.3s;
     }
 
-    #category-1 {
-        background-image: url(https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80);
+    #TOUR {
+        background-image: url(https://images.unsplash.com/photo-1609766418204-94aae0ecfdfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
+        background-size: cover;
+        flex-direction: column;
+    }
+
+    #RESTURENT {
+        background-image: url(https://images.unsplash.com/photo-1507598641400-ec3536ba81bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
+        background-size: cover;
+        flex-direction: column;
+    }
+
+    #HOTEL {
+        background-image: url(https://images.unsplash.com/photo-1528909257635-429e04fab8d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80);
         background-size: cover;
         flex-direction: column;
     }
@@ -28,10 +40,18 @@
         height: 15rem;
         object-fit: cover;
     }
+
+    .my-btn {
+        border-radius: 20px;
+    }
+
+    .select-sort {
+        background-color: black;
+    }
 </style>
 
 <section th:object="${page}">
-    <header class="py-5 d-flex justify-content-center" id="category-1">
+    <header class="py-5 d-flex justify-content-center" th:id="${category}">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-border" th:text="${category}">CTEGORY</h1>
@@ -39,16 +59,15 @@
             </div>
         </div>
     </header>
-    <div class="my-3">
-        <button class="btn btn-sm btn-dark my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='createDate,desc')}'|">
-            최신 순
-        </button>
-        <button class="btn btn-sm btn-dark my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='count,desc')}'|">
-            조회 순
-        </button>
-    </div>
-    <div class="p-3"></div>
-    <div class="container px-4 px-lg-5 mt-5 mb-5">
+    <div class="container px-4 px-lg-5 mb-5">
+        <div class="my-3">
+            <button class="btn btn-m btn-secondary my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='createDate,desc')}'|" th:classappend="(${#httpServletRequest.getParameter('sort') == 'createDate,desc' ? 'select-sort' : ''})">
+                최신 순
+            </button>
+            <button class="btn btn-m btn-secondary my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='count,desc')}'|" th:classappend="(${#httpServletRequest.getParameter('sort') == 'count,desc' ? 'select-sort' : ''})">
+                조회 순
+            </button>
+        </div>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
             <!-- th:each 단락 -->
             <div class="col mb-5" th:each=" info : *{content}">
@@ -88,11 +107,13 @@
 <script th:inline="javascript">
     const page = [[${page}]]
     let pageNum = page.number;
-    const sort = [[${#HttpServletRequest.getParameter("sort")}]]
-    console.log(sort)
+    let sort = [[${#httpServletRequest.getParameter("sort")}]]
+    if(sort === null){
+        sort = '';
+    }
     function loadPosts(){
         const category = [[${category}]];
-        fetch(`/posts/${category}/load?page=${++pageNum}&sort=${}`)
+        fetch(`/posts/${category}/load?page=${++pageNum}&sort=${sort}`)
             .then(res => res.json())
             .then(posts => render(posts.content))
             .catch(e => console.log(e));
@@ -101,7 +122,6 @@
     function render(posts){
         const container = document.getElementById("posts-container")
         posts.forEach(post => {
-            console.log(post)
             const appendPost = document.createElement("div");
             appendPost.className = "col mb-5";
             appendPost.innerHTML =

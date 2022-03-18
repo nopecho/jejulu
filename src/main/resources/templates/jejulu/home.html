@@ -84,17 +84,17 @@
     }
 
     #category-1 {
-        background-image: url(https://images.unsplash.com/photo-1609766418204-94aae0ecfdfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2232&q=80);
+        background-image: url(https://images.unsplash.com/photo-1609766418204-94aae0ecfdfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
         background-size: cover;
         flex-direction: column;
     }
     #category-2 {
-        background-image: url(https://images.unsplash.com/photo-1528909257635-429e04fab8d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80);
+        background-image: url(https://images.unsplash.com/photo-1507598641400-ec3536ba81bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
         background-size: cover;
         flex-direction: column;
     }
     #category-3 {
-        background-image: url(https://images.unsplash.com/photo-1507598641400-ec3536ba81bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
+        background-image: url(https://images.unsplash.com/photo-1528909257635-429e04fab8d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80);
         background-size: cover;
         flex-direction: column;
     }
@@ -161,7 +161,7 @@
     <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
             <!-- th:each 단락 -->
-            <div class="col mb-5" th:each="post : *{postsByHotel}">
+            <div class="col mb-5" th:each="post : *{postsByResturent}">
                 <div class="card h-100 text-center main-content">
                     <a th:href="@{posts/{postId}(postId=${post.id})}">
                         <div class="main-content-overlay"></div>
@@ -204,7 +204,7 @@
     <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
             <!-- th:each 단락 -->
-            <div class="col mb-5" th:each="post : *{postsByResturent}">
+            <div class="col mb-5" th:each="post : *{postsByHotel}">
                 <div class="card h-100 text-center main-content">
                     <a th:href="@{posts/{postId}(postId=${post.id})}">
                         <div class="main-content-overlay"></div>

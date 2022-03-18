@@ -11,6 +11,9 @@
         background-size: cover;
         flex-direction: column;
     }
+    .select-sort {
+        background-color: black;
+    }
 </style>
 
 <section th:object="${page}">
@@ -25,10 +28,10 @@
 
     <div class="container mt-3">
         <div class="my-3">
-            <button class="btn btn-sm btn-dark my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='createDate,desc')}'|">
+            <button class="btn btn-m btn-secondary my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='createDate,desc')}'|" th:classappend="(${#httpServletRequest.getParameter('sort') == 'createDate,desc' ? 'select-sort' : ''})">
                 최신 순
             </button>
-            <button class="btn btn-sm btn-dark my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='count,desc')}'|">
+            <button class="btn btn-m btn-secondary my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='count,desc')}'|" th:classappend="(${#httpServletRequest.getParameter('sort') == 'count,desc' ? 'select-sort' : ''})">
                 조회 순
             </button>
         </div>
@@ -56,7 +59,7 @@
                                 <a th:href="|@{/posts/{postId}(postId=${post.id})}|" th:text="${post.title}">제목</a>
                             </td>
                             <td data-label="카테고리">
-                                <button class="btn btn-sm btn-primary my-btn" th:text="${post.category}" th:onclick="|location.href='@{/posts/categorys/{category}(category=${post.category})}'|">
+                                <button class="btn btn-sm btn-warning my-btn" th:text="${post.category}" th:onclick="|location.href='@{/posts/categorys/{category}(category=${post.category})}'|">
                                     카테고리
                                 </button>
                             </td>
