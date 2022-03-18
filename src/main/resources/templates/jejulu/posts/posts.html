@@ -39,6 +39,14 @@
             </div>
         </div>
     </header>
+    <div class="my-3">
+        <button class="btn btn-sm btn-dark my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='createDate,desc')}'|">
+            최신 순
+        </button>
+        <button class="btn btn-sm btn-dark my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='count,desc')}'|">
+            조회 순
+        </button>
+    </div>
     <div class="p-3"></div>
     <div class="container px-4 px-lg-5 mt-5 mb-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
@@ -80,10 +88,11 @@
 <script th:inline="javascript">
     const page = [[${page}]]
     let pageNum = page.number;
-
+    const sort = [[${#HttpServletRequest.getParameter("sort")}]]
+    console.log(sort)
     function loadPosts(){
         const category = [[${category}]];
-        fetch(`/posts/${category}/load?page=${++pageNum}`)
+        fetch(`/posts/${category}/load?page=${++pageNum}&sort=${}`)
             .then(res => res.json())
             .then(posts => render(posts.content))
             .catch(e => console.log(e));

@@ -24,6 +24,15 @@
     </header>
 
     <div class="container mt-3">
+        <div class="my-3">
+            <button class="btn btn-sm btn-dark my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='createDate,desc')}'|">
+                최신 순
+            </button>
+            <button class="btn btn-sm btn-dark my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='count,desc')}'|">
+                조회 순
+            </button>
+        </div>
+
         <div class="card bg-light shadow">
             <div class="table-responsive">
                 <table class="table table-hover table-nowrap text-center">
@@ -105,29 +114,29 @@
                         : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
                             : page.totalPages)})">
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=0)}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=0,sort=${#httpServletRequest.getParameter('sort')})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.number - maxPage})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.number - maxPage},sort=${#httpServletRequest.getParameter('sort')})}" aria-label="Previous">
                     <span aria-hidden="true">&lt;</span>
                 </a>
             </li>
 
             <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">
-                <a class="page-link" th:text="${num}" th:href="@{/posts/host/{hostsId}(hostsId=${session.loginHost.id},page=${num}-1)}">?</a>
+                <a class="page-link" th:text="${num}" th:href="@{/posts/host/{hostsId}(hostsId=${session.loginHost.id},page=${num - 1},sort=${#httpServletRequest.getParameter('sort')})}">?</a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${start+maxPage}-1)}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${start+maxPage - 1},sort=${#httpServletRequest.getParameter('sort')})}" aria-label="Previous">
                     <span aria-hidden="true">&gt;</span>
                 </a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.totalPages}-1)}" aria-label="Next">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.totalPages - 1},sort=${#httpServletRequest.getParameter('sort')})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
