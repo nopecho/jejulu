@@ -1,4 +1,4 @@
-package hello.jejulu.web.dto;
+package hello.jejulu.web.dto.host;
 
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.util.Role;

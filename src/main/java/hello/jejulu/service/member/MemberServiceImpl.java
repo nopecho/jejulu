@@ -3,7 +3,7 @@ package hello.jejulu.service.member;
 import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.member.MemberRepository;
 import hello.jejulu.service.util.ServiceUtil;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -28,7 +28,7 @@
         border-radius: 30px;
     }
 
-    #category {
+    .my-btns {
         border-radius: 20px;
         height: 25px;
     }
@@ -45,9 +45,14 @@
                 <div class="mb-3">
                     <div class="d-flex justify-content-between mb-3 col">
                         <h2 th:text="*{title}">제목</h2>
-                        <a id="category" class="text-white bg-primary" style="text-decoration:none" th:href="|@{/posts/categorys/{category}(category=*{category})}|">
-                            <h5 class="mx-3" th:text="*{category}">카테고리</h5>
-                        </a>
+                        <div class="d-flex flex-row justify-content-between">
+                            <a class="text-white bg-warning my-btns mr-3" style="text-decoration:none" th:href="|@{/posts/categorys/{category}(category=*{category})}|">
+                                <h5 class="mx-3" th:text="*{category}">카테고리</h5>
+                            </a>&emsp;
+                            <a class="text-white bg-secondary my-btns" style="text-decoration:none" th:href="|@{/posts/categorys/{category}(category=*{category})}|">
+                                <h6 class="mx-3 mt-1">목록으로</h6>
+                            </a>
+                        </div>
                     </div>
                     <div class="col-12 d-flex flex-row justify-content-between">
                         <div class="d-flex flex-row">

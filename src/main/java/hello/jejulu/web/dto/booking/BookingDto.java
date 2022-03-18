@@ -1,4 +1,4 @@
-package hello.jejulu.web.dto;
+package hello.jejulu.web.dto.booking;
 
 import hello.jejulu.domain.booking.Booking;
 import hello.jejulu.domain.member.Member;

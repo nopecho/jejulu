@@ -1,6 +1,6 @@
 package hello.jejulu.service.booking;
 
-import hello.jejulu.web.dto.BookingDto;
+import hello.jejulu.web.dto.booking.BookingDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

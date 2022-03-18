@@ -4,7 +4,7 @@ import hello.jejulu.domain.util.Role;
 import hello.jejulu.domain.admin.Admin;
 import hello.jejulu.domain.admin.AdminRepository;
 import hello.jejulu.service.member.MemberService;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

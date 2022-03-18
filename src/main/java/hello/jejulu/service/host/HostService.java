@@ -1,6 +1,6 @@
 package hello.jejulu.service.host;
 
-import hello.jejulu.web.dto.HostDto;
+import hello.jejulu.web.dto.host.HostDto;
 
 public interface HostService {
     HostDto.Detail getHostById(Long hostId);

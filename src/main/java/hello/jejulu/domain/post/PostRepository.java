@@ -17,4 +17,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findTop4ByCategory(Category category, Sort sort);
     Slice<Post> findAllByCategory(Category category, Pageable pageable);
     Page<Post> findAllByHostId(Long hostId, Pageable pageable);
+    Page<Post> findByTitleContains(String keyword, Pageable pageable);
+    Page<Post> findByHostNameContains(String keyword, Pageable pageable);
 }

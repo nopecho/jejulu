@@ -1,8 +1,8 @@
 package hello.jejulu.web.annotation;
 
 import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.dto.HostDto;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.host.HostDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import org.springframework.core.MethodParameter;

@@ -8,8 +8,8 @@ import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.domain.thumbnail.Thumbnail;
 import hello.jejulu.service.thumbnail.ThumbnailService;
 import hello.jejulu.service.util.ServiceUtil;
-import hello.jejulu.web.dto.HostDto;
-import hello.jejulu.web.dto.PostDto;
+import hello.jejulu.web.dto.host.HostDto;
+import hello.jejulu.web.dto.post.PostDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
@@ -99,6 +99,12 @@ public class PostServiceImpl implements PostService {
         Post post = ServiceUtil.getEntityByNullCheck(postRepository.findById(postId));
         Host host = post.getHost();
         return host.getId().equals(loginHost.getId());
+    }
+
+    @Override
+    public Page<PostDto.Info> getSearchResult(String keyword, String type, Pageable pageable) {
+        Page<Post> posts = postRepository.findByTitleContains(keyword, pageable);
+        return posts.map(post -> new PostDto.Info(post, ServiceUtil.extractedPath(post.getThumbnail())));
     }
 
     private Sort sortByCreateDate() {

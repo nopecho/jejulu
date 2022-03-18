@@ -1,8 +1,8 @@
 package hello.jejulu.service.post;
 
 import hello.jejulu.domain.util.Category;
-import hello.jejulu.web.dto.HostDto;
-import hello.jejulu.web.dto.PostDto;
+import hello.jejulu.web.dto.host.HostDto;
+import hello.jejulu.web.dto.post.PostDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -17,7 +17,8 @@ public interface PostService {
     PostDto.Detail getUpdatePostById(Long postId);
     List<PostDto.Info> getHomePostsByCategory(Category category);
     Slice<PostDto.Info> getPostsByCategory(Category category, Pageable pageable);
-     Page<PostDto.Info> getPostsByHost(Long hostId, Pageable pageable);
+    Page<PostDto.Info> getPostsByHost(Long hostId, Pageable pageable);
     void delete(Long postId);
     boolean isPostByHost(Long postId, HostDto.Info loginHost);
+    Page<PostDto.Info> getSearchResult(String keyword,String type, Pageable pageable);
 }

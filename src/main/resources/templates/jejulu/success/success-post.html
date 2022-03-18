@@ -25,11 +25,12 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <h2>Your posting has been confirmed.</h2>
-                    <br />
+                    <br/>
                     <h3>Please check your posting on Homepage</h3>
                     <p class="lead"></p>
-                    <br />
-                    <button class="btn btn-secondary btn-lg" type="button">목록으로</button>
+                    <br/>
+                    <button class="btn btn-secondary btn-lg" type="button"
+                            th:onclick="|location.href='@{/posts/categorys/{category}(category=${category})}'|">목록으로</button>
                     <button class="btn btn-secondary btn-lg" type="button"
                             th:onclick="|location.href='@{/posts/{postId}(postId=${id})}'|">게시물 보기</button>
                 </div>

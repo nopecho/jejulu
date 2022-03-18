@@ -3,9 +3,8 @@ package hello.jejulu.web.controller.post;
 import hello.jejulu.domain.util.Category;
 import hello.jejulu.service.post.PostService;
 import hello.jejulu.web.annotation.Login;
-import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.dto.HostDto;
-import hello.jejulu.web.dto.PostDto;
+import hello.jejulu.web.dto.host.HostDto;
+import hello.jejulu.web.dto.post.PostDto;
 import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -52,7 +49,8 @@ public class PostController {
                            RedirectAttributes redirectAttributes) throws IOException {
         PostDto.Info savePostInfo = postService.add(postSaveDto, loginHost);
         redirectAttributes.addAttribute("postId",savePostInfo.getId());
-        return "redirect:/success/post/{postId}";
+        redirectAttributes.addAttribute("category",savePostInfo.getCategory());
+        return "redirect:/success/post/{postId}?category={category}";
     }
 
     /**
@@ -175,5 +173,17 @@ public class PostController {
     public boolean deletePostFromMyPage(@PathVariable Long postId){
         postService.delete(postId);
         return true;
+    }
+
+    @GetMapping("/search")
+    public String searchPosts(@RequestParam String keyword,
+                              @RequestParam(required = false) String type,
+                              @PageableDefault(size = 12, sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable,
+                              Model model){
+        Page<PostDto.Info> searchResult = postService.getSearchResult(keyword, type, pageable);
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("page",searchResult);
+        model.addAttribute("maxPage",10);
+        return "jejulu/search/search-result";
     }
 }

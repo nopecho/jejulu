@@ -3,7 +3,7 @@ package hello.jejulu.service.host;
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.host.HostRepository;
 import hello.jejulu.service.util.ServiceUtil;
-import hello.jejulu.web.dto.HostDto;
+import hello.jejulu.web.dto.host.HostDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

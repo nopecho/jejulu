@@ -2,9 +2,9 @@ package hello.jejulu.web.controller.booking;
 
 import hello.jejulu.service.booking.BookingService;
 import hello.jejulu.web.annotation.Login;
-import hello.jejulu.web.dto.BookingDto;
-import hello.jejulu.web.dto.HostDto;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.booking.BookingDto;
+import hello.jejulu.web.dto.host.HostDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;

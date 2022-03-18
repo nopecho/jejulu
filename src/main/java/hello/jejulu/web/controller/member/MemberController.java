@@ -3,7 +3,7 @@ package hello.jejulu.web.controller.member;
 import hello.jejulu.service.member.MemberService;
 import hello.jejulu.web.annotation.Login;
 import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;

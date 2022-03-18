@@ -1,4 +1,4 @@
-package hello.jejulu.web.dto;
+package hello.jejulu.web.dto.member;
 
 import hello.jejulu.domain.util.Role;
 import hello.jejulu.domain.member.Member;

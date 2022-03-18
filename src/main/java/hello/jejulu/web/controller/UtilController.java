@@ -1,6 +1,6 @@
 package hello.jejulu.web.controller;
 
-import hello.jejulu.web.dto.BookingDto;
+import hello.jejulu.domain.util.Category;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +22,11 @@ public class UtilController {
     }
 
     @GetMapping("/success/post/{postId}")
-    public String successPost(@PathVariable Long postId, Model model){
+    public String successPost(@PathVariable Long postId,
+                              @RequestParam Category category,
+                              Model model){
         model.addAttribute("id",postId);
+        model.addAttribute("category", category);
         return "jejulu/success/success-post";
     }
 }
