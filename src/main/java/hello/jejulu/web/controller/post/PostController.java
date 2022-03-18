@@ -10,6 +10,7 @@ import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
@@ -110,14 +111,18 @@ public class PostController {
      * @param hostId
      * @param loginHost
      */
-    @ResponseBody
     @GetMapping("/host/{hostId}")
-    public List<PostDto.Info> testApi(@PathVariable Long hostId,
-                                      @Login HostDto.Info loginHost){
+    public String lookupPostsFromHost(@PathVariable Long hostId,
+                                      @Login HostDto.Info loginHost,
+                                      @PageableDefault(size = 15, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
+                                      Model model) {
         if(!loginHost.getId().equals(hostId)){
             throw new CustomException(ErrorCode.INVALID_AUTH);
         }
-        return postService.getPostsByHost(hostId);
+        Page<PostDto.Info> page = postService.getPostsByHost(hostId, pageable);
+        model.addAttribute("page",page);
+        model.addAttribute("maxPage",10);
+        return "jejulu/posts/posts-host";
     }
 
     /**
@@ -159,5 +164,16 @@ public class PostController {
         postService.delete(postId);
         redirectAttributes.addAttribute("category",category);
         return "redirect:/posts/categorys/{category}";
+    }
+
+    /**
+     * 호스트 마이 페이지에서 게시물 삭제 핸들러
+     * @param postId
+     */
+    @ResponseBody
+    @DeleteMapping("/{postId}/my-page")
+    public boolean deletePostFromMyPage(@PathVariable Long postId){
+        postService.delete(postId);
+        return true;
     }
 }

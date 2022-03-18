@@ -101,23 +101,39 @@
                 </div>
             </div>
         </div>
-            <ul class="pagination text-center d-flex flex-row justify-content-center mt-5" style="margin: 0 auto">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=${page.number}-1)}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
+        <ul class="pagination text-center d-flex flex-row justify-content-center mt-5" style="margin: 0 auto"
+            th:with="start=${(page.number/maxPage)*maxPage+1},
+            end = (${(page.totalPages == 0) ? 1
+                        : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
+                            : page.totalPages)})">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=0)}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
 
-                <li class="page-item" th:each="num : ${#numbers.sequence(1,page.totalPages,1)}">
-                    <a class="page-link" th:text="${num}" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=${num}-1)}">?</a>
-                </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=${page.number - maxPage})}" aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
 
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=${page.number}+1)}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
+            <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">
+                <a class="page-link" th:text="${num}" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=${num}-1)}">?</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=${start+maxPage}-1)}" aria-label="Previous">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/bookings/members/{memberId}(memberId=${session.loginMember.id},page=${page.totalPages}-1)}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
     </div>
 
 </section>
@@ -132,44 +148,5 @@
         deleteForm.submit()
         console.log("삭제해!")
     }
-
-    let slideIndex = 1;
-    showSlides(slideIndex); // 제일 처음 화면에서 첫번째 mySlides가 보임
-
-    // Next/previous controls
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-
-    // Thumbnail image controls
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {
-            slideIndex = 1
-        }
-        if (n < 1) {
-            slideIndex = slides.length
-        } // btn1에서 prev버튼을 누른경우 btn마지막으로 이동
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none"; // 먼저 모든 mySlide를 비활성화 시킴
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", ""); // 먼저 모든 버튼을 비활성화시킴
-        }
-        slides[slideIndex - 1].style.display = "block"; //클릭한 btn의 mySlide만 활성화 시킴
-        dots[slideIndex - 1].className += " active"; // 클릭한 btn을 활성화 시킴(색상변경)
-    }
-
-    // 컴포넌트 생성 함수
-    // 1. 서버에서 가져온 리스트 길이를 파라미터로 조건 이용
-    // 2. mySlides당 게시물은 4개씩 생성
-    // 3. 그에 따른 버튼 생성 함수 안쪽에 넣어서 실행되도록 구성
-
 </script>
 </html>

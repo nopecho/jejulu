@@ -83,6 +83,7 @@ public class PostDto {
         private String description;
         private int count;
         private Category category;
+        private LocalDate createDate;
         private String imagePath;
         private String writer;
 
@@ -92,6 +93,7 @@ public class PostDto {
             this.description = post.getDescription();
             this.count=post.getCount();
             this.category = post.getCategory();
+            this.createDate = post.getCreateDate().toLocalDate();
             this.imagePath = imagePath;
             this.writer = post.getHost().getName();
         }

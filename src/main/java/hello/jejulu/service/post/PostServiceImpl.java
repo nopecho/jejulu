@@ -66,11 +66,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto.Info> getPostsByHost(Long hostId) {
-        Host host = ServiceUtil.getEntityByNullCheck(hostRepository.findById(hostId));
-        return host.getPosts().stream()
-                .map(post -> new PostDto.Info(post, ServiceUtil.extractedPath(post.getThumbnail())))
-                .collect(Collectors.toList());
+    public Page<PostDto.Info> getPostsByHost(Long hostId, Pageable pageable) {
+        Page<Post> page = postRepository.findAllByHostId(hostId, pageable);
+        return page.map(post -> new PostDto.Info(post, ServiceUtil.extractedPath(post.getThumbnail())));
     }
 
     @Transactional

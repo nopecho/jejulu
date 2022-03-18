@@ -45,7 +45,7 @@
                 <div class="mb-3">
                     <div class="d-flex justify-content-between mb-3 col">
                         <h2 th:text="*{title}">제목</h2>
-                        <a id="category" class="text-white bg-black" style="text-decoration:none" th:href="|@{/posts/categorys/{category}(category=*{category})}|">
+                        <a id="category" class="text-white bg-primary" style="text-decoration:none" th:href="|@{/posts/categorys/{category}(category=*{category})}|">
                             <h5 class="mx-3" th:text="*{category}">카테고리</h5>
                         </a>
                     </div>
@@ -98,7 +98,8 @@
                         <h4>Book now</h4>
                         <p style="white-space: pre-line;">Lorem ipsum dolor,
                             sit amet consectetur adipisicing elit.
-                            Laudantium expedita nobis soluta cumque ad nostrum,</p>
+                            Laudantium expedita nobis soluta cumque ad nostrum
+                        </p>
                     </div>
                     <button class="btn btn-success btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#booking" onclick="hostCheck()">예약 하기</button>
                 </div>

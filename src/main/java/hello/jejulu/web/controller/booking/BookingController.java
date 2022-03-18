@@ -1,6 +1,5 @@
 package hello.jejulu.web.controller.booking;
 
-import hello.jejulu.domain.booking.Booking;
 import hello.jejulu.service.booking.BookingService;
 import hello.jejulu.web.annotation.Login;
 import hello.jejulu.web.dto.BookingDto;
@@ -78,6 +77,7 @@ public class BookingController {
         }
         Page<BookingDto.MyDetail> page = bookingService.getBookingsByMember(memberId, pageable);
         model.addAttribute("page",page);
+        model.addAttribute("maxPage",10);
         return "jejulu/bookings/bookings-member";
     }
 
@@ -98,6 +98,7 @@ public class BookingController {
         }
         Page<BookingDto.MemberDetail> page = bookingService.getBookingsByHost(hostId, pageable);
         model.addAttribute("page",page);
+        model.addAttribute("maxPage",10);
         return "jejulu/bookings/bookings-host";
     }
 }
