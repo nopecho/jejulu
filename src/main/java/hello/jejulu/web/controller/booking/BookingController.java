@@ -29,8 +29,20 @@ public class BookingController {
 
     private final BookingService bookingService;
 
+    @GetMapping("/{bookingId}")
+    public String lookupBookingDetail(@PathVariable Long bookingId,
+                                      @Login MemberDto.Info loginMember,
+                                      Model model){
+        if(!bookingService.isBookedByLoginMember(bookingId, loginMember.getId())){
+            throw new CustomException(ErrorCode.INVALID_AUTH);
+        }
+        BookingDto.Detail detail = bookingService.getBookingDetail(bookingId);
+        model.addAttribute("detail",detail);
+        return "jejulu/bookings/booking";
+    }
+
     @GetMapping("/posts/{postId}")
-    public String bookingForm(@PathVariable Long postId){
+    public String bookingPost(@PathVariable Long postId){
         return "redirect:/posts/{postId}";
     }
 
@@ -46,6 +58,16 @@ public class BookingController {
         return ResponseEntity.status(302)
                 .header("location","/bookings/"+bookInfo.getId()+"/success")
                 .build();
+    }
+
+    @ResponseBody
+    @DeleteMapping("{bookingId}")
+    public boolean deleteBooking(@PathVariable Long bookingId,
+                                @Login MemberDto.Info loginMember){
+        if(!bookingService.isBookedByLoginMember(bookingId, loginMember.getId())) {
+            throw new CustomException(ErrorCode.INVALID_AUTH);
+        }
+        return bookingService.isDeleteBookingSuccess(bookingId);
     }
 
     @GetMapping("/{bookingId}/success")

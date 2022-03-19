@@ -33,11 +33,25 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
+    public BookingDto.Detail getBookingDetail(Long bookingId) {
+        Booking booking = ServiceUtil.getEntityByNullCheck(bookingRepository.findById(bookingId));
+        return new BookingDto.Detail(booking);
+    }
+
+    @Override
     public boolean isBookedByLoginMember(Long bookId, Long memberId) {
         Member loginMember = ServiceUtil.getEntityByNullCheck(memberRepository.findById(memberId));
         return loginMember.getBookings()
                 .stream()
                 .anyMatch(booking -> booking.getId().equals(bookId));
+    }
+
+    @Transactional
+    @Override
+    public boolean isDeleteBookingSuccess(Long bookId) {
+        Booking booking = ServiceUtil.getEntityByNullCheck(bookingRepository.findById(bookId));
+        bookingRepository.delete(booking);
+        return true;
     }
 
     @Override

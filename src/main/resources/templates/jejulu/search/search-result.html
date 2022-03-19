@@ -63,7 +63,7 @@
             </div>
 
             <div class="mr-0">
-                <form action="/posts/search" method="get" class="d-flex flex-row">
+                <form th:action="@{${#httpServletRequest.getRequestURI()}}" method="get" class="d-flex flex-row">
                     <select name="type" class="form-select my-btn" style="width: 93px";>
                         <option value="title">제목</option>
                         <option value="hostName">작성자</option>
@@ -111,7 +111,7 @@
                         : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
                             : page.totalPages)})">
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=0,sort=${sort})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=0,sort=${sort},type=${type})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
