@@ -21,4 +21,5 @@ public interface PostService {
     void delete(Long postId);
     boolean isPostByHost(Long postId, HostDto.Info loginHost);
     Page<PostDto.Info> getSearchResult(String keyword,String type, Pageable pageable);
+    Page<PostDto.Info> getSeadrchResultByCategory(Category category, String keyword, String type, Pageable pageable);
 }

@@ -40,6 +40,11 @@
 
 <section th:object="${page}" th:with="keyword = ${#httpServletRequest.getParameter('keyword')}, type = ${#httpServletRequest.getParameter('type')} , sort = ${#httpServletRequest.getParameter('sort')}">
     <header class="py-5 d-flex justify-content-center" id="hd">
+        <div class="container d-flex flex-row text-center px-4 px-lg-5">
+            <a class="text-white bg-warning my-btn mr-3" style="text-decoration:none;" th:href="|@{/posts/categorys/{category}(category=${category})}|">
+                <h3 th:text="|&nbsp;${category}&nbsp;|">카테고리</h3>
+            </a>
+        </div>
         <div class="container d-flex flex-row text-center px-4 px-lg-5 my-5">
             <div class="text-white">
                 <h2 class="display-4 fw-bold" th:text="${keyword}">키워드</h2>
@@ -111,29 +116,29 @@
                         : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
                             : page.totalPages)})">
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=0,sort=${sort})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=0,sort=${sort})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=${page.number - maxPage},sort=${sort},type=${type})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=${page.number - maxPage},sort=${sort},type=${type})}" aria-label="Previous">
                     <span aria-hidden="true">&lt;</span>
                 </a>
             </li>
 
             <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">
-                <a class="page-link" th:text="${num}" th:href="@{/posts/search(keyword=${keyword},page=${num - 1},sort=${sort}, type=${type})}">?</a>
+                <a class="page-link" th:text="${num}" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=${num - 1},sort=${sort}, type=${type})}">?</a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=${start+maxPage - 1},sort=${sort}, type=${type})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=${start+maxPage - 1},sort=${sort}, type=${type})}" aria-label="Previous">
                     <span aria-hidden="true">&gt;</span>
                 </a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=${page.totalPages - 1},sort=${sort}, type=${type})}" aria-label="Next">
+                <a class="page-link" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=${page.totalPages - 1},sort=${sort}, type=${type})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

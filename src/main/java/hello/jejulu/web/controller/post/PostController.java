@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.io.IOException;
 
 @RequiredArgsConstructor
@@ -175,8 +174,15 @@ public class PostController {
         return true;
     }
 
+    /**
+     * 게시물 검색 핸들러
+     * @param keyword
+     * @param type
+     * @param pageable
+     * @param model
+     */
     @GetMapping("/search")
-    public String searchPosts(@RequestParam String keyword,
+    public String searchPosts(@RequestParam(required = false) String keyword,
                               @RequestParam(required = false) String type,
                               @PageableDefault(size = 12, sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable,
                               Model model){
@@ -185,5 +191,27 @@ public class PostController {
         model.addAttribute("page",searchResult);
         model.addAttribute("maxPage",10);
         return "jejulu/search/search-result";
+    }
+
+    /**
+     * 카테고리별 게시물 검색 핸들러
+     * @param category
+     * @param keyword
+     * @param type
+     * @param pageable
+     * @param model
+     */
+    @GetMapping("/{category}/search")
+    public String searchPostsByCategory(@PathVariable Category category,
+                                        @RequestParam(required = false) String keyword,
+                                        @RequestParam(required = false) String type,
+                                        @PageableDefault(size = 12, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
+                                        Model model){
+        Page<PostDto.Info> searchResult = postService.getSeadrchResultByCategory(category, keyword, type, pageable);
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("page", searchResult);
+        model.addAttribute("maxPage",10);
+        model.addAttribute("category", category);
+        return "jejulu/search/search-result-category";
     }
 }

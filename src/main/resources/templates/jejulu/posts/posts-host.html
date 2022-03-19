@@ -16,7 +16,7 @@
     }
 </style>
 
-<section th:object="${page}">
+<section th:object="${page}" th:with="sort = ${#httpServletRequest.getParameter('sort')}">
     <header class="py-5 d-flex justify-content-center mb-4" id="category-1">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
@@ -27,13 +27,28 @@
     </header>
 
     <div class="container mt-3">
-        <div class="my-3">
-            <button class="btn btn-m btn-secondary my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='createDate,desc')}'|" th:classappend="(${#httpServletRequest.getParameter('sort') == 'createDate,desc' ? 'select-sort' : ''})">
-                최신 순
-            </button>
-            <button class="btn btn-m btn-secondary my-btn" th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='count,desc')}'|" th:classappend="(${#httpServletRequest.getParameter('sort') == 'count,desc' ? 'select-sort' : ''})">
-                조회 순
-            </button>
+        <div class="my-3 d-flex flex-row justify-content-between">
+            <div>
+                <button class="btn btn-m btn-secondary my-btn"
+                        th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(keyword=${keyword},sort='createDate,desc',type=${type})}'|" th:classappend="(${sort} == 'createDate,desc' ? 'select-sort' : '')">
+                    최신 순
+                </button>
+                <button class="btn btn-m btn-secondary my-btn"
+                        th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(keyword=${keyword},sort='count,desc',type=${type})}'|" th:classappend="(${sort} == 'count,desc' ? 'select-sort' : '')">
+                    조회 순
+                </button>
+            </div>
+
+            <div class="mr-0">
+                <form action="/posts/search" method="get" class="d-flex flex-row">
+                    <select name="type" class="form-select my-btn" style="width: 85px";>
+                        <option value="title">제목</option>
+                        <option value="hostName">작성자</option>
+                    </select>
+                    <input name="keyword" class="form-control my-btn" type="text" placeholder="검색어를 입력하세요." style=" width: 350px">
+                    <button type="submit" class="btn btn-default"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
         </div>
 
         <div class="card bg-light shadow">
@@ -117,29 +132,29 @@
                         : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
                             : page.totalPages)})">
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=0,sort=${#httpServletRequest.getParameter('sort')})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=0,sort=${sort})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.number - maxPage},sort=${#httpServletRequest.getParameter('sort')})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.number - maxPage},sort=${sort})}" aria-label="Previous">
                     <span aria-hidden="true">&lt;</span>
                 </a>
             </li>
 
             <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">
-                <a class="page-link" th:text="${num}" th:href="@{/posts/host/{hostsId}(hostsId=${session.loginHost.id},page=${num - 1},sort=${#httpServletRequest.getParameter('sort')})}">?</a>
+                <a class="page-link" th:text="${num}" th:href="@{/posts/host/{hostsId}(hostsId=${session.loginHost.id},page=${num - 1},sort=${sort})}">?</a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${start+maxPage - 1},sort=${#httpServletRequest.getParameter('sort')})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${start+maxPage - 1},sort=${sort})}" aria-label="Previous">
                     <span aria-hidden="true">&gt;</span>
                 </a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.totalPages - 1},sort=${#httpServletRequest.getParameter('sort')})}" aria-label="Next">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.totalPages - 1},sort=${sort})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
