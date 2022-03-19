@@ -15,11 +15,11 @@
             <div class="row g-5 justify-content-center">
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Host Info</h4>
-                    <form class="needs-validation" action="#" method="post">
+                    <form class="needs-validation" action="/hosts" method="post">
                         <div class="row g-3">
                             <div class="col-10">
                                 <label for="loginId" class="form-label">ID *</label>
-                                <input type="text" class="form-control is-invalid" id="loginId" placeholder="ID (4 ~ 20자)" required
+                                <input type="text" class="form-control" id="loginId" name="loginId" placeholder="ID (4 ~ 20자)" required
                                        maxlength=20>
                                 <div id="id-invalid" class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> ID 중복 확인을 해주세요.
@@ -35,10 +35,10 @@
 
                             <div class="col-10">
                                 <label for="password" class="form-label">Password *</label>
-                                <input type="password" class="form-control is-invalid" id="password" placeholder="PASSWORD (4 ~ 20자)"
+                                <input type="password" class="form-control" id="password" name="password" placeholder="PASSWORD (4 ~ 20자)"
                                        required maxlength=20>
                                 <label for="check" class="form-label">Password Check*</label>
-                                <input type="password" class="form-control is-invalid" id="check" placeholder="PASSWORD CHECK"
+                                <input type="password" class="form-control" id="check" placeholder="PASSWORD CHECK"
                                        aria-describedby="" required>
                                 <div class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> 비밀번호를 확인 해주세요.
@@ -50,16 +50,16 @@
 
                             <hr class="my-4">
                             <div class="col-10">
-                                <label for="name" class="form-label">Host Name *</label>
-                                <input type="text" class="form-control is-invalid" id="name" placeholder="HOST NAME" required>
+                                <label for="hostName" class="form-label">Host Name *</label>
+                                <input type="text" class="form-control" id="hostName" name="hostName" placeholder="HOST NAME" required>
                                 <div class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> 호스트 이름은 필수로 입력 해야돼요.
                                 </div>
                             </div>
 
                             <div class="col-10">
-                                <label for="addr" class="form-label">Address *</label>
-                                <input type="text" class="form-control is-invalid" id="addr" placeholder="🔍 버튼을 눌러주세요"
+                                <label for="address" class="form-label">Address *</label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="🔍 버튼을 눌러주세요"
                                        required="required" readonly />
                                 <div class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> 주소는 필수로 입력 해야돼요.
@@ -76,7 +76,7 @@
 
                             <div class="col-10">
                                 <label for="phone" class="form-label">Phone *</label>
-                                <input type="tel" class="form-control phoneNumber is-invalid" id="phone" placeholder="PHONE NUMBER"
+                                <input type="tel" class="form-control phoneNumber" id="phone" name="phone" placeholder="PHONE NUMBER"
                                        required maxlength=13>
                                 <div class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> 전화번호는 필수로 입력 해야돼요.
@@ -85,14 +85,14 @@
 
                             <div class="col-10">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                <input type="email" class="form-control" id="email"  placeholder="you@example.com">
                                 <div class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> 이메일 형식이 맞지 않아요.
                                 </div>
                             </div>
                         </div>
                         <hr class="my-4">
-                        <button id="submit" class="w-100 btn btn-primary btn-lg" type="submit" disabled="disabled">Sign-in</button>
+                        <button id="submit" class="w-100 btn btn-primary btn-lg" type="submit" >Sign-in</button>
                     </form>
                 </div>
             </div>
@@ -104,6 +104,8 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7101ebc2d492a3cb9353b4add07670be&libraries=services"></script>
 <script th:inline="javascript">
+
+
     //password check validation
     $("#check, #password").on("change", () => {
         let password = $('#password').val();
@@ -198,7 +200,7 @@
             oncomplete: function (data) {
                 let addr = data.address; // 최종 주소 변수
                 // 주소 정보를 해당 필드에 넣는다.
-                const addrInput = document.getElementById("addr")
+                const addrInput = document.getElementById("address")
                 addrInput.value = addr;
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function (results, status) {

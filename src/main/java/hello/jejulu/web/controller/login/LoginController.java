@@ -59,11 +59,7 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login/host")
-    public String hostLogin(@ModelAttribute LoginDto loginDto, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.HOST,"");
-        return "redirect:/";
-    }
+
 
     /**
      * 관리자 로그인 핸들러
