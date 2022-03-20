@@ -1,7 +1,7 @@
 package hello.jejulu.web.interceptor;
 
 import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,7 +16,8 @@ public class MemberAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            response.sendRedirect("/login");
+            String requestURI = request.getRequestURI();
+            response.sendRedirect("/login?uri="+requestURI);
             return false;
         }
         MemberDto.Info loginMember = (MemberDto.Info) session.getAttribute(SessionConst.MEMBER);

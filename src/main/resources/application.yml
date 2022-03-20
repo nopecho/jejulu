@@ -35,7 +35,7 @@ logging:
       jejulu: debug
 
 firebase:
-  config : /Users/app/config/firebase/firebaseAdminSdk.json
+  config : /users/nopecho/app/config/jejulu/firebase/firebaseAdminSdk.json
   bucket: jejulu-3b679.appspot.com
 
 #공통 환경#
@@ -47,8 +47,8 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 5MB
-      max-request-size: 5MB
+      max-file-size: 1MB
+      max-request-size: 1MB
 
   messages:
     basename: errors

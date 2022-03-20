@@ -10,8 +10,8 @@ public class JejuluApplication {
 
 	//프로젝트 외부 application.yml 사용
 	public static final String APPLICATION_PROPERTIES = "spring.config.location="
-			+ "classpath:application.yml";
-//			+ "/users/app/config/jejulu/application-prod.yml";
+			+ "classpath:application.yml,"
+			+ "/users/nopecho/app/config/jejulu/application/application-prod.yml";
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(JejuluApplication.class)

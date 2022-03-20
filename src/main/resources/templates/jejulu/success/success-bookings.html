@@ -3,10 +3,6 @@
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style>
-    #bs_main {
-        background-size: cover;
-    }
-
     #bs_icon {
         width: 10%;
         height: 10%;
@@ -14,32 +10,60 @@
 </style>
 
 <section>
-    <header
-            id="bs_main"
-            class="py-5 bg-image-full"
-            style="background-image: url(../../../static/image/category/About_jeju_7.jpg);"
-    >
-        <div class="text-center my-5">
-            <img
-                    id="bs_icon"
-                    class="img-fluid rounded-circle mb-4"
-                    src="../../../static/image/category/Booking_success.png"
-                    alt="..."
-            />
-            <h1 class="text-black fs-1 fw-bolder">Awesome!</h1>
-        </div>
-    </header>
+    <div class="container" th:object="${info}">
+        <div class="row g-2">
+            <div class="card bg-light shadow d-flex flex-row">
+                <div class="col-7">
+                    <header class="pt-5">
+                        <div class="text-center">
+                            <img id="bs_icon" class="img-fluid rounded-circle mb-4" th:src="@{/image/success.png}" alt="..."/>
+                            <h1 class="text-success fs-1 fw-bolder">Awesome!</h1>
+                        </div>
+                    </header>
+                    <div class="text-center">
+                        <div class="container my-4">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6">
+                                    <h2>Your booking has been confirmed.</h2>
+                                    <br/>
+                                    <h3>We'll see you soon!</h3>
+                                    <p class="lead"></p>
+                                    <br/>
+                                    <button class="btn btn-secondary btn-lg" type="button"
+                                            th:onclick="|location.href='@{/bookings/members/info}'|">예약내역
+                                    </button>
+                                    <button class="btn btn-primary btn-lg" type="button"
+                                            th:onclick="|location.href='@{/bookings/{bookId}(bookId=*{id})}'|">예약상세
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="py-5 text-center">
-        <div class="container my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <h2>Your booking has been confirmed.</h2>
-                    <br/>
-                    <h3>We'll see you soon!</h3>
-                    <p class="lead"></p>
-                    <br/>
-                    <button class="btn btn-secondary btn-lg" type="button">Done</button>
+                <div class="col-4 pt-5">
+                    <div class="card bg-light shadow mt-5" style="border-radius: 30px">
+                        <div class="card-header bg-light">
+                            <h4 class="text-center" style="margin: 0 auto">예약 정보</h4>
+                        </div>
+
+                        <div class="card-body bg-light border-light mt-4">
+                            <div class="px-5">
+                                <span class="d-flex flex-row">예약자✏️ :&nbsp;
+                                    <p th:text="*{name}" class="fw-bold text-success">예약자 이름</p>
+                                </span>
+                                <span class="d-flex flex-row">‍인원수🙋🏻 :&nbsp;
+                                    <p th:text="*{personCount}" class="fw-bold text-success">인원수</p>
+                                </span>
+                                <span class="d-flex flex-row">전화번호📞 :&nbsp;
+                                    <p th:text="*{phone}" class="fw-bold text-success">전화번호</p>
+                                </span>
+                                <span class="d-flex flex-row">예약일🗓 :&nbsp;
+                                    <p th:text="*{bookDate}" class="fw-bold text-success">예약일</p>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

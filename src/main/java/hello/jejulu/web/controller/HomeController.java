@@ -2,7 +2,7 @@ package hello.jejulu.web.controller;
 
 import hello.jejulu.domain.util.Category;
 import hello.jejulu.service.post.PostService;
-import hello.jejulu.web.dto.PostDto;
+import hello.jejulu.web.dto.post.PostDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

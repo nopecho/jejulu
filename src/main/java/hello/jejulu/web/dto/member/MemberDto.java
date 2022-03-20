@@ -1,4 +1,4 @@
-package hello.jejulu.web.dto;
+package hello.jejulu.web.dto.member;
 
 import hello.jejulu.domain.util.Role;
 import hello.jejulu.domain.member.Member;
@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -74,11 +75,11 @@ public class MemberDto {
         private String password;
 
         @NotBlank
-        @Size(min = 2, max = 10)
+        @Pattern(regexp = "^[가-힣a-zA-Z]+$", message = "이름에 공백, 숫자, 특수문자가 들어갈 수 없어요")
         private String name;
 
         @NotBlank
-        @Size(min = 10, max = 13)
+        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식을 다시 확인 해주세요")
         private String phone;
 
         @Email
@@ -102,11 +103,11 @@ public class MemberDto {
         private Long id;
 
         @NotBlank
-        @Size(min = 2, max = 10)
+        @Pattern(regexp = "^[가-힣a-zA-Z]+$", message = "이름에 공백, 숫자, 특수문자가 들어갈 수 없어요")
         private String name;
 
         @NotBlank
-        @Size(min = 10, max = 13)
+        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식을 다시 확인 해주세요")
         private String phone;
 
         @Email

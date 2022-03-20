@@ -2,6 +2,7 @@ package hello.jejulu.service.web;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
 import com.google.firebase.cloud.StorageClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +23,12 @@ public class FirebaseService {
     private String firebaseBucket;
 
     public String uploadImage(MultipartFile file, String storeFileName) throws IOException {
-        Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
-        InputStream image = new ByteArrayInputStream(file.getBytes());
-        Blob blob = bucket.create("thumbnail/"+storeFileName, image, file.getContentType());
+        Blob blob = firebaseUpload(file, storeFileName);
+        return getFirebaseImagePath(blob.getMediaLink());
+    }
+    
+    public String updateImage(MultipartFile file, String oldStoreFileName) throws IOException{
+        Blob blob = firebaseUpload(file, oldStoreFileName);
         return getFirebaseImagePath(blob.getMediaLink());
     }
 
@@ -34,5 +38,11 @@ public class FirebaseService {
         return "https://firebasestorage.googleapis.com/v0/b/"+ firebaseBucket +"/o/thumbnail%"
                 +meadiaLink.substring(start+1,last)
                 +"?alt=media";
+    }
+
+    private Blob firebaseUpload(MultipartFile file, String storeFileName) throws IOException {
+        Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
+        InputStream image = new ByteArrayInputStream(file.getBytes());
+        return bucket.create("thumbnail/"+storeFileName, image, file.getContentType());
     }
 }

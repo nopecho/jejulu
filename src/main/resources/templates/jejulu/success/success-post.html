@@ -13,19 +13,10 @@
 </style>
 
 <section>
-    <header
-            id="bs_main"
-            class="py-5 bg-image-full"
-            style="background-image: url(../../../static/image/category/About_jeju_7.jpg);"
-    >
-        <div class="text-center my-5">
-            <img
-                    id="bs_icon"
-                    class="img-fluid rounded-circle mb-4"
-                    src="../../../static/image/category/Booking_success.png"
-                    alt="..."
-            />
-            <h1 class="text-black fs-1 fw-bolder">Thanks for your posting!</h1>
+    <header class="pt-5">
+        <div class="text-center">
+            <img id="bs_icon" class="img-fluid rounded-circle mb-4" th:src="@{/image/success.png}" alt="..."/>
+            <h1 class="text-success fs-1 fw-bolder">Awesome!</h1>
         </div>
     </header>
 
@@ -34,11 +25,12 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <h2>Your posting has been confirmed.</h2>
-                    <br />
+                    <br/>
                     <h3>Please check your posting on Homepage</h3>
                     <p class="lead"></p>
-                    <br />
-                    <button class="btn btn-secondary btn-lg" type="button">목록으로</button>
+                    <br/>
+                    <button class="btn btn-secondary btn-lg" type="button"
+                            th:onclick="|location.href='@{/posts/categorys/{category}(category=${category})}'|">목록으로</button>
                     <button class="btn btn-secondary btn-lg" type="button"
                             th:onclick="|location.href='@{/posts/{postId}(postId=${id})}'|">게시물 보기</button>
                 </div>

@@ -2,9 +2,8 @@ package hello.jejulu.service.member;
 
 import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.member.MemberRepository;
-import hello.jejulu.web.dto.MemberDto;
-import hello.jejulu.web.exception.CustomException;
-import hello.jejulu.web.exception.ErrorCode;
+import hello.jejulu.service.util.ServiceUtil;
+import hello.jejulu.web.dto.member.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberDto.Info edit(Long memberId,MemberDto.Update memberUpdateDto) {
         Optional<Member> findMember = memberRepository.findById(memberId);
-        Member member = memberNullCheck(findMember);
+        Member member = ServiceUtil.getEntityByNullCheck(findMember);
         member.updateInfo(memberUpdateDto.getName(),memberUpdateDto.getPhone(),memberUpdateDto.getEmail());
         return new MemberDto.Info(member);
     }
@@ -41,7 +40,7 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     @Override
     public boolean remove(Long memberId) {
-        Member member = memberNullCheck(memberRepository.findById(memberId));
+        Member member = ServiceUtil.getEntityByNullCheck(memberRepository.findById(memberId));
         memberRepository.deleteById(member.getId());
         return true;
     }
@@ -55,7 +54,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberDto.Detail getMemberById(Long memberId) {
         Optional<Member> findMember = memberRepository.findById(memberId);
-        Member member = memberNullCheck(findMember);
+        Member member = ServiceUtil.getEntityByNullCheck(findMember);
         return new MemberDto.Detail(member);
     }
 
@@ -65,13 +64,5 @@ public class MemberServiceImpl implements MemberService{
                 .stream()
                 .map(MemberDto::new)
                 .collect(Collectors.toList());
-    }
-
-    private Member memberNullCheck(Optional<Member> findMember){
-        Member member = findMember.orElse(null);
-        if(member == null){
-            throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
-        }
-        return member;
     }
 }

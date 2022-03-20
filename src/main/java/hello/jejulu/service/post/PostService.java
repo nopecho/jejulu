@@ -1,8 +1,9 @@
 package hello.jejulu.service.post;
 
 import hello.jejulu.domain.util.Category;
-import hello.jejulu.web.dto.HostDto;
-import hello.jejulu.web.dto.PostDto;
+import hello.jejulu.web.dto.host.HostDto;
+import hello.jejulu.web.dto.post.PostDto;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
@@ -11,9 +12,14 @@ import java.util.List;
 
 public interface PostService {
     PostDto.Info add(PostDto.Save postSaveDto, HostDto.Info loginHost) throws IOException;
+    void edit(Long postId, PostDto.Update postUpdateDto) throws IOException;
     PostDto.Detail getPostById(Long postId);
+    PostDto.Detail getUpdatePostById(Long postId);
     List<PostDto.Info> getHomePostsByCategory(Category category);
     Slice<PostDto.Info> getPostsByCategory(Category category, Pageable pageable);
-    List<PostDto.Info> getPostsByHost(Long hostId);
+    Page<PostDto.Info> getPostsByHost(Long hostId, Pageable pageable);
+    void delete(Long postId);
     boolean isPostByHost(Long postId, HostDto.Info loginHost);
+    Page<PostDto.Info> getSearchResult(String keyword,String type, Pageable pageable);
+    Page<PostDto.Info> getSeadrchResultByCategory(Category category, String keyword, String type, Pageable pageable);
 }

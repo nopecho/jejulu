@@ -1,4 +1,4 @@
-package hello.jejulu.web.dto;
+package hello.jejulu.web.dto.post;
 
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.util.Category;
@@ -35,6 +35,15 @@ public class PostDto {
     }
 
     @Getter @Setter
+    public static class Update{
+        private String title;
+        private Category category;
+        private MultipartFile file;
+        private String description;
+        private String content;
+    }
+
+    @Getter @Setter
     public static class Detail{
         private Long id;
         private String title;
@@ -44,6 +53,7 @@ public class PostDto {
         private String imagePath;
         private Category category;
         private LocalDate createDate;
+        private Long hostId;
         private String hostName;
         private String hostPhone;
         private String hostEmail;
@@ -58,6 +68,7 @@ public class PostDto {
             this.imagePath = imagePath;
             this.category = post.getCategory();
             this.createDate = post.getCreateDate().toLocalDate();
+            this.hostId = host.getId();
             this.hostName = host.getName();
             this.hostPhone = host.getPhone();
             this.hostEmail = host.getEmail();
@@ -72,6 +83,7 @@ public class PostDto {
         private String description;
         private int count;
         private Category category;
+        private LocalDate createDate;
         private String imagePath;
         private String writer;
 
@@ -81,6 +93,7 @@ public class PostDto {
             this.description = post.getDescription();
             this.count=post.getCount();
             this.category = post.getCategory();
+            this.createDate = post.getCreateDate().toLocalDate();
             this.imagePath = imagePath;
             this.writer = post.getHost().getName();
         }

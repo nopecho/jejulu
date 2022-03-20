@@ -1,6 +1,6 @@
 package hello.jejulu.service.member;
 
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.member.MemberDto;
 
 import java.util.List;
 

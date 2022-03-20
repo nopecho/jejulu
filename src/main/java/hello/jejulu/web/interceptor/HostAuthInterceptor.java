@@ -15,7 +15,8 @@ public class HostAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            response.sendRedirect("/login");
+            String requestURI = request.getRequestURI();
+            response.sendRedirect("/login?uri="+requestURI);
             return false;
         }
         Object attribute = session.getAttribute(SessionConst.HOST);

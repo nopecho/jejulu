@@ -1,8 +1,9 @@
 package hello.jejulu.web.controller.member;
 
 import hello.jejulu.service.member.MemberService;
+import hello.jejulu.web.annotation.Login;
 import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,7 @@ public class MemberController {
      * @param redirectAttributes : redirect시 redirect값을 설정해서 return
      */
     @GetMapping("/info")
-    public String lookupMemberInfo(@SessionAttribute(name = SessionConst.MEMBER) MemberDto.Info loginMember,
+    public String lookupMemberInfo(@Login MemberDto.Info loginMember,
                                    RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("memberId",loginMember.getId());
         return "redirect:/members/{memberId}";
@@ -79,7 +80,7 @@ public class MemberController {
      */
     @GetMapping("/{memberId}")
     public String memberInfo(@PathVariable Long memberId,
-                             @SessionAttribute(name = SessionConst.MEMBER) MemberDto.Info loginMember,
+                             @Login MemberDto.Info loginMember,
                              Model model){
         if(!loginMember.getId().equals(memberId)){
             throw new CustomException(ErrorCode.INVALID_AUTH);

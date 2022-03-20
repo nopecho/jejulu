@@ -1,11 +1,10 @@
 package hello.jejulu.web.controller;
 
+import hello.jejulu.domain.util.Category;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -23,8 +22,11 @@ public class UtilController {
     }
 
     @GetMapping("/success/post/{postId}")
-    public String successPost(@PathVariable Long postId, Model model){
+    public String successPost(@PathVariable Long postId,
+                              @RequestParam Category category,
+                              Model model){
         model.addAttribute("id",postId);
+        model.addAttribute("category", category);
         return "jejulu/success/success-post";
     }
 }

@@ -110,11 +110,6 @@
                 </div>
             </div>
 
-            <!-- 게시물 삭제 모달 -->
-            <form th:action="@{/posts/{postId}(postId=*{id})}" method="post" id="delete-form">
-                <input type="hidden" name="_method" value="DELETE" />
-                <input type="hidden" th:field="*{category}">
-            </form>
             <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -127,16 +122,16 @@
                                 <div class="row justify-content-center">
                                     <div class="col-lg-12">
                                         <h2 class="text-danger text-uppercase mb-0">
-                                            <i class="bi bi-exclamation-triangle"></i> 게시물 삭제
+                                            게시물 삭제
                                         </h2>
-                                        <h5 class="my-4">해당 게시물을 삭제 할까요?</h5>
-                                        <p class="text-danger">관련 예약 및 게시물 정보가 모두 없어져요!</p>
+                                        <h5 class="my-4">해당 예약을 삭제 할까요?</h5>
+                                        <p class="text-danger">관련 예약 정보가 모두 없어져요!</p>
                                     </div>
                                     <button class="btn btn-danger col-4 mx-3" data-bs-dismiss="modal" onclick="deleteSubmit()">
-                                        <i class="bi bi-exclamation-triangle"></i> DELETE
+                                        삭제하기
                                     </button>
                                     <button class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
-                                        CLOSE
+                                        돌아가기
                                     </button>
                                 </div>
                             </div>
@@ -144,62 +139,6 @@
                     </div>
                 </div>
             </div>
-
-            <!--예약 모달-->
-            <div class="modal fade" id="booking" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content" style="background-color: rgba(255,255,255,0.85)">
-                        <div class="modal-header" style="border:none">
-                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <h4 id="booking-title"class="modal-title text-center">예약 정보🌴</h4>
-                        <div class="modal-body pb-5">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div id="form-container" class="col-lg-12">
-                                        <form id="booking-form" class="needs-validation" novalidate>
-                                            <div id="name-box" class="mb-3">
-                                                <label class="form-label">예약자*</label>
-                                                <input th:id="name" type="text" class="form-control book" placeholder="예약자 이름을 입력해 주세요" required>
-                                            </div>
-                                            <div id="count-box" class="mb-3">
-                                                <label class="form-label">인원 수*</label>
-                                                <select th:id="personCount" class="form-select book" required>
-                                                    <option value="" class="text-secondary">인원수를 입력해 주세요</option>
-                                                    <option th:value="1" th:text="|1인🧍|">1</option>
-                                                    <option th:value="2" th:text="|2인👫🏻|">2</option>
-                                                    <option th:value="3" th:text="|3인👨‍👩‍👧|">3</option>
-                                                    <option th:value="4" th:text="|4인👨‍👩‍👧‍👦|">4</option>
-                                                    <option th:value="5" th:text="|5인🔥|">5</option>
-                                                </select>
-                                            </div>
-                                            <div id="phone-box" class="mb-3">
-                                                <label class="form-label">전화번호*</label>
-                                                <input th:id="phone" type="tel" class="form-control book" oninput="phoneCheck(this)" placeholder="예약자 전화번호를 입력해 주세요" required maxlength="13">
-                                            </div>
-                                            <div id="date-box" class="mb-3">
-                                                <label class="form-label">예약일*</label>
-                                                <input th:id="bookDate" type="date" class="form-control book" placeholder="예약 날짜를 선택해 주세요" required>
-                                            </div>
-                                            <div class="text-center mt-5">
-                                                <button type="button" class="btn btn-success col-4 mx-3" onclick="bookingSubmit()">
-                                                    예약
-                                                </button>
-                                                <button type="button" class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
-                                                    취소
-                                                </button>
-                                            </div>
-                                        </form>
-                                        <div id="booking-container" class="text-center">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>

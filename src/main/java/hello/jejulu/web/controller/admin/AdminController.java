@@ -1,7 +1,7 @@
 package hello.jejulu.web.controller.admin;
 
 import hello.jejulu.service.admin.AdminService;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.dto.login.LoginDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

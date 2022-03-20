@@ -2,13 +2,14 @@ package hello.jejulu.web.controller.post;
 
 import hello.jejulu.domain.util.Category;
 import hello.jejulu.service.post.PostService;
-import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.dto.HostDto;
-import hello.jejulu.web.dto.PostDto;
+import hello.jejulu.web.annotation.Login;
+import hello.jejulu.web.dto.host.HostDto;
+import hello.jejulu.web.dto.post.PostDto;
 import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
@@ -17,9 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.io.IOException;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -45,11 +44,12 @@ public class PostController {
      */
     @PostMapping
     public String postSave(@ModelAttribute PostDto.Save postSaveDto,
-                           @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+                           @Login HostDto.Info loginHost,
                            RedirectAttributes redirectAttributes) throws IOException {
         PostDto.Info savePostInfo = postService.add(postSaveDto, loginHost);
         redirectAttributes.addAttribute("postId",savePostInfo.getId());
-        return "redirect:/success/post/{postId}";
+        redirectAttributes.addAttribute("category",savePostInfo.getCategory());
+        return "redirect:/success/post/{postId}?category={category}";
     }
 
     /**
@@ -97,7 +97,7 @@ public class PostController {
      * @param redirectAttributes
      */
     @GetMapping("/host/info")
-    public String lookupHostInfo(@SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+    public String lookupHostInfo(@Login HostDto.Info loginHost,
                                  RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("hostId",loginHost.getId());
         return "redirect:/posts/host/{hostId}";
@@ -108,14 +108,18 @@ public class PostController {
      * @param hostId
      * @param loginHost
      */
-    @ResponseBody
     @GetMapping("/host/{hostId}")
-    public List<PostDto.Info> testApi(@PathVariable Long hostId,
-                                      @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost){
+    public String lookupPostsFromHost(@PathVariable Long hostId,
+                                      @Login HostDto.Info loginHost,
+                                      @PageableDefault(size = 15, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
+                                      Model model) {
         if(!loginHost.getId().equals(hostId)){
             throw new CustomException(ErrorCode.INVALID_AUTH);
         }
-        return postService.getPostsByHost(hostId);
+        Page<PostDto.Info> page = postService.getPostsByHost(hostId, pageable);
+        model.addAttribute("page",page);
+        model.addAttribute("maxPage",10);
+        return "jejulu/posts/posts-host";
     }
 
     /**
@@ -124,18 +128,90 @@ public class PostController {
      */
     @GetMapping("/{postId}/edit")
     public String postUpdateForm(@PathVariable Long postId,
-                                 @SessionAttribute(name = SessionConst.HOST) HostDto.Info loginHost,
+                                 @Login HostDto.Info loginHost,
                                  Model model){
         if(!postService.isPostByHost(postId,loginHost)){
             throw new CustomException(ErrorCode.INVALID_AUTH);
         }
-        PostDto.Detail post = postService.getPostById(postId);
+        PostDto.Detail post = postService.getUpdatePostById(postId);
         model.addAttribute("update",post);
         return "jejulu/posts/post-update-form";
     }
 
+    /**
+     * 게시물 수정 핸들러
+     * @param postId
+     * @param postUpdateDto
+     */
     @PatchMapping("/{postId}")
-    public String updatePost(@PathVariable Long postId){
+    public String updatePost(@PathVariable Long postId,
+                             @ModelAttribute PostDto.Update postUpdateDto) throws IOException {
+        postService.edit(postId, postUpdateDto);
         return "redirect:/posts/{postId}";
+    }
+
+    /**
+     * 게시물 삭제 핸들러
+     * @param postId
+     */
+    @DeleteMapping("/{postId}")
+    public String deletePost(@PathVariable Long postId,
+                             @RequestParam Category category,
+                             RedirectAttributes redirectAttributes) {
+        postService.delete(postId);
+        redirectAttributes.addAttribute("category",category);
+        return "redirect:/posts/categorys/{category}";
+    }
+
+    /**
+     * 호스트 마이 페이지에서 게시물 삭제 핸들러
+     * @param postId
+     */
+    @ResponseBody
+    @DeleteMapping("/{postId}/my-page")
+    public boolean deletePostFromMyPage(@PathVariable Long postId){
+        postService.delete(postId);
+        return true;
+    }
+
+    /**
+     * 게시물 검색 핸들러
+     * @param keyword
+     * @param type
+     * @param pageable
+     * @param model
+     */
+    @GetMapping("/search")
+    public String searchPosts(@RequestParam(required = false) String keyword,
+                              @RequestParam(required = false) String type,
+                              @PageableDefault(size = 12, sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable,
+                              Model model){
+        Page<PostDto.Info> searchResult = postService.getSearchResult(keyword, type, pageable);
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("page",searchResult);
+        model.addAttribute("maxPage",10);
+        return "jejulu/search/search-result";
+    }
+
+    /**
+     * 카테고리별 게시물 검색 핸들러
+     * @param category
+     * @param keyword
+     * @param type
+     * @param pageable
+     * @param model
+     */
+    @GetMapping("/{category}/search")
+    public String searchPostsByCategory(@PathVariable Category category,
+                                        @RequestParam(required = false) String keyword,
+                                        @RequestParam(required = false) String type,
+                                        @PageableDefault(size = 12, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
+                                        Model model){
+        Page<PostDto.Info> searchResult = postService.getSeadrchResultByCategory(category, keyword, type, pageable);
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("page", searchResult);
+        model.addAttribute("maxPage",10);
+        model.addAttribute("category", category);
+        return "jejulu/search/search-result-category";
     }
 }
