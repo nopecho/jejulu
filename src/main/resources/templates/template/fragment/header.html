@@ -20,16 +20,16 @@
     <th:block th:if="${#session != null}">
         <th:block th:switch="${#session.getAttributeNames().nextElement()}">
             <div th:case="'loginAdmin'">
-                <div th:replace="/template/fragment/header/admin :: admin-header"></div>
+                <div th:replace="template/fragment/header/admin :: admin-header"></div>
             </div>
             <div th:case="*">
-                <div th:replace="/template/fragment/header/common :: common-header"></div>
+                <div th:replace="template/fragment/header/common :: common-header"></div>
             </div>
         </th:block>
     </th:block>
 
     <th:block th:if="${#session == null}">
-        <div th:replace="/template/fragment/header/common :: common-header"></div>
+        <div th:replace="template/fragment/header/common :: common-header"></div>
     </th:block>
     <hr class="my-0">
 </header>
