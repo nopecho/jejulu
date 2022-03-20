@@ -3,14 +3,6 @@ version: "3"
 
 #실행하는 컨테이너 정의
 services:
-  nginx:
-    image: nopecho/proxy-nginx
-
-    container_name: proxy
-
-    ports:
-      - "80:80"
-
   # 서비스 명
   db:
     # 사용 이미지
