@@ -5,7 +5,7 @@ spring:
     group:
       "prod" : "proddb,common"
       "dev" : "localdb,common"
-    active: dev
+    active: prod
 
 #local 환경(개발)#
 ---
