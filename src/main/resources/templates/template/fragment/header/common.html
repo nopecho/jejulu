@@ -4,10 +4,10 @@
     <div class="container my-2">
         <div class="row">
             <div class="col-lg-3 col-sm-6 text-center">
-                <button class="btn text-secondary" type="button" onclick="location.href='#'">ABOUT JEJU</button>
+                <button class="btn text-secondary" type="button" th:onclick="|location.href='@{/about}'|">ABOUT JEJU</button>
             </div>
             <div class="col-lg-3 col-sm-6 text-center">
-                <button class="btn text-secondary" type="button" onclick="location.href='#'">MAP</button>
+                <button class="btn text-secondary" type="button" th:onclick="|location.href='@{/map}'|">MAP</button>
             </div>
             <div class="col-lg-3 col-sm-6 text-center dropdown">
                 <button class="btn text-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">CATEGORY</button>
@@ -24,7 +24,7 @@
                 </ul>
             </div>
             <div class="col-lg-3 col-sm-6 text-center">
-                <button class="btn text-secondary" type="button" onclick="location.href='#'">CONTACT US</button>
+                <button class="btn text-secondary" type="button" th:onclick="|location.href='@{/contact}'|">CONTACT US</button>
             </div>
         </div>
 

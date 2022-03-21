@@ -15,25 +15,25 @@
         <th:block th:if="${#session != null}" >
             <th:block th:switch="${#session.getAttributeNames().nextElement()}">
                 <div th:case="'loginMember'">
-                    <ul th:replace="/template/fragment/navbar/member ::member-nav"></ul>
+                    <ul th:replace="template/fragment/navbar/member ::member-nav"></ul>
                 </div>
 
                 <div th:case="'loginHost'">
-                    <ul th:replace="/template/fragment/navbar/host ::host-nav"></ul>
+                    <ul th:replace="template/fragment/navbar/host ::host-nav"></ul>
                 </div>
 
                 <div th:case="'loginAdmin'">
-                    <ul th:replace="/template/fragment/navbar/admin ::admin-nav"></ul>
+                    <ul th:replace="template/fragment/navbar/admin ::admin-nav"></ul>
                 </div>
 
                 <div th:case="*">
-                    <ul th:replace="/template/fragment/navbar/guests ::guests-nav"></ul>
+                    <ul th:replace="template/fragment/navbar/guests ::guests-nav"></ul>
                 </div>
             </th:block>
         </th:block>
 
         <th:block th:if="${#session == null}">
-            <ul th:replace="/template/fragment/navbar/guests ::guests-nav"></ul>
+            <ul th:replace="template/fragment/navbar/guests ::guests-nav"></ul>
         </th:block>
     </div>
 </nav>

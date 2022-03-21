@@ -3,10 +3,21 @@
 <div th:fragment="admin-header" class="container mb-5">
     <div class="row mt-3">
         <div class="col-lg-4 col-sm-12 text-center">
-            <button class="btn text-secondary" type="button" onclick="location.href='#'">ABOUT JEJU</button>
+            <button class="btn text-secondary" type="button" th:onclick="|location.href='@{/about}'|">ABOUT JEJU</button>
         </div>
-        <div class="col-lg-4 col-sm-12 text-center">
-            <button class="btn text-secondary" type="button" onclick="location.href='#'">CATEGORY</button>
+        <div class="col-lg-3 col-sm-6 text-center dropdown">
+            <button class="btn text-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">CATEGORY</button>
+            <ul class="dropdown-menu bg-light shadow">
+                <a class="dropdown-item" th:href="@{/posts/categorys/1}">
+                    <span>🌊&nbsp;&nbsp;여행</span>
+                </a>
+                <a class="dropdown-item" th:href="@{/posts/categorys/2}">
+                    <span>🍊&nbsp;&nbsp;음식</span>
+                </a>
+                <a class="dropdown-item" th:href="@{/posts/categorys/3}">
+                    <span>🏠&nbsp;&nbsp;숙박</span>
+                </a>
+            </ul>
         </div>
         <div class="col-lg-4 col-sm-12 text-center">
             <button class="btn text-secondary" type="button" th:onclick="|location.href='@{/admin/management}'|"><i class="bi bi-gear"></i> MANAGEMENT</button>
