@@ -60,8 +60,18 @@ public class BookingController {
                 .build();
     }
 
+    @PatchMapping("/{bookingsId}")
+    public ResponseEntity<?> bookingUpdate(@PathVariable Long bookingsId,
+                                           @RequestBody @Validated BookingDto.Update bookingUpdateDto,
+                                           BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+
+    }
+
     @ResponseBody
-    @DeleteMapping("{bookingId}")
+    @DeleteMapping("/{bookingId}")
     public boolean deleteBooking(@PathVariable Long bookingId,
                                 @Login MemberDto.Info loginMember){
         if(!bookingService.isBookedByLoginMember(bookingId, loginMember.getId())) {

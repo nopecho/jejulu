@@ -66,10 +66,6 @@
                     <i class="bi bi-trash"></i> 예약취소
                 </button>
 
-                <form th:action="@{/bookings/{bookId}(bookId=${info.id})}" method="post" th:id="delete-form+${info.id}">
-                    <input type="hidden" name="_method" value="DELETE" />
-                </form>
-
                 <!--예약취소 모달-->
                 <div class="modal fade" th:id="delete+${info.id}" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
                     <div class="modal-dialog">
@@ -143,10 +139,21 @@
         crossorigin="anonymous"></script>
 <script th:inline="javascript">
 
+    //delete form submit check
     function deleteSubmit(bookId) {
-        const deleteForm = document.getElementById('delete-form'+bookId)
-        deleteForm.submit()
-        console.log("삭제해!")
+        fetch(`/bookings/${bookId}`, {
+            method : "delete"
+        }).then(res => res.json())
+            .then(result => {
+                if(result){
+                    alert("게시물을 삭제 했어요😀");
+                    location.reload();
+                    return;
+                }
+                alert("게시물 삭제에 실패 했어요🥲")
+                location.reload();
+            })
+            .catch(e => console.log(e));
     }
 </script>
 </html>
