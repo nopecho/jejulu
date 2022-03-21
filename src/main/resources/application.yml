@@ -53,6 +53,9 @@ spring:
   messages:
     basename: errors
 
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
 
 server:
   port: 8080

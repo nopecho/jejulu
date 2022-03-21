@@ -162,11 +162,11 @@
                                         <form id="booking-form" class="needs-validation" novalidate>
                                             <div id="name-box" class="mb-3">
                                                 <label class="form-label">예약자*</label>
-                                                <input th:field="*{name}" type="text" class="form-control book" placeholder="예약자 이름을 입력해 주세요" required>
+                                                <input th:id="name-update" th:field="*{name}" type="text" class="form-control book" placeholder="예약자 이름을 입력해 주세요" required>
                                             </div>
                                             <div id="count-box" class="mb-3">
                                                 <label class="form-label">인원 수*</label>
-                                                <select th:field="*{personCount}" class="form-select book" required>
+                                                <select th:id="personCount-update" th:field="*{personCount}" class="form-select book" required>
                                                     <option th:value="1" th:text="|1인🧍|">1</option>
                                                     <option th:value="2" th:text="|2인👫🏻|">2</option>
                                                     <option th:value="3" th:text="|3인👨‍👩‍👧|">3</option>
@@ -176,11 +176,11 @@
                                             </div>
                                             <div id="phone-box" class="mb-3">
                                                 <label class="form-label">전화번호*</label>
-                                                <input th:field="*{phone}" type="tel" class="form-control book" oninput="phoneCheck(this)" placeholder="예약자 전화번호를 입력해 주세요" required maxlength="13">
+                                                <input th:id="phone-update" th:field="*{phone}" type="tel" class="form-control book" oninput="phoneCheck(this)" placeholder="예약자 전화번호를 입력해 주세요" required maxlength="13">
                                             </div>
                                             <div id="date-box" class="mb-3">
                                                 <label class="form-label">예약일*</label>
-                                                <input th:field="*{bookDate}" type="date" class="form-control book" placeholder="예약 날짜를 선택해 주세요" required>
+                                                <input th:id="bookDate-update" th:field="*{bookDate}" type="date" class="form-control book" placeholder="예약 날짜를 선택해 주세요" required>
                                             </div>
                                             <div class="text-center mt-5">
                                                 <button type="button" class="btn btn-success col-4 mx-3" onclick="bookingUpdate()">
@@ -275,7 +275,7 @@
         .then(result => {
             if(result){
                 alert("예약이 취소 됐어요!");
-                location.href="/bookings/member/info";
+                location.href="/bookings/members/info";
                 return;
             }
             alert("예약을 취소할 수 없어요")
@@ -285,32 +285,38 @@
     }
 
     //유효성 검증 비동기 처리
-    const name = document.getElementById("name");
-    const personCount = document.getElementById("personCount");
-    const phone = document.getElementById("phone");
-    const bookDate = document.getElementById("bookDate");
+    const name = document.getElementById("name-update");
+    const personCount = document.getElementById("personCount-update");
+    const phone = document.getElementById("phone-update");
+    const bookDate = document.getElementById("bookDate-update");
     function bookingUpdate(){
         const bookId = [[${detail.id}]];
-        const bookingSave = {
-            "name":`${name.value}`,
+        const bookingUpdate = {
+            "name": name.value,
             "personCount" : personCount.value,
-            "phone" : `${phone.value}`,
-            "bookDate" : `${bookDate.value}`
+            "phone" : phone.value,
+            "bookDate" : bookDate.value
         };
+        console.log(bookingUpdate);
 
-        fetch(`/bookings/posts/${bookId}`,{
-            method : "post",
+        fetch(`/bookings/${bookId}`,{
+            method : "PATCH",
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json'
             },
-            redirect : "follow",
-            body : JSON.stringify(bookingSave)
-        }).then(res => res.redirected ? window.location.href = res.url : res.json())
-            .then(rejects => rejectRender(rejects))
+            body : JSON.stringify(bookingUpdate)
+        }).then(res => res.json())
+            .then(result => rejectRender(result))
             .catch(e => console.log(e));
     }
 
     function rejectRender(rejects) {
+        if(typeof rejects === "boolean" && rejects){
+            alert("예약 정보를 수정 했어요!");
+            location.reload();
+            return;
+        }
         name.classList.remove("is-invalid");
         personCount.classList.remove("is-invalid");
         phone.classList.remove("is-invalid");

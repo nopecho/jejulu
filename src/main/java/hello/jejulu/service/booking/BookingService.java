@@ -8,6 +8,7 @@ public interface BookingService {
     BookingDto.Info addBooking(BookingDto.Save bookingSaveDto, Long memberId, Long postId);
     BookingDto.Detail getBookingDetail(Long bookingId);
     boolean isBookedByLoginMember(Long bookId, Long memberId);
+    boolean isUpdateBookingSuccess(Long bookId, BookingDto.Update bookingUpdateDto);
     boolean isDeleteBookingSuccess(Long bookId);
     BookingDto.Info getBookingInfoById(Long bookingId);
     Page<BookingDto.MyDetail> getBookingsByMember(Long memberId, Pageable pageable);

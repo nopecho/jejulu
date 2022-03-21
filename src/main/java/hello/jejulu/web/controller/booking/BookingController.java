@@ -60,14 +60,14 @@ public class BookingController {
                 .build();
     }
 
-    @PatchMapping("/{bookingsId}")
-    public ResponseEntity<?> bookingUpdate(@PathVariable Long bookingsId,
+    @PatchMapping("/{bookingId}")
+    public ResponseEntity<?> bookingUpdate(@PathVariable Long bookingId,
                                            @RequestBody @Validated BookingDto.Update bookingUpdateDto,
                                            BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+            return ResponseEntity.ok(bindingResult.getAllErrors());
         }
-
+        return ResponseEntity.ok(bookingService.isUpdateBookingSuccess(bookingId,bookingUpdateDto));
     }
 
     @ResponseBody
