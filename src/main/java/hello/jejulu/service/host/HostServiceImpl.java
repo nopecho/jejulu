@@ -15,12 +15,33 @@ public class HostServiceImpl implements HostService{
 
     private final HostRepository_B hostRepositoryB;
 
-    //회원 가입
+    //호스트 회원 가입
     @Transactional
     public Long join(Host host){
         validateDuplicateHost(host);
         hostRepositoryB.save(host);
         return host.getId();
+    }
+
+    //호스트 로그인
+    public Host hostLogin(String loginId,String password){
+
+        return hostRepositoryB.findByLoginId(loginId)
+                .filter(h -> h.getPassword().equals(password))
+                .orElse(null);
+
+    }
+
+    //호스트 정보수정
+    @Transactional
+    public Host updateHost(Long hostId,String name,String address,String phone,String email){
+        Host findHost=hostRepositoryB.findByPk(hostId);
+        findHost.setHostName(name);
+        findHost.setAddress(address);
+        findHost.setPhone(phone);
+        findHost.setEmail(email);
+
+        return findHost;
     }
 
     //중복 호스트 검증

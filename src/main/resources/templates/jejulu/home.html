@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!--<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"-->
-<!--      xmlns:th="http://www.thymeleaf.org">-->
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <link>
 <style>
     .card {
@@ -114,138 +114,138 @@
     }
 </style>
 
-<section>
 
-<!--<section th:object="${home}">-->
-<!--    <a th:href="@{/posts/categorys/1}" style="text-decoration: none;">-->
-<!--        <header class="py-5 d-flex justify-content-center categorys" id="category-1">-->
-<!--            <div class="container px-4 px-lg-5 my-5">-->
-<!--                <div class="text-center text-white">-->
-<!--                    <h1 class="display-4 fw-bold">TOUR</h1>-->
-<!--                    <i class="lead fw-normal text-white-50">제주에서 '제주스러움'을 느껴보세요!</i>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </header>-->
-<!--    </a>-->
-<!--    <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">-->
-<!--        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">-->
-<!--            &lt;!&ndash; th:each 단락 &ndash;&gt;-->
-<!--            <div class="col mb-5 " th:each="post : *{postsByTour}">-->
-<!--                <div class="card h-100 text-center main-content">-->
-<!--                    <a th:href="@{posts/{postId}(postId=${post.id})}">-->
-<!--                        <div class="main-content-overlay"></div>-->
-<!--                        <img class="card-img-top main-content-image shadow" th:src="${post.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">-->
-<!--                        <div class="main-content-details fadeIn-bottom">-->
-<!--                            <h3 th:text="${post.title}">This is a title</h3>-->
-<!--                            <p th:text="${post.description}">This is a short description</p>-->
-<!--                        </div>-->
-<!--                    </a>-->
-<!--                    <div class="card-body pt-3 px-0">-->
-<!--                        <div class="card-text d-flex flex-row justify-content-between">-->
-<!--                            <div class="d-flex flex-row">-->
-<!--                                &nbsp;<i class="bi bi-megaphone-fill"></i>&nbsp;-->
-<!--                                <p th:text="${post.writer}"></p>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex flex-row">-->
-<!--                                <span class="d-flex flex-row">-->
-<!--                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;-->
-<!--                                    <p th:text="${post.count}">조회수</p>&nbsp;-->
-<!--                                </span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 
-<!--    &lt;!&ndash; 카테고리2 &ndash;&gt;-->
-<!--    <a th:href="@{/posts/categorys/2}" style="text-decoration: none;">-->
-<!--        <header class="py-5 d-flex justify-content-center categorys" id="category-2">-->
-<!--            <div class="container px-4 px-lg-5 my-5">-->
-<!--                <div class="text-center text-white">-->
-<!--                    <h1 class="display-4 fw-bold">RESTURENT</h1>-->
-<!--                    <i class="lead fw-normal text-white-50">제주의 다양한 맛을 느껴보세요!</i>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </header>-->
-<!--    </a>-->
-<!--    <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">-->
-<!--        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">-->
-<!--            &lt;!&ndash; th:each 단락 &ndash;&gt;-->
-<!--            <div class="col mb-5" th:each="post : *{postsByResturent}">-->
-<!--                <div class="card h-100 text-center main-content">-->
-<!--                    <a th:href="@{posts/{postId}(postId=${post.id})}">-->
-<!--                        <div class="main-content-overlay"></div>-->
-<!--                        <img class="card-img-top shadow main-content-image"-->
-<!--                             th:src="${post.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">-->
-<!--                        <div class="main-content-details fadeIn-bottom">-->
-<!--                            <h3 th:text="${post.title}">This is a title</h3>-->
-<!--                            <p th:text="${post.description}">This is a short description</p>-->
-<!--                        </div>-->
-<!--                    </a>-->
-<!--                    <div class="card-body pt-3 px-0">-->
-<!--                        <div class="card-text d-flex flex-row justify-content-between">-->
-<!--                            <div class="d-flex flex-row">-->
-<!--                                &nbsp;<i class="bi bi-megaphone-fill"></i>&nbsp;-->
-<!--                                <p th:text="${post.writer}"></p>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex flex-row">-->
-<!--                                <span class="d-flex flex-row">-->
-<!--                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;-->
-<!--                                    <p th:text="${post.count}">조회수</p>&nbsp;-->
-<!--                                </span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+<section th:object="${home}">
+    <a th:href="@{/posts/categorys/1}" style="text-decoration: none;">
+        <header class="py-5 d-flex justify-content-center categorys" id="category-1">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bold">TOUR</h1>
+                    <i class="lead fw-normal text-white-50">제주에서 '제주스러움'을 느껴보세요!</i>
+                </div>
+            </div>
+        </header>
+    </a>
+    <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
+            <!-- th:each 단락 -->
+            <div class="col mb-5 " th:each="post : *{postsByTour}">
+                <div class="card h-100 text-center main-content">
+                    <a th:href="@{posts/{postId}(postId=${post.id})}">
+                        <div class="main-content-overlay"></div>
+                        <img class="card-img-top main-content-image shadow" th:src="${post.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">
+                        <div class="main-content-details fadeIn-bottom">
+                            <h3 th:text="${post.title}">This is a title</h3>
+                            <p th:text="${post.description}">This is a short description</p>
+                        </div>
+                    </a>
+                    <div class="card-body pt-3 px-0">
+                        <div class="card-text d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row">
+                                &nbsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
+                                <p th:text="${post.writer}"></p>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <span class="d-flex flex-row">
+                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
+                                    <p th:text="${post.count}">조회수</p>&nbsp;
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!--    &lt;!&ndash; 카테고리3 &ndash;&gt;-->
-<!--    <a th:href="@{/posts/categorys/3}" style="text-decoration: none;">-->
-<!--        <header class="py-5 d-flex justify-content-center categorys" id="category-3">-->
-<!--            <div class="container px-4 px-lg-5 my-5">-->
-<!--                <div class="text-center text-white">-->
-<!--                    <h1 class="display-4 fw-bold">HOTEL</h1>-->
-<!--                    <i class="lead fw-normal text-dark-50">제주의 밤과 같이 쉬어보세요!</i>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </header>-->
-<!--    </a>-->
-<!--    <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">-->
-<!--        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">-->
-<!--            &lt;!&ndash; th:each 단락 &ndash;&gt;-->
-<!--            <div class="col mb-5" th:each="post : *{postsByHotel}">-->
-<!--                <div class="card h-100 text-center main-content">-->
-<!--                    <a th:href="@{posts/{postId}(postId=${post.id})}">-->
-<!--                        <div class="main-content-overlay"></div>-->
-<!--                        <img class="card-img-top shadow main-content-image"-->
-<!--                             th:src="${post.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">-->
-<!--                        <div class="main-content-details fadeIn-bottom">-->
-<!--                            <h3 th:text="${post.title}">This is a title</h3>-->
-<!--                            <p th:text="${post.description}">This is a short description</p>-->
-<!--                        </div>-->
-<!--                    </a>-->
-<!--                    <div class="card-body pt-3 px-0">-->
-<!--                        <div class="card-text d-flex flex-row justify-content-between">-->
-<!--                            <div class="d-flex flex-row">-->
-<!--                                &nbsp;<i class="bi bi-megaphone-fill"></i>&nbsp;-->
-<!--                                <p th:text="${post.writer}"></p>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex flex-row">-->
-<!--                                <span class="d-flex flex-row">-->
-<!--                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;-->
-<!--                                    <p th:text="${post.count}">조회수</p>&nbsp;-->
-<!--                                </span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!-- 카테고리2 -->
+    <a th:href="@{/posts/categorys/2}" style="text-decoration: none;">
+        <header class="py-5 d-flex justify-content-center categorys" id="category-2">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bold">RESTURENT</h1>
+                    <i class="lead fw-normal text-white-50">제주의 다양한 맛을 느껴보세요!</i>
+                </div>
+            </div>
+        </header>
+    </a>
+    <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
+            <!-- th:each 단락 -->
+            <div class="col mb-5" th:each="post : *{postsByResturent}">
+                <div class="card h-100 text-center main-content">
+                    <a th:href="@{posts/{postId}(postId=${post.id})}">
+                        <div class="main-content-overlay"></div>
+                        <img class="card-img-top shadow main-content-image"
+                             th:src="${post.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">
+                        <div class="main-content-details fadeIn-bottom">
+                            <h3 th:text="${post.title}">This is a title</h3>
+                            <p th:text="${post.description}">This is a short description</p>
+                        </div>
+                    </a>
+                    <div class="card-body pt-3 px-0">
+                        <div class="card-text d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row">
+                                &nbsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
+                                <p th:text="${post.writer}"></p>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <span class="d-flex flex-row">
+                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
+                                    <p th:text="${post.count}">조회수</p>&nbsp;
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카테고리3 -->
+    <a th:href="@{/posts/categorys/3}" style="text-decoration: none;">
+        <header class="py-5 d-flex justify-content-center categorys" id="category-3">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bold">HOTEL</h1>
+                    <i class="lead fw-normal text-dark-50">제주의 밤과 같이 쉬어보세요!</i>
+                </div>
+            </div>
+        </header>
+    </a>
+    <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
+            <!-- th:each 단락 -->
+            <div class="col mb-5" th:each="post : *{postsByHotel}">
+                <div class="card h-100 text-center main-content">
+                    <a th:href="@{posts/{postId}(postId=${post.id})}">
+                        <div class="main-content-overlay"></div>
+                        <img class="card-img-top shadow main-content-image"
+                             th:src="${post.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">
+                        <div class="main-content-details fadeIn-bottom">
+                            <h3 th:text="${post.title}">This is a title</h3>
+                            <p th:text="${post.description}">This is a short description</p>
+                        </div>
+                    </a>
+                    <div class="card-body pt-3 px-0">
+                        <div class="card-text d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row">
+                                &nbsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
+                                <p th:text="${post.writer}"></p>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <span class="d-flex flex-row">
+                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
+                                    <p th:text="${post.count}">조회수</p>&nbsp;
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script></script>

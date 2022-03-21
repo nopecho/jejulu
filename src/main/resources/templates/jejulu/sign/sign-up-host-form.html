@@ -18,7 +18,7 @@
                         <div class="row g-3">
                             <div class="col-10">
                                 <label th:for="loginId" class="form-label">ID *</label>
-                                <input th:field="*{loginId}" type="text" class="form-control is-invalid" placeholder="ID (4 ~ 20자)" required
+                                <input th:field="*{loginId}" type="text" class="form-control " placeholder="ID (4 ~ 20자)" required
                                        maxlength=20>
                                 <div id="id-invalid" class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> ID 중복 확인을 해주세요.
@@ -29,8 +29,8 @@
                                 <i th:errors="*{loginId}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
                             <div class="col-2 my-auto py-5">
-                                <button type="button" class="btn btn-outline-primary" onclick="checkId()"><i
-                                        class="bi bi-check-lg"></i></button>
+<!--                                <button type="button" class="btn btn-outline-primary" onclick="checkId()"><i-->
+<!--                                        class="bi bi-check-lg"></i></button>-->
                             </div>
 
                             <div class="col-10">
@@ -51,16 +51,16 @@
 
                             <hr class="my-4">
                             <div class="col-10">
-                                <label th:for="name" class="form-label">Host Name *</label>
-                                <input th:field="*{name}" th:errorclass="is-invalid" type="text" class="form-control" placeholder="HOST NAME" required>
-                                <i th:errors="*{name}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
+                                <label th:for="hostName" class="form-label">Host Name *</label>
+                                <input th:field="*{hostName}" th:errorclass="is-invalid" type="text" class="form-control" placeholder="HOST NAME" required>
+                                <i th:errors="*{hostName}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
 
                             <div class="col-10">
-                                <label th:for="addr" class="form-label">Address *</label>
-                                <input th:field="*{addr}" th:errorclass="is-invalid" type="text" class="form-control" placeholder="🔍 버튼을 눌러주세요"
+                                <label th:for="address" class="form-label">Address *</label>
+                                <input th:field="*{address}" th:errorclass="is-invalid" type="text" class="form-control" placeholder="🔍 버튼을 눌러주세요"
                                        required="required" readonly />
-                                <i th:errors="*{addr}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
+                                <i th:errors="*{address}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                                 <div class="valid-feedback">
                                     <p><i class="bi bi-check-circle"></i> 찾은 주소는 여기에요!</p>
                                 </div>
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                         <hr class="my-4">
-                        <button id="submit" class="w-100 btn btn-primary btn-lg" type="submit" disabled="disabled">Sign-in</button>
+                        <button id="submit" class="w-100 btn btn-primary btn-lg" type="submit">Sign-in</button>
                     </form>
                 </div>
             </div>
@@ -136,24 +136,24 @@
     });
 
     //id validation check 비동기
-    function checkId() {
-        const idInput = document.getElementById('loginId');
-        fetch(`/hosts/id-check?v=${idInput.value}`)
-            .then((response) => response.json())
-            .then((data) => {
-                if (!data) {
-                    idInput.classList.remove('is-invalid')
-                    idInput.classList.add('is-valid')
-                } else {
-                    idInput.classList.remove('is-valid')
-                    idInput.classList.add('is-invalid')
-                    const invalidId = document.getElementById('id-invalid');
-                    invalidId.innerText='';
-                    invalidId.innerHTML=`<i class="bi bi-exclamation-circle"></i> 이미 사용중인 ID에요!`;
-                }
-            })
-            .catch(e => console.log(e))
-    }
+    // function checkId() {
+    //     const idInput = document.getElementById('loginId');
+    //     fetch(`/hosts/id-check?v=${idInput.value}`)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             if (!data) {
+    //                 idInput.classList.remove('is-invalid')
+    //                 idInput.classList.add('is-valid')
+    //             } else {
+    //                 idInput.classList.remove('is-valid')
+    //                 idInput.classList.add('is-invalid')
+    //                 const invalidId = document.getElementById('id-invalid');
+    //                 invalidId.innerText='';
+    //                 invalidId.innerHTML=`<i class="bi bi-exclamation-circle"></i> 이미 사용중인 ID에요!`;
+    //             }
+    //         })
+    //         .catch(e => console.log(e))
+    // }
 
 
     //submit validstion check
@@ -191,7 +191,7 @@
             oncomplete: function (data) {
                 let addr = data.address; // 최종 주소 변수
                 // 주소 정보를 해당 필드에 넣는다.
-                const addrInput = document.getElementById("addr")
+                const addrInput = document.getElementById("address")
                 addrInput.value = addr;
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function (results, status) {

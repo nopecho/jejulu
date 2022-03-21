@@ -7,6 +7,10 @@ spring:
       "dev" : "localdb,common"
     active: dev
 
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+
 #local 환경(개발)#
 ---
 spring:
