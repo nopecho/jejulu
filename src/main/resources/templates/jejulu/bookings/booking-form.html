@@ -1,199 +1,8 @@
 <!DOCTYPE html>
-<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <link>
-<style>
-    .section {
-        position: relative;
-        height: 100vh;
-    }
-
-    .section .section-center {
-        position: absolute;
-
-
-        top: 50%;
-        left: 0;
-        right: 0;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-    }
-
-    #booking {
-        background-image: url(../../static/image/category/Booking_form_bc2.jpg);
-        padding: 50px;
-        max-height: 900px;
-    }
-
-    .booking-form {
-        border: solid 2px rgba(255, 255, 255, 0.432);
-        position: relative;
-        max-width: 642px;
-        width: 100%;
-        margin: auto;
-        padding: 40px;
-        overflow: hidden;
-
-        background-size: cover;
-        border-radius: 5px;
-        z-index: 20;
-    }
-
-    .booking-form::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        background: rgba(65, 146, 192, 0.7);
-        z-index: -1;
-    }
-
-    .booking-form .form-header {
-        text-align: center;
-        position: relative;
-        margin-bottom: 30px;
-    }
-
-    .booking-form .form-header h1 {
-        font-weight: 700;
-        text-transform: capitalize;
-        font-size: 42px;
-        margin: 0px;
-        color: rgb(255, 255, 255);
-    }
-
-    .booking-form .form-group {
-        position: relative;
-        margin-bottom: 30px;
-    }
-
-    .booking-form .form-control {
-        background-color: rgba(255, 255, 255, 0.829);
-        height: 60px;
-        width: 550px;
-        padding: 0px 25px;
-        border: solid 2px rgb(255, 255, 255);
-        border-radius: 40px;
-        -webkit-box-shadow: 0px 0px 0px 2px transparent;
-        box-shadow: 0px 0px 0px 2px transparent;
-        -webkit-transition: 0.2s;
-        transition: 0.2s;
-    }
-
-    .booking-form .form-control::-webkit-input-placeholder {
-        color: rgba(0, 0, 0, 0.5);
-    }
-
-    .booking-form .form-control:-ms-input-placeholder {
-        color: rgba(2, 2, 2, 0.5);
-    }
-
-    .booking-form .form-control::placeholder {
-        color: rgb(117, 117, 133);
-    }
-
-    .booking-form .form-control:focus {
-        -webkit-box-shadow: 0px 0px 0px 2pxs #04408f;
-        box-shadow: 0px 0px 0px 2px #0d267a;
-    }
-
-    .booking-form input[type="date"].form-control {
-        padding-top: 16px;
-    }
-
-    .booking-form input[type="date"].form-control:invalid {
-        color: rgba(56, 56, 63, 0.5);
-    }
-
-    .booking-form input[type="date"].form-control+.form-label {
-        opacity: 1;
-        top: 10px;
-    }
-
-    .booking-form select.form-control {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-    }
-
-    .booking-form select.form-control:invalid {
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    .booking-form select.form-control+.select-arrow {
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        width: 32px;
-        line-height: 32px;
-        height: 32px;
-        text-align: center;
-        pointer-events: none;
-        color: rgba(38, 37, 39, 0.5);
-        font-size: 14px;
-    }
-
-    .booking-form select.form-control+.select-arrow:after {
-        content: "\279C";
-        display: block;
-        -webkit-transform: rotate(90deg);
-        transform: rotate(90deg);
-    }
-
-    .booking-form select.form-control option {
-        color: rgb(17, 17, 17);
-    }
-
-    .booking-form .form-label {
-        position: absolute;
-        top: -10px;
-        left: 25px;
-        opacity: 0;
-        color: #16124d;
-        font-size: 11px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        height: 15px;
-        line-height: 15px;
-        -webkit-transition: 0.2s all;
-        transition: 0.2s all;
-    }
-
-    .booking-form .form-group.input-not-empty .form-control {
-        padding-top: 16px;
-    }
-
-    .booking-form .form-group.input-not-empty .form-label {
-        opacity: 1;
-        top: 10px;
-    }
-
-    .booking-form .submit-btn {
-        color: #fff;
-        background-color: #1c509e;
-        font-weight: 700;
-        height: 60px;
-        padding: 10px 30px;
-        width: 100%;
-        border-radius: 40px;
-        border: none;
-        text-transform: uppercase;
-        font-size: 16px;
-        letter-spacing: 1px;
-        -webkit-transition: 0.2s all;
-        transition: 0.2s all;
-    }
-
-    .booking-form .submit-btn:hover,
-    .booking-form .submit-btn:focus {
-        opacity: 0.9;
-    }
-</style>
+<style></style>
 
 <section>
     <div id="booking" class="section container">
@@ -204,11 +13,11 @@
                         <div class="form-header">
                             <h1>Make your reservation</h1>
                         </div>
-                        <form>
+                        <form th:action method="post" th:object="${save}">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input class="form-control" type="date" required />
+                                        <input th:field="*{bookDate}" class="form-control" type="date" required />
                                         <span class="form-label">Check In</span>
                                     </div>
                                 </div>
@@ -216,16 +25,14 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <select id="test" class="form-control" required>
-                                            <option value="" selected hidden >
-                                                Num Of People
-                                            </option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
+                                        <select th:field="*{personCount}" class="form-select" required>
+                                            <option value="0">---------</option>
+                                            <option th:value="1" th:text="1">1</option>
+                                            <option th:value="2" th:text="2">2</option>
+                                            <option th:value="3" th:text="3">3</option>
+                                            <option th:value="4" th:text="4">4</option>
+                                            <option th:value="5" th:text="5">5</option>
+                                            <option th:value="6" th:text="6">6</option>
                                         </select>
                                     </div>
                                 </div>
@@ -233,7 +40,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input class="form-control" type="Name" placeholder="Enter your Name" required/>
+                                        <input th:field="*{name}" class="form-control" type="text" placeholder="Enter your Name" required/>
                                         <span class="form-label">Name</span>
                                     </div>
                                 </div>
@@ -241,13 +48,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input class="form-control" type="tel" placeholder="Enter your Phone" required/>
+                                        <input th:field="*{phone}" class="form-control" type="tel" placeholder="Enter your Phone" required/>
                                         <span class="form-label">Phone</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-btn">
-                                <button class="submit-btn">Book Now</button>
+                                <button class="submit-btn" type="submit">Book Now</button>
                             </div>
                         </form>
                     </div>

@@ -18,20 +18,8 @@
         transition: all 0.3s;
     }
 
-    #TOUR {
-        background-image: url(https://images.unsplash.com/photo-1609766418204-94aae0ecfdfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
-        background-size: cover;
-        flex-direction: column;
-    }
-
-    #RESTURENT {
-        background-image: url(https://images.unsplash.com/photo-1507598641400-ec3536ba81bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
-        background-size: cover;
-        flex-direction: column;
-    }
-
-    #HOTEL {
-        background-image: url(https://images.unsplash.com/photo-1528909257635-429e04fab8d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80);
+    #hd {
+        background-image: url(https://images.unsplash.com/photo-1536009190979-329b94ad4d57?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
         background-size: cover;
         flex-direction: column;
     }
@@ -51,11 +39,18 @@
 </style>
 
 <section th:object="${page}" th:with="keyword = ${#httpServletRequest.getParameter('keyword')}, type = ${#httpServletRequest.getParameter('type')} , sort = ${#httpServletRequest.getParameter('sort')}">
-    <header class="py-5 d-flex justify-content-center" th:id="${category}">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bold" th:text="${category}">CTEGORY</h1>
-                <p class="lead fw-normal text-white-50">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    <header class="py-5 d-flex justify-content-center" id="hd">
+        <div class="container d-flex flex-row text-center px-4 px-lg-5">
+            <a class="text-white bg-warning my-btn mr-3" style="text-decoration:none;" th:href="|@{/posts/categorys/{category}(category=${category})}|">
+                <h3 th:text="|&nbsp;${category}&nbsp;|">카테고리</h3>
+            </a>
+        </div>
+        <div class="container d-flex flex-row text-center px-4 px-lg-5 my-5">
+            <div class="text-white">
+                <h2 class="display-4 fw-bold" th:text="${keyword}">키워드</h2>
+            </div>
+            <div class="text-white align-self-center">
+                <h3 class="display-5 fw-border mb-0">(으)로 검색한 결과</h3>
             </div>
         </div>
     </header>
@@ -73,7 +68,7 @@
             </div>
 
             <div class="mr-0">
-                <form th:action="|@{/posts/{cateogry}/search(cateogry=${category})}|" method="get" class="d-flex flex-row">
+                <form th:action="@{${#httpServletRequest.getRequestURI()}}" method="get" class="d-flex flex-row">
                     <select name="type" class="form-select my-btn" style="width: 93px";>
                         <option value="title">제목</option>
                         <option value="hostName">작성자</option>
@@ -114,61 +109,44 @@
                 </div>
             </div>
         </div>
-        <div id="posts-container" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
-        </div>
-        <button class="btn btn-class col-12" onclick="loadPosts()">더보기</button>
+
+        <ul class="pagination text-center d-flex flex-row justify-content-center mt-5" style="margin: 0 auto"
+            th:with="start=${(page.number/maxPage)*maxPage+1},
+            end = (${(page.totalPages == 0) ? 1
+                        : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
+                            : page.totalPages)})">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=0,sort=${sort},type=${type})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=${page.number - maxPage},sort=${sort},type=${type})}" aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">
+                <a class="page-link" th:text="${num}" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=${num - 1},sort=${sort}, type=${type})}">?</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=${start+maxPage - 1},sort=${sort}, type=${type})}" aria-label="Previous">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/{category}/search(category=${category},keyword=${keyword},page=${page.totalPages - 1},sort=${sort}, type=${type})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+
     </div>
 </section>
 
 <script th:inline="javascript">
-    const page = [[${page}]]
-    let pageNum = page.number;
-    let sort = [[${#httpServletRequest.getParameter("sort")}]]
-    if(sort === null){
-        sort = '';
-    }
-    function loadPosts(){
-        const category = [[${category}]];
-        fetch(`/posts/${category}/load?page=${++pageNum}&sort=${sort}`)
-            .then(res => res.json())
-            .then(posts => render(posts.content))
-            .catch(e => console.log(e));
-    }
-
-    function render(posts){
-        const container = document.getElementById("posts-container")
-        posts.forEach(post => {
-            const appendPost = document.createElement("div");
-            appendPost.className = "col mb-5";
-            appendPost.innerHTML =
-                `<div class="card h-100 shadow main-content">
-                    <img class="card-img-top" src="${post.imagePath}" onerror="this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'" alt="">
-                    <div class="card-header bg-light">
-                        <h5>${post.title}</h5>
-                    </div>
-                    <div class="card-body bg-light border-light">
-                        <p>${post.description}</p>
-                    </div>
-                    <div class="card-footer pt-3 px-0 bg-light border-light" style="font-size: smaller">
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="d-flex flex-row">
-                                &emsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
-                                <p>${post.writer}</p>
-                            </div>
-                            <div class="d-flex flex-row">
-                                <span class="d-flex flex-row">
-                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
-                                    <p>${post.count}</p>&emsp;
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="stretched-link" href="/posts/${post.id}" style="text-decoration: none; color: black">
-                    </a>
-                </div>`
-
-            container.append(appendPost);
-        })
-    }
 </script>
 </html>

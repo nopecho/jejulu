@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<header th:fragment="header" class="mb-5">
+<header th:fragment="header">
     <div class="container" id="header">
-        <div class="mt-5 mb-5 text-center">
+        <div class="my-5 text-center">
             <header>
                 <button class="btn text-dark" type="button" onclick="location.href='/'">
                     <h1>
-                        <i class="bi bi-tsunami"></i>
+                        <i class="bi bi-tsunami text-info"></i>
                         JE JUL U
                     </h1>
                 </button>
             </header>
-            <br>
             <i class="bi bi-wind"></i>
             <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</span>
         </div>
     </div>
-    <hr>
+    <hr class="mb-0">
     <th:block th:if="${#session != null}">
         <th:block th:switch="${#session.getAttributeNames().nextElement()}">
             <div th:case="'loginAdmin'">
-                <div th:replace="/template/fragment/header/admin :: admin-header"></div>
+                <div th:replace="template/fragment/header/admin :: admin-header"></div>
             </div>
             <div th:case="*">
-                <div th:replace="/template/fragment/header/common :: common-header"></div>
+                <div th:replace="template/fragment/header/common :: common-header"></div>
             </div>
         </th:block>
     </th:block>
 
     <th:block th:if="${#session == null}">
-        <div th:replace="/template/fragment/header/common :: common-header"></div>
+        <div th:replace="template/fragment/header/common :: common-header"></div>
     </th:block>
+    <hr class="my-0">
 </header>
 
 </html>

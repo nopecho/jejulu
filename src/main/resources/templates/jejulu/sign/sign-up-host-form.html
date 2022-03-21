@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style></style>
@@ -8,18 +8,17 @@
     <div class="container my-5">
         <main class="align-items-center rounded-3 border shadow-lg p-4 pe-lg-0 pt-lg-5" style="background-color: rgba(186, 218, 248, 0.102);">
             <div class="py-4 text-center">
-                <i class="bi bi-person-bounding-box mx-auto mb-3 fs-1"></i>
-                <h2>HOST FORM</h2>
+                <h2 class="bi bi-person-bounding-box mx-auto mb-3 fs-1">HOST</h2>
                 <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
             </div>
             <div class="row g-5 justify-content-center">
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Host Info</h4>
-                    <form class="needs-validation" action="/hosts" method="post">
+                    <form class="needs-validation" th:action="@{/hosts}" method="post" th:object="${save}">
                         <div class="row g-3">
                             <div class="col-10">
-                                <label for="loginId" class="form-label">ID *</label>
-                                <input type="text" class="form-control" id="loginId" name="loginId" placeholder="ID (4 ~ 20자)" required
+                                <label th:for="loginId" class="form-label">ID *</label>
+                                <input th:field="*{loginId}" type="text" class="form-control is-invalid" placeholder="ID (4 ~ 20자)" required
                                        maxlength=20>
                                 <div id="id-invalid" class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> ID 중복 확인을 해주세요.
@@ -27,6 +26,7 @@
                                 <div class="valid-feedback">
                                     <i class="bi bi-check-circle"></i> 사용 가능한 ID에요!
                                 </div>
+                                <i th:errors="*{loginId}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
                             <div class="col-2 my-auto py-5">
                                 <button type="button" class="btn btn-outline-primary" onclick="checkId()"><i
@@ -34,11 +34,11 @@
                             </div>
 
                             <div class="col-10">
-                                <label for="password" class="form-label">Password *</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="PASSWORD (4 ~ 20자)"
+                                <label th:for="password" class="form-label">Password *</label>
+                                <input th:field="*{password}" type="password" class="form-control is-invalid" placeholder="PASSWORD (6 ~ 20자)"
                                        required maxlength=20>
                                 <label for="check" class="form-label">Password Check*</label>
-                                <input type="password" class="form-control" id="check" placeholder="PASSWORD CHECK"
+                                <input type="password" class="form-control is-invalid" id="check" placeholder="PASSWORD CHECK"
                                        aria-describedby="" required>
                                 <div class="invalid-feedback">
                                     <i class="bi bi-exclamation-circle"></i> 비밀번호를 확인 해주세요.
@@ -46,24 +46,21 @@
                                 <div class="valid-feedback">
                                     <i class="bi bi-check-circle"></i> 비밀번호 확인!
                                 </div>
+                                <i th:errors="*{password}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
 
                             <hr class="my-4">
                             <div class="col-10">
-                                <label for="hostName" class="form-label">Host Name *</label>
-                                <input type="text" class="form-control" id="hostName" name="hostName" placeholder="HOST NAME" required>
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 호스트 이름은 필수로 입력 해야돼요.
-                                </div>
+                                <label th:for="name" class="form-label">Host Name *</label>
+                                <input th:field="*{name}" th:errorclass="is-invalid" type="text" class="form-control" placeholder="HOST NAME" required>
+                                <i th:errors="*{name}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
 
                             <div class="col-10">
-                                <label for="address" class="form-label">Address *</label>
-                                <input type="text" class="form-control" id="address" name="address" placeholder="🔍 버튼을 눌러주세요"
+                                <label th:for="addr" class="form-label">Address *</label>
+                                <input th:field="*{addr}" th:errorclass="is-invalid" type="text" class="form-control" placeholder="🔍 버튼을 눌러주세요"
                                        required="required" readonly />
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 주소는 필수로 입력 해야돼요.
-                                </div>
+                                <i th:errors="*{addr}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                                 <div class="valid-feedback">
                                     <p><i class="bi bi-check-circle"></i> 찾은 주소는 여기에요!</p>
                                 </div>
@@ -75,24 +72,20 @@
                             <div id="map" style="width:300px;height:300px;display:none;border-radius: 50%;"></div>
 
                             <div class="col-10">
-                                <label for="phone" class="form-label">Phone *</label>
-                                <input type="tel" class="form-control phoneNumber" id="phone" name="phone" placeholder="PHONE NUMBER"
+                                <label th:for="phone" class="form-label">Phone *</label>
+                                <input th:field="*{phone}" type="tel" th:errorclass="is-invalid" class="form-control phoneNumber" placeholder="PHONE NUMBER"
                                        required maxlength=13>
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 전화번호는 필수로 입력 해야돼요.
-                                </div>
+                                <i th:errors="*{phone}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
 
                             <div class="col-10">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email"  placeholder="you@example.com">
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 이메일 형식이 맞지 않아요.
-                                </div>
+                                <label th:for="email" class="form-label">Email</label>
+                                <input th:field="*{email}" type="email" th:errorclass="is-invalid" class="form-control" placeholder="you@example.com">
+                                <i th:errors="*{email}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                             </div>
                         </div>
                         <hr class="my-4">
-                        <button id="submit" class="w-100 btn btn-primary btn-lg" type="submit" >Sign-in</button>
+                        <button id="submit" class="w-100 btn btn-primary btn-lg" type="submit" disabled="disabled">Sign-in</button>
                     </form>
                 </div>
             </div>
@@ -104,8 +97,6 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7101ebc2d492a3cb9353b4add07670be&libraries=services"></script>
 <script th:inline="javascript">
-
-
     //password check validation
     $("#check, #password").on("change", () => {
         let password = $('#password').val();
@@ -147,10 +138,10 @@
     //id validation check 비동기
     function checkId() {
         const idInput = document.getElementById('loginId');
-        fetch(`http://localhost/hosts/id-check?v=${idInput.value}`)
+        fetch(`/hosts/id-check?v=${idInput.value}`)
             .then((response) => response.json())
             .then((data) => {
-                if (data) {
+                if (!data) {
                     idInput.classList.remove('is-invalid')
                     idInput.classList.add('is-valid')
                 } else {
@@ -200,7 +191,7 @@
             oncomplete: function (data) {
                 let addr = data.address; // 최종 주소 변수
                 // 주소 정보를 해당 필드에 넣는다.
-                const addrInput = document.getElementById("address")
+                const addrInput = document.getElementById("addr")
                 addrInput.value = addr;
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function (results, status) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style></style>
@@ -15,47 +15,53 @@
             </div>
             <div class="row g-5 justify-content-center">
                 <div class="col-md-7 col-lg-8">
-                    <form action="#" method="GET">
+                    <form action="#" method="GET" th:object="${detail}">
                         <div class="row g-3">
                             <div class="col-10">
-                                <label for="name" class="form-label fw-bold">Host Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="HOST NAME" required
-                                       value="[SERVER]" readonly>
-                                <label class="mt-3 mb-0 fw-light fst-italic text-secondary"><i class="bi bi-vector-pen"></i>호스트가 사용하는 이름이에요.</label>
-                                <hr class="mt-0">
+                                <div class="d-flex">
+                                    <h5 class="text-secondary">🏷 Name |</h5>&nbsp;&nbsp;&nbsp;
+                                    <i th:text="*{name}" class="fw-bold fs-5">이름</i>
+                                </div>
+                                <label class="mt-2 mb-0 fw-light fst-italic text-secondary">호스트가 사용하는 이름이에요.</label>
+                                <hr class="mt-0 mb-5">
                             </div>
 
                             <div class="col-10">
-                                <label for="addr" class="form-label fw-bold">Address *</label>
-                                <input type="text" class="form-control" id="addr" placeholder="🔍 버튼을 눌러주세요"
-                                       required="required" readonly value="대구광역시 중구 남산동 290" />
-                                <div class="valid-feedback">
-                                    <p id="addr-search"><i class="bi bi-check-circle"></i> 현재 주소는 여기에요!</p>
+                                <div class="d-flex">
+                                    <h5 class="text-secondary">📍 Address |</h5>&nbsp;&nbsp;&nbsp;
+                                    <i id="addr" th:text="*{addr}" class="fw-bold fs-5">주소</i>
                                 </div>
                             </div>
                             <div id="map" style="width:300px;height:300px;border-radius: 50%;"></div>
-                            <label class="mt-3 mb-0 fw-light fst-italic text-secondary"><i class="bi bi-pin-angle"></i> 호스트가 사용하는 주소에요.</label>
-                            <hr class="mt-0 col-10">
+                            <label class="mt-2 mb-0 fw-light fst-italic text-secondary">호스트가 사용하는 주소에요.</label>
+                            <hr class="mt-0 mb-5 col-10">
 
                             <div class="col-10">
-                                <label for="phone" class="form-label fw-bold">Phone *</label>
-                                <input type="tel" class="form-control phoneNumber" id="phone" placeholder="PHONE NUMBER"
-                                       required maxlength=13 value="[010-0000-0000]" readonly>
-                                <label class="mt-3 mb-0 fw-light fst-italic text-secondary"><i class="bi bi-telephone"></i> 호스트의 전화번호에요.</label>
-                                <hr class="mt-0">
+                                <div class="d-flex">
+                                    <h5 class="text-secondary">📞 Phone |</h5>&nbsp;&nbsp;&nbsp;
+                                    <i th:text="*{phone}" class="fw-bold fs-5">전화번호</i>
+                                </div>
+                                <label class="mt-2 mb-0 fw-light fst-italic text-secondary">호스트의 전화번호에요.</label>
+                                <hr class="mt-0 mb-5">
                             </div>
 
                             <div class="col-10">
-                                <label for="email" class="form-label fw-bold">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com"
-                                       value="[SERVER@SERVER.com]" readonly>
-                                <label class="mt-3 mb-0 fw-light fst-italic text-secondary"><i class="bi bi-envelope-open"></i> 호스트가 사용하는
+                                <div class="d-flex">
+                                    <h5 class="text-secondary">📧 Email |</h5>&nbsp;&nbsp;&nbsp;
+                                    <i th:text="*{email}" class="fw-bold fs-5">이메일</i>
+                                </div>
+                                <label class="mt-2 mb-0 fw-light fst-italic text-secondary">호스트가 사용하는
                                     이메일이에요.</label>
-                                <hr class="mt-0">
+                                <hr class="mt-0 mb-5">
+                            </div>
+
+                            <div class="col-12">
+                                <label class="fw-light text-secondary fst-italic">마지막 수정일 : </label>
+                                <p class="text-primary" th:text="*{updateDate}">날짜</p>
                             </div>
                         </div>
-                        <button id="submit" class="btn btn-success btn-lg col-12 my-5" type="button"
-                        th:onclick="|location.href='@{/5}'|">
+                        <button class="btn btn-success btn-lg col-12 my-5" type="button"
+                        th:onclick="|location.href='@{/hosts/{hostId}/edit(hostId=*{id})}'|">
                             GO UPDATE
                         </button>
                     </form>
@@ -83,7 +89,7 @@
         position: new kakao.maps.LatLng(33.361417, 126.529417)
     });
     const geocoder = new kakao.maps.services.Geocoder();
-    geocoder.addressSearch(`${addrInput.value}`, (results, status) => {
+    geocoder.addressSearch(`${addrInput.innerText}`, (results, status) => {
         if (status === kakao.maps.services.Status.OK) {
             const result = results[0];
             let coords = new kakao.maps.LatLng(result.y, result.x);

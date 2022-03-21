@@ -58,7 +58,7 @@ public class LoginController {
      * @param request
      * @return
      */
-    @PostMapping("/login/host")
+   // @PostMapping("/login/host")
 
 
     /**

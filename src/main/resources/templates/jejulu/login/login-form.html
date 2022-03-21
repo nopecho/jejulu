@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style>
@@ -65,16 +65,16 @@
                                             </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-user my-3" th:formaction="|@{/login/member}|">
+                                        <button type="submit" class="btn btn-primary btn-user my-3" th:formaction="|@{/login/member(uri=${param.uri})}|">
                                             <i class=""></i> Login with MEMBER
                                         </button>
-                                        <button type="submit" class="btn btn-primary btn-host my-3" th:formaction="|@{/login/host}|">
+                                        <button type="submit" class="btn btn-primary btn-host my-3" th:formaction="|@{/login/host(uri=${param.uri})}|">
                                             <i class=""></i> Login with HOST
                                         </button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="#">👉🏻 Create an Account! 👈🏻</a>
+                                        <a class="small" href="/sign-up">👉🏻 아직 가입을 안하셨나요? 👈🏻</a>
                                     </div>
                                 </div>
                             </div>

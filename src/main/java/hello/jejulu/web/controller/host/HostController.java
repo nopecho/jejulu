@@ -1,7 +1,6 @@
 package hello.jejulu.web.controller.host;
 
 
-import hello.jejulu.domain.Role;
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.service.host.HostServiceImpl;
 import hello.jejulu.web.controller.host.hostFrom.HostSignForm;
@@ -25,11 +24,13 @@ public class HostController {
 
     private final HostServiceImpl hostService;
 
+    //회원가입 폼 요청
     @GetMapping("/sign-up")
-    public String hostSaveForm(@ModelAttribute(name = "save")HostDto.Save host){
+    public String hostSaveForm(@ModelAttribute(name = "save")HostSignForm host){
         return "jejulu/sign/sign-up-host-form";
     }
 
+    //회원가입
     @PostMapping
     public String hostSignForm(@Validated @ModelAttribute HostSignForm host, BindingResult bindingResult){
 
