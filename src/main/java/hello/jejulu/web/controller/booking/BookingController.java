@@ -48,9 +48,9 @@ public class BookingController {
 
     @PostMapping("/posts/{postId}")
     public ResponseEntity<?> bookingCreate(@PathVariable Long postId,
-                                        @RequestBody @Validated BookingDto.Save bookingSaveDto,
-                                        BindingResult bindingResult,
-                                        @Login MemberDto.Info loginMember){
+                                           @RequestBody @Validated BookingDto.Save bookingSaveDto,
+                                           BindingResult bindingResult,
+                                           @Login MemberDto.Info loginMember){
         if( bindingResult.hasErrors() ){
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
@@ -73,7 +73,7 @@ public class BookingController {
     @ResponseBody
     @DeleteMapping("/{bookingId}")
     public boolean deleteBooking(@PathVariable Long bookingId,
-                                @Login MemberDto.Info loginMember){
+                                 @Login MemberDto.Info loginMember){
         if(!bookingService.isBookedByLoginMember(bookingId, loginMember.getId())) {
             throw new CustomException(ErrorCode.INVALID_AUTH);
         }
@@ -94,7 +94,7 @@ public class BookingController {
 
     @GetMapping("/members/info")
     public String lookupMemberInfo(@Login MemberDto.Info loginMember,
-                                       RedirectAttributes redirectAttributes){
+                                   RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("memberId",loginMember.getId());
         return "redirect:/bookings/members/{memberId}";
     }
