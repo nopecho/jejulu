@@ -40,7 +40,8 @@ public class HostController {
 
     //회원가입
     @PostMapping
-    public String hostSignForm(@Validated @ModelAttribute HostSignForm host, BindingResult bindingResult){
+    public String hostSignForm(@Validated @ModelAttribute HostSignForm host,
+                               BindingResult bindingResult,HttpServletRequest request){
 
         if(bindingResult.hasErrors()){
             log.info("errors={}",bindingResult.getFieldError().getField());
@@ -49,8 +50,11 @@ public class HostController {
         }
 
         Host signedHost = HostSignForm.signHost(host);
-        hostService.join(signedHost);
+        Host joinedHost = hostService.join(signedHost);
         log.info("signedHost name={}", signedHost.getHostName());
+
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.HOST,joinedHost);
 
 
         return "redirect:/";

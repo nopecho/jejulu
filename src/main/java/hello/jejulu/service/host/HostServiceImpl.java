@@ -17,10 +17,11 @@ public class HostServiceImpl implements HostService{
 
     //호스트 회원 가입
     @Transactional
-    public Long join(Host host){
+    public Host join(Host host){
         validateDuplicateHost(host);
         hostRepositoryB.save(host);
-        return host.getId();
+        Host joinedHost = hostRepositoryB.findByPk(host.getId());
+        return joinedHost;
     }
 
     //호스트 로그인

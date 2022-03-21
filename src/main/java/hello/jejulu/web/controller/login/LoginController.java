@@ -87,7 +87,11 @@ public class LoginController {
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.HOST,loginHost);
+        if(session.getAttribute(SessionConst.HOST)==null){
+            session.setAttribute(SessionConst.HOST,loginHost);
+        }else{
+            return "redirect:/";
+        }
 
         return "redirect:/";
     }
