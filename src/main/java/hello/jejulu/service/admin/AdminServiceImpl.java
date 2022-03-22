@@ -4,11 +4,14 @@ import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.host.HostRepository;
 import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.member.MemberRepository;
+import hello.jejulu.domain.post.Post;
+import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.domain.util.Role;
 import hello.jejulu.domain.admin.Admin;
 import hello.jejulu.domain.admin.AdminRepository;
 import hello.jejulu.web.dto.host.HostDto;
 import hello.jejulu.web.dto.member.MemberDto;
+import hello.jejulu.web.dto.post.PostDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +30,7 @@ public class AdminServiceImpl implements AdminService{
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
     private final HostRepository hostRepository;
+    private final PostRepository postRepository;
 
     @PostConstruct
     @Transactional
@@ -49,5 +53,11 @@ public class AdminServiceImpl implements AdminService{
     public Page<HostDto.AdminDetail> getHostsForAdmin(Pageable pageable) {
         Page<Host> hosts = hostRepository.findAll(pageable);
         return hosts.map(HostDto.AdminDetail::new);
+    }
+
+    @Override
+    public Page<PostDto.AdminDetail> getPostsForAdmin(Pageable pageable) {
+        Page<Post> posts = postRepository.findAll(pageable);
+        return posts.map(PostDto.AdminDetail::new);
     }
 }

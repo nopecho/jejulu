@@ -6,6 +6,7 @@ import hello.jejulu.service.member.MemberService;
 import hello.jejulu.web.dto.host.HostDto;
 import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.dto.login.LoginDto;
+import hello.jejulu.web.dto.post.PostDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -69,8 +70,11 @@ public class AdminController {
     }
 
     @GetMapping("/management/posts")
-    public String managementPosts(Model model) {
-        model.addAttribute("posts", null);
+    public String managementPosts(@PageableDefault(size = 15, sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable,
+                                  Model model) {
+        Page<PostDto.AdminDetail> page = adminService.getPostsForAdmin(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage",10);
         return "jejulu/admin/management-posts";
     }
 

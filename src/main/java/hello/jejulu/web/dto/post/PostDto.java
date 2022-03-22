@@ -9,9 +9,29 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PostDto {
+
+    @Getter @Setter
+    public static class AdminDetail {
+        private Long id;
+        private String title;
+        private Category category;
+        private int count;
+        private String hostName;
+        private LocalDateTime createDate;
+
+        public AdminDetail(Post post){
+            this.id = post.getId();
+            this.title = post.getTitle();
+            this.category = post.getCategory();
+            this.count = post.getCount();
+            this.hostName = post.getHost().getName();
+            this.createDate = post.getCreateDate();
+        }
+    }
 
     @Getter @Setter
     public static class Save{

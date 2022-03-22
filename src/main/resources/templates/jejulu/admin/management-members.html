@@ -34,11 +34,11 @@
                     <thead class="table-light">
                     <tr>
                         <th scope="col">NO</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">NAME</th>
-                        <th scope="col">PHONE</th>
-                        <th scope="col">EMAIL</th>
-                        <th scope="col">DATE</th>
+                        <th scope="col">아이디</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">전화번호</th>
+                        <th scope="col">이메일</th>
+                        <th scope="col">생성일</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -47,19 +47,19 @@
                         <td data-label="NO">
                             <p th:text="${member.id}">[FIND NO]</p>
                         </td>
-                        <td data-label="ID">
+                        <td data-label="아이디">
                             <p th:text="${member.loginId}">[FIND ID]</p>
                         </td>
-                        <td data-label="NAME">
+                        <td data-label="이름">
                             <p th:text="${member.name}">[FIND NAME]</p>
                         </td>
-                        <td data-label="PHONE">
+                        <td data-label="전화번호">
                             <p th:text="${member.phone}">[010-0000-0000]</p>
                         </td>
-                        <td data-label="EMAIL">
+                        <td data-label="이메일">
                             <p th:text="${member.email}">[ex@email.com]</p>
                         </td>
-                        <td data-label="DATE">
+                        <td data-label="생성일">
                             <p th:text="${member.createDate}">[2022-02-20]</p>
                         </td>
                         <td data-label="">
