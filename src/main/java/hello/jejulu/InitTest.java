@@ -1,7 +1,5 @@
 package hello.jejulu;
 
-import hello.jejulu.domain.booking.Booking;
-import hello.jejulu.domain.booking.BookingRepository;
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.host.HostRepository;
 import hello.jejulu.domain.member.Member;
@@ -14,9 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.PostConstruct;
-import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Component
@@ -25,7 +21,6 @@ public class InitTest {
     private final PostRepository postRepository;
     private final HostRepository hostRepository;
     private final MemberRepository memberRepository;
-    private final BookingRepository bookingRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -59,14 +54,6 @@ public class InitTest {
                     .category(Category.TOUR)
                     .host(save)
                     .build());
-//            bookingRepository.save(Booking.builder()
-//                            .name("예약이름ㅋ")
-//                            .phone("010-5478-4056")
-//                            .personCount(i)
-//                            .date(LocalDate.now())
-//                            .member(save1)
-//                            .post(post)
-//                            .build());
         }
         for(int i = 0; i<100; i++){
             Post post = postRepository.save(Post.builder()
@@ -88,6 +75,5 @@ public class InitTest {
                     .host(save)
                     .build());
         }
-
     }
 }
