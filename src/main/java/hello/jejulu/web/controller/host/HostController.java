@@ -86,6 +86,8 @@ public class HostController {
         return "jejulu/hosts/host";
     }
 
+
+    //호스트 회원 정보 수정 페이지 요청
     @GetMapping("/{hostId}/edit")
     public String hostEditPage(@PathVariable Long hostId,
                                Model model){
@@ -95,6 +97,8 @@ public class HostController {
         return "jejulu/hosts/host-update-form";
     }
 
+
+    //호스트 회원정보 수정 요청
     @PatchMapping("/{hostId}")
     public String updateHost(@Validated @ModelAttribute HostUpdateForm form,
                              @PathVariable Long hostId,
@@ -107,6 +111,18 @@ public class HostController {
         hostService.updateHost(hostId,form.getHostName(),form.getAddress(),form.getPhone(),form.getEmail());
 
         return "redirect:/hosts/{hostId}";
+    }
+
+    @DeleteMapping("/{hostId}")
+    public String deleteHost(@PathVariable Long hostId,
+                             HttpServletRequest request){
+        hostService.deleteHost(hostId);
+
+        HttpSession session = request.getSession(false);
+        if(session!=null){
+           session.invalidate();
+        }
+        return "redirect:/";
     }
 
 

@@ -3,6 +3,7 @@ package hello.jejulu.service.host;
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.repository.HostRepository_B;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,5 +54,10 @@ public class HostServiceImpl implements HostService{
         }
     }
 
+    //호스트 탈퇴
+    @Transactional
+    public void deleteHost(Long hostId){
+        hostRepositoryB.removeHost(hostId);
+    }
 
 }

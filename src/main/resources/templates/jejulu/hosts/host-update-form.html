@@ -71,7 +71,7 @@
                     </form>
 
 
-                    <form th:action="@{/hosts/{hostId}(hostId=*{id})}" method="post" id="delete-form">
+                    <form th:action="@{/hosts/{hostId}(hostId=${update.id})}" method="post" id="delete-form">
                         <input type="hidden" name="_method" value="DELETE" />
                     </form>
                     <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">

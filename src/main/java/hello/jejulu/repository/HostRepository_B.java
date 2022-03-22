@@ -53,4 +53,13 @@ public class HostRepository_B {
                 .setParameter("name",name)
                 .getResultList();
     }
+
+    //호스트 탈퇴
+    public void removeHost(Long hostId){
+
+        Host findHost = findByPk(hostId);
+        em.remove(findHost);
+    }
+
+
 }
