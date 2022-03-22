@@ -63,7 +63,6 @@ public class ThumbnailRepository_B {
 
         return finalThumbNail;
 
-
     }
 
     @Value("${firebase.bucket}")
