@@ -13,26 +13,27 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Getter @Setter
 public class MemberDto {
 
-    private Long id;
-    private String loginId;
-    private String password;
-    private String name;
-    private String phone;
-    private String email;
-    private LocalDateTime createDate;
+    @Getter @Setter
+    public static class AdminDetail {
+        private Long id;
+        private String loginId;
+        private String name;
+        private String phone;
+        private String email;
+        private LocalDateTime createDate;
 
-    public MemberDto(Member member) {
-        this.id = member.getId();
-        this.loginId = member.getLoginId();
-        this.password = member.getPassword();
-        this.name = member.getName();
-        this.phone = member.getPhone();
-        this.email = member.getEmail();
-        this.createDate = member.getCreateDate();
+        public AdminDetail(Member member) {
+            this.id = member.getId();
+            this.loginId = member.getLoginId();
+            this.name = member.getName();
+            this.phone = member.getPhone();
+            this.email = member.getEmail();
+            this.createDate = member.getCreateDate();
+        }
     }
+
 
     @Getter @Setter
     public static class Info {

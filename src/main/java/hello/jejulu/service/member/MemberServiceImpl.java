@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -20,6 +17,19 @@ public class MemberServiceImpl implements MemberService{
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+
+    @Override
+    public MemberDto.Detail getMemberById(Long memberId) {
+        Optional<Member> findMember = memberRepository.findById(memberId);
+        Member member = ServiceUtil.getEntityByNullCheck(findMember);
+        return new MemberDto.Detail(member);
+    }
+
+    @Override
+    public boolean isDuplicateId(String checkedId){
+        Member findMember = memberRepository.findByLoginId(checkedId).orElse(null);
+        return findMember != null;
+    }
 
     @Transactional
     @Override
@@ -41,28 +51,10 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean remove(Long memberId) {
         Member member = ServiceUtil.getEntityByNullCheck(memberRepository.findById(memberId));
+        if(!member.getBookings().isEmpty()){
+            return false;
+        }
         memberRepository.deleteById(member.getId());
         return true;
-    }
-
-    @Override
-    public boolean isDuplicateId(String checkedId){
-        Member findMember = memberRepository.findByLoginId(checkedId).orElse(null);
-        return findMember != null;
-    }
-
-    @Override
-    public MemberDto.Detail getMemberById(Long memberId) {
-        Optional<Member> findMember = memberRepository.findById(memberId);
-        Member member = ServiceUtil.getEntityByNullCheck(findMember);
-        return new MemberDto.Detail(member);
-    }
-
-    @Override
-    public List<MemberDto> selectAll() {
-        return memberRepository.findAll()
-                .stream()
-                .map(MemberDto::new)
-                .collect(Collectors.toList());
     }
 }

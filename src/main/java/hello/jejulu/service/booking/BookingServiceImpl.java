@@ -48,6 +48,14 @@ public class BookingServiceImpl implements BookingService{
 
     @Transactional
     @Override
+    public boolean isUpdateBookingSuccess(Long bookId, BookingDto.Update bookingUpdateDto) {
+        Booking booking = ServiceUtil.getEntityByNullCheck(bookingRepository.findById(bookId));
+        booking.update(bookingUpdateDto.getName(), bookingUpdateDto.getPersonCount(), bookingUpdateDto.getPhone(), bookingUpdateDto.getBookDate());
+        return true;
+    }
+
+    @Transactional
+    @Override
     public boolean isDeleteBookingSuccess(Long bookId) {
         Booking booking = ServiceUtil.getEntityByNullCheck(bookingRepository.findById(bookId));
         bookingRepository.delete(booking);

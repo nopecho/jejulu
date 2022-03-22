@@ -38,4 +38,10 @@ public class Booking extends BaseTimeEntity {
     @JoinColumn(name = "postId")
     private Post post;
 
+    public void update(String name, int personCount, String phone, LocalDate date){
+        this.name = name;
+        this.personCount = personCount;
+        this.phone = phone;
+        this.date = date;
+    }
 }

@@ -54,7 +54,7 @@
                             <p th:text="${info.bookDate}" class="fw-bold text-success">예약일</p>
                         </span>
 
-                        <span class="d-flex flex-row">인원 🙋🏻‍️ :&nbsp;
+                        <span class="d-flex flex-row">인원수 🙋🏻‍️ :&nbsp;
                             <p th:text="${info.personCount}" class="fw-bold text-success">인원수</p>명
                         </span>
                     </div>
@@ -65,10 +65,6 @@
                 <button type="button" class="btn btn-danger btn-m text-center mt-4" data-bs-toggle="modal" th:data-bs-target="|#delete${info.id}|" style="margin: 0 auto">
                     <i class="bi bi-trash"></i> 예약취소
                 </button>
-
-                <form th:action="@{/bookings/{bookId}(bookId=${info.id})}" method="post" th:id="delete-form+${info.id}">
-                    <input type="hidden" name="_method" value="DELETE" />
-                </form>
 
                 <!--예약취소 모달-->
                 <div class="modal fade" th:id="delete+${info.id}" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
@@ -143,10 +139,21 @@
         crossorigin="anonymous"></script>
 <script th:inline="javascript">
 
+    //delete form submit check
     function deleteSubmit(bookId) {
-        const deleteForm = document.getElementById('delete-form'+bookId)
-        deleteForm.submit()
-        console.log("삭제해!")
+        fetch(`/bookings/${bookId}`, {
+            method : "delete"
+        }).then(res => res.json())
+            .then(result => {
+                if(result){
+                    alert("게시물을 삭제 했어요😀");
+                    location.reload();
+                    return;
+                }
+                alert("게시물 삭제에 실패 했어요🥲")
+                location.reload();
+            })
+            .catch(e => console.log(e));
     }
 </script>
 </html>

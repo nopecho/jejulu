@@ -31,7 +31,7 @@ public class HostController {
     }
 
     @ResponseBody
-    @GetMapping("id-check")
+    @GetMapping("/id-check")
     public boolean hostIdCheck(@RequestParam(name = "v") String checkId){
         return hostService.isDuplicateId(checkId);
     }
