@@ -15,6 +15,27 @@ import java.time.LocalDateTime;
 public class HostDto {
 
     @Getter @Setter
+    public static class AdminDetail {
+        private Long id;
+        private String loginId;
+        private String name;
+        private String phone;
+        private String email;
+        private String addr;
+        private LocalDateTime createDate;
+
+        public AdminDetail(Host host) {
+            this.id = host.getId();
+            this.loginId = host.getLoginId();
+            this.name = host.getName();
+            this.phone = host.getPhone();
+            this.email = host.getEmail();
+            this.addr = host.getAddr();
+            this.createDate = host.getCreateDate();
+        }
+    }
+
+    @Getter @Setter
     public static class Info{
         private Long id;
         private String loginId;
