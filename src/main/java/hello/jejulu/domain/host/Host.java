@@ -43,7 +43,7 @@ public class Host extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "host")
+    @OneToMany(mappedBy = "host",cascade = CascadeType.ALL)
     private List<Post> post = new ArrayList<>();
 
 

@@ -11,11 +11,11 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Builder
+@Entity@Builder
 @Table(name = "post")
 @Getter@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Post extends BaseTimeEntity {
 
     @Id@GeneratedValue
@@ -39,26 +39,25 @@ public class Post extends BaseTimeEntity {
     private Category category;
 
     @OneToOne(orphanRemoval = true)
-    @JoinColumn(name="thumnailId")
+    @JoinColumn(name="thumbnail_Id")
     private Thumbnail thumbnail;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "host_Id")
     private Host host;
 
-    @OneToMany(mappedBy = "post",orphanRemoval = true)
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Booking> bookings=new ArrayList<>();
 
     public void countPlus(){
         this.count++;
     }
 
+    //연관관계 메서드
 
-
-
-
-
-
-
+    public void setHost(Host host){
+        this.host=host;
+        host.getPost().add(this);
+    }
 
 }

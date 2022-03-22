@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
@@ -17,12 +18,17 @@ import javax.persistence.Id;
 @Entity
 public class Thumbnail extends BaseTimeEntity {
 
+    //UUID
     @Id
+    @Column(name="thumbnail_Id")
     private String id;
 
+    //이미지 경로
     @Column(nullable = false)
     private String path;
 
+    //고유이름
     @Column(nullable = false)
     private String originName;
+
 }
