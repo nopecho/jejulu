@@ -2,11 +2,30 @@
 <html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <link>
-<style></style>
+<style>
+    .select-sort {
+        background-color: black;
+    }
 
-<section>
-    <div class="shadow-lg container text-center rounded">
-        <div class="card">
+    .my-btn {
+        border-radius: 20px;
+    }
+</style>
+
+<section th:object="${page}" th:with="sort = ${#httpServletRequest.getParameter('sort')}">
+    <div class="shadow-lg container rounded pt-3">
+        <div class="my-3">
+            <button class="btn btn-m btn-secondary my-btn"
+                    th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='createDate,desc')}'|" th:classappend="(${sort} == 'createDate,desc' ? 'select-sort' : '')">
+                최신 순
+            </button>
+            <button class="btn btn-m btn-secondary my-btn"
+                    th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(sort='createDate,asc')}'|" th:classappend="(${sort} == 'createDate,asc' ? 'select-sort' : '')">
+                오래된 순
+            </button>
+        </div>
+
+        <div class="card text-center">
             <div class="card-header">
                 <h4>MEMBERS INFO</h4>
             </div>
@@ -24,7 +43,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="member : ${members}">
+                    <tr th:each="member : ${page.content}">
                         <td data-label="NO">
                             <p th:text="${member.id}">[FIND NO]</p>
                         </td>
@@ -44,12 +63,38 @@
                             <p th:text="${member.createDate}">[2022-02-20]</p>
                         </td>
                         <td data-label="">
-                            <form action="" method="post" id="delete-form">
-                                <input type="hidden" name="_method" value="DELETE" />
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete" onclick="location.href='#'">DELETE</button>
-                            </form>
-
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="|#delete${member.id}|">DELETE</button>
                         </td>
+
+                        <!--    삭제 모달-->
+                        <div class="modal fade" th:id="delete+${member.id}" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <h4 class="modal-title" id="test"></h4>
+                                    <div class="modal-body text-center pb-5">
+                                        <div class="container">
+                                            <div class="row justify-content-center">
+                                                <div class="col-lg-12">
+                                                    <h2 class="text-danger text-uppercase mb-0">
+                                                        <i class="bi bi-exclamation-triangle"></i>회원 탈퇴 확인
+                                                    </h2>
+                                                    <p class="my-4">해당 회원을 탈퇴 시킬까요?</p>
+                                                </div>
+                                                <button class="btn btn-danger col-4 mx-3" data-bs-dismiss="modal" th:onclick="|deleteSubmit(${member.id})|">
+                                                    탈퇴하기
+                                                </button>
+                                                <button class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
+                                                    돌아가기
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </tr>
                     </tbody>
                 </table>
@@ -57,33 +102,40 @@
         </div>
     </div>
 
-    <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <h4 class="modal-title" id="test"></h4>
-                <div class="modal-body text-center pb-5">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-12">
-                                <h2 class="text-danger text-uppercase mb-0"><i class="bi bi-exclamation-triangle"></i> DELETE
-                                    CHECK</h2>
-                                <p class="my-4">정말 해당 회원 정보를 삭제 할까요?</p>
-                            </div>
-                            <button class="btn btn-danger col-4 mx-3" data-bs-dismiss="modal" onclick="deleteSubmit()">
-                                <i class="bi bi-exclamation-triangle"></i> DELETE
-                            </button>
-                            <button class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
-                                CLOSE
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--pagination-->
+    <ul class="pagination text-center d-flex flex-row justify-content-center mt-5" style="margin: 0 auto"
+        th:with="start=${(page.number/maxPage)*maxPage+1},
+            end = (${(page.totalPages == 0) ? 1
+                        : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
+                            : page.totalPages)}), uri = ${#httpServletRequest.getRequestURI()}">
+        <li class="page-item">
+            <a class="page-link" th:href="@{${uri}(page=0,sort=${sort})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" th:href="@{${uri}(page=${page.number - maxPage},sort=${sort})}" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+            </a>
+        </li>
+
+        <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">
+            <a class="page-link" th:text="${num}" th:href="@{${uri}(page=${num - 1},sort=${sort})}">?</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" th:href="@{${uri}(page=${start+maxPage - 1},sort=${sort})}" aria-label="Previous">
+                <span aria-hidden="true">&gt;</span>
+            </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" th:href="@{${uri}(page=${page.totalPages - 1},sort=${sort})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
 </section>
 
 
@@ -91,10 +143,21 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 <script th:inline="javascript">
-    function deleteSubmit() {
-        const deleteForm = document.getElementById('delete-form')
-        deleteForm.submit()
-        console.log("삭제해!")
+    //delete form submit check
+    function deleteSubmit(memberId) {
+        fetch(`/admin/members/${memberId}`, {
+            method : "delete"
+        }).then(res => res.json())
+            .then(result => {
+                if(result){
+                    alert("해당 회원을 삭제 했어요.");
+                    location.reload();
+                    return;
+                }
+                alert("해당 회원 삭제에 실패 했어요.")
+                location.reload();
+            })
+            .catch(e => console.log(e));
     }
 </script>
 </html>
