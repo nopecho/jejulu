@@ -1,8 +1,11 @@
 package hello.jejulu.web.controller.admin;
 
+import hello.jejulu.domain.util.Role;
 import hello.jejulu.service.admin.AdminService;
+import hello.jejulu.service.contact.ContactService;
 import hello.jejulu.service.host.HostService;
 import hello.jejulu.service.member.MemberService;
+import hello.jejulu.web.dto.contact.ContactDto;
 import hello.jejulu.web.dto.host.HostDto;
 import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.dto.login.LoginDto;
@@ -28,6 +31,7 @@ public class AdminController {
     private final AdminService adminService;
     private final MemberService memberService;
     private final HostService hostService;
+    private final ContactService contactService;
 
     @GetMapping("/login")
     public String adminLoginForm(@ModelAttribute LoginDto loginDto) {
@@ -79,8 +83,11 @@ public class AdminController {
     }
 
     @GetMapping("/management/contacts")
-    public String managementContacts(Model model) {
-        model.addAttribute("contacts", null);
+    public String managementContacts(@PageableDefault(size = 15, sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable,
+                                     Model model) {
+        Page<ContactDto.Detail> page = contactService.getContacts(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage",10);
         return "jejulu/admin/management-contact";
     }
 }
