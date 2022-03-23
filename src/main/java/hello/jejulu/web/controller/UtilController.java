@@ -29,4 +29,19 @@ public class UtilController {
         model.addAttribute("category", category);
         return "jejulu/success/success-post";
     }
+
+    @GetMapping("/success/contact")
+    public String successContact(){
+        return "jejulu/success/success-contact";
+    }
+
+    @GetMapping("/about")
+    public String about(){
+        return "jejulu/etc/about";
+    }
+
+    @GetMapping("/map")
+    public String map(){
+        return "jejulu/etc/";
+    }
 }
