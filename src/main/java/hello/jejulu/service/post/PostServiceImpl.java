@@ -1,6 +1,7 @@
 package hello.jejulu.service.post;
 
 import hello.jejulu.domain.host.Host;
+import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.thumbnail.Thumbnail;
 import hello.jejulu.repository.PostRepository_B;
@@ -32,6 +33,30 @@ public class PostServiceImpl implements PostService{
         Post post = PostSaveForm.toPost(form, thumbnail,host);
         postRepositoryB.save(post);
 
+    }
 
+    //포스트 조회
+    public Post searchPost(Long postId){
+        Post post = postRepositoryB.findOne(postId);
+
+        return post;
+    }
+
+    //포스트 업데이트
+    @Transactional
+    public void updatePost(Long postId, String title,
+                           String description,Category category,
+                           MultipartFile file,String content)throws IOException{
+
+        //썸네일 저장
+        Thumbnail thumbnail = thumbnailRepository_B.saveThumbnail(file);
+        Thumbnail entityThumbnail = thumbnailRepository_B.findThumbnail(thumbnail.getId());
+        //post 수정
+        Post post = postRepositoryB.findOne(postId);
+        post.setTitle(title);
+        post.setDescription(description);
+        post.setCategory(category);
+        post.setThumbnail(entityThumbnail);
+        post.setContent(content);
     }
 }

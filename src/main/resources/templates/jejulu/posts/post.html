@@ -67,7 +67,7 @@
                             <p th:text="*{createDate}" class="text-secondary">작성일</p>
                             <th:block th:if="${session.loginHost != null}">
                                 <th:block th:if="${session.loginHost.id} == *{hostId}">
-                                    &emsp;<a th:href="@{/posts/{postId}/edit(postId=*{id})}" class="text-success">수정</a>&nbsp;&nbsp;
+                                    &emsp;<a th:href="@{/posts/{postId}/edit(postId=*{postId})}" class="text-success">수정</a>&nbsp;&nbsp;
                                     <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#delete">삭제</a>
                                 </th:block>
                             </th:block>
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="col-8">
-                    <img th:src="*{imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" class="img-fluid text-center mb-5"/>
+                    <img th:src="*{path}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" class="img-fluid text-center mb-5"/>
                     <div th:utext="*{content}">내용</div>
                 </div>
 
@@ -87,13 +87,13 @@
                         <h4>HOST INFO 🌏</h4>
                         <hr>
                         <span class="d-flex flex-row justify-content-center">📞 CALL |&nbsp;
-                            <p th:text="*{hostPhone}">전화번호</p>
+                            <p th:text="*{phone}">전화번호</p>
                         </span>
                         <span class="d-flex flex-row justify-content-center">📧 EMAIL |&nbsp;
-                            <p th:text="*{hostEmail}">이메일</p>
+                            <p th:text="*{email}">이메일</p>
                         </span>
                         <span class="d-flex flex-row justify-content-center">📍 ADDR |&nbsp;
-                            <p id="addr" th:text="*{hostAddr}">주소</p>
+                            <p id="addr" th:text="*{address}">주소</p>
                         </span>
                         <div class="my-2 mb-5" id="map" style="width:250px;height:250px;border-radius: 50%;margin: 0 auto"></div>
                         <hr>
@@ -111,7 +111,7 @@
             </div>
 
             <!-- 게시물 삭제 모달 -->
-            <form th:action="@{/posts/{postId}(postId=*{id})}" method="post" id="delete-form">
+            <form th:action="@{/posts/{postId}(postId=*{postId})}" method="post" id="delete-form">
                 <input type="hidden" name="_method" value="DELETE" />
                 <input type="hidden" th:field="*{category}">
             </form>
@@ -210,7 +210,7 @@
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7101ebc2d492a3cb9353b4add07670be&libraries=services"></script>
 <script th:inline="javascript">
     window.addEventListener("load", () => {
-        const addrInput = document.getElementById("addr")
+        const addrInput = document.getElementById("address")
         const mapContainer = document.getElementById('map'),
             mapOption = {
                 center: new kakao.maps.LatLng(33.361417, 126.529417),
@@ -263,7 +263,7 @@
     const phone = document.getElementById("phone");
     const bookDate = document.getElementById("bookDate");
     function bookingSubmit(){
-        const postId = [[${detail.id}]];
+        const postId = [[${detail.postId}]];
         const bookingSave = {
             "name":`${name.value}`,
             "personCount" : personCount.value,
