@@ -6,7 +6,6 @@ import com.google.firebase.cloud.StorageClient;
 import hello.jejulu.domain.thumbnail.Thumbnail;
 import hello.jejulu.repository.ThumbnailRepository_B;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,13 +33,14 @@ public class ThumbnailService_B {
 
     //썸네일 생성
     @Transactional
-    public String createThumbnail(MultipartFile file) throws IOException {
+    public Thumbnail createThumbnail(MultipartFile file) throws IOException {
         String imagePath = uploadImage(file);
         Thumbnail thumbnail = new Thumbnail(createStoreFileName(file.getOriginalFilename()),
                 imagePath, file.getOriginalFilename());
         String thumbnailId = thumbnailRepositoryB.save(thumbnail);
+        Thumbnail thumbnail1 = thumbnailRepositoryB.find(thumbnailId);
 
-        return thumbnailId;
+        return thumbnail1;
     }
 
     //썸네일 업데이트
@@ -69,43 +69,50 @@ public class ThumbnailService_B {
     }
 
 
-    @Value("${firebase.bucket}")
-    private String firebaseBucket;
+
+   // public static class Firebase {
+
+//        @Value("${firebase.bucket}")
+//        private static String firebaseBucket;
 
 
-    //path
-    public String uploadImage(MultipartFile file) throws IOException {
-        Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
-        String originFileName = file.getOriginalFilename();
-        String storeFileName = createStoreFileName(originFileName);
-        InputStream image = new ByteArrayInputStream(file.getBytes());
-        Blob blob = bucket.create("thumbnail/" + storeFileName, image, file.getContentType());
-        return getFirebaseImagePath(blob.getMediaLink());
+        //path
+        public  String uploadImage(MultipartFile file) throws IOException {
+            Bucket bucket = StorageClient.getInstance().bucket("jejulu-3b679.appspot.com");
+            String originFileName = file.getOriginalFilename();
+            String storeFileName = createStoreFileName(originFileName);
+            InputStream image = new ByteArrayInputStream(file.getBytes());
+            Blob blob = bucket.create("thumbnail/" + storeFileName, image, file.getContentType());
+            return getFirebaseImagePath(blob.getMediaLink());
+        }
+
+
+        //고유한 저장이름 생성 -> id
+        private String createStoreFileName(String originFileName) {
+            String uuid = UUID.randomUUID().toString();
+            String extendsName = extracted(originFileName);
+            return uuid + "." + extendsName;
+        }
+
+
+        //확장자명 추출
+        private String extracted(String originFileName) {
+            int pos = originFileName.lastIndexOf(".");
+            return originFileName.substring(pos + 1);
+        }
+
+
+        //이미지경로 호출 -> path
+        private String getFirebaseImagePath(String meadiaLink) {
+            int start = meadiaLink.lastIndexOf("%");
+            int last = meadiaLink.lastIndexOf("?");
+            return "https://firebasestorage.googleapis.com/v0/b/jejulu-3b679.appspot.com/o/thumbnail%"
+                    + meadiaLink.substring(start + 1, last)
+                    + "?alt=media";
+        //}
+
+
     }
 
-
-    //고유한 저장이름 생성 -> id
-    private String createStoreFileName(String originFileName) {
-        String uuid = UUID.randomUUID().toString();
-        String extendsName = extracted(originFileName);
-        return uuid + "." + extendsName;
-    }
-
-
-    //확장자명 추출
-    private String extracted(String originFileName) {
-        int pos = originFileName.lastIndexOf(".");
-        return originFileName.substring(pos + 1);
-    }
-
-
-    //이미지경로 호출 -> path
-    private String getFirebaseImagePath(String meadiaLink) {
-        int start = meadiaLink.lastIndexOf("%");
-        int last = meadiaLink.lastIndexOf("?");
-        return "https://firebasestorage.googleapis.com/v0/b/" + firebaseBucket + "/o/thumbnail%"
-                + meadiaLink.substring(start + 1, last)
-                + "?alt=media";
-    }
 
 }

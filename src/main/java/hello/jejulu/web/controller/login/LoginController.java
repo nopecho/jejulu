@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @Slf4j
 @Controller
-public class LoginController {
+public class LoginController implements SessionConst{
 
     private final LoginService loginService;
     private final HostServiceImpl hostService;

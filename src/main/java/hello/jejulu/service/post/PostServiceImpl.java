@@ -13,11 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PostServiceImpl implements PostService{
+public class PostServiceImpl {
 
 
     private final PostRepository_B postRepositoryB;
@@ -28,12 +29,11 @@ public class PostServiceImpl implements PostService{
 
     //포스트 저장
     @Transactional
-    public void savePost(PostSaveForm form, Host host)throws IOException {
+    public void savePost(PostSaveForm form, Host host)throws IOException{
 
-        String thumbnailId = thumbnailServiceB.createThumbnail(form.getFile());
-        Thumbnail entityThumbnail = thumbnailServiceB.findThumbnail(thumbnailId);
 
-        Post post = PostSaveForm.toPost(form, entityThumbnail,host);
+        Thumbnail thumbnail = thumbnailServiceB.createThumbnail(form.getFile());
+        Post post = PostSaveForm.toPost(form, thumbnail,host);
         postRepositoryB.save(post);
 
     }
@@ -64,6 +64,7 @@ public class PostServiceImpl implements PostService{
 
         //영속성 썸네일 조회
         Thumbnail thumbnail = thumbnailServiceB.findThumbnail(updateThumbnailId);
+
         //post 수정
         //dirty check
         post.setTitle(title);
@@ -83,6 +84,12 @@ public class PostServiceImpl implements PostService{
         thumbnailServiceB.deleteThumbnail(thumbnail.getId());
         postRepositoryB.removePost(post.getId());
 
+    }
 
+    public List<Post> findPostCategory(Category category){
+
+        List<Post> posts = postRepositoryB.findByCategory(category);
+
+        return posts;
     }
 }

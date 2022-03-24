@@ -1,5 +1,6 @@
 package hello.jejulu.repository;
 
+import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -40,10 +41,19 @@ public class PostRepository_B {
 //    }
 
 
+
     //포스트 모두 조회
     public List<Post> findAll(){
         return em.createQuery("select p from Post p", Post.class)
                 .getResultList();
+    }
+
+    //카테고리별 포스트 조회
+    public List<Post> findByCategory(Category category){
+        return em.createQuery("select p from Post p where p.category=:category",Post.class)
+                .setParameter("category",category)
+                .getResultList();
+
     }
 
     // 포스트 삭제
