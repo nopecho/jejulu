@@ -3,27 +3,30 @@
 
 <ul th:fragment="host-nav" class="navbar-nav">
     <li class="nav-item m-auto">
-        <span>[HOST NAME]</span>
+        <button type="button" class="btn btn-dark btn-sm" style="border-radius: 20px" th:onclick="|location.href='@{/posts/create}'|">글  쓰기</button>
+    </li>&nbsp;&nbsp;&nbsp;&nbsp;
+    <li class="nav-item m-auto">
+        <span th:text="${#session.getAttribute('loginHost').getHostName()}">호스트 이름</span>
     </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-house-door-fill fs-4"></i>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="/hosts/info">
                 <i class="bi bi-gear m-2"></i>
                 정보수정
             </a>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="/bookings/hosts/info">
                 <i class="bi bi bi-journal-check m-2"></i>
                 예약현황
             </a>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="/posts/host/info">
                 <i class="bi bi-person-check m-2"></i>
                 게시물 관리
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+            <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                 <i class="bi bi-lock m-2"></i>
                 로그아웃
             </a>

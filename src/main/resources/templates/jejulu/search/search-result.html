@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<link>
+<style>
+    .main-content {
+        border: none;
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+
+    .main-content:hover {
+        transform: translateY(-15px);
+        transition: all 0.3s;
+    }
+
+    #hd {
+        background-image: url(https://images.unsplash.com/photo-1536009190979-329b94ad4d57?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
+        background-size: cover;
+        flex-direction: column;
+    }
+
+    .card-img-top {
+        height: 15rem;
+        object-fit: cover;
+    }
+
+    .my-btn {
+        border-radius: 20px;
+    }
+
+    .select-sort {
+        background-color: black;
+    }
+</style>
+
+<section th:object="${page}" th:with="keyword = ${#httpServletRequest.getParameter('keyword')}, type = ${#httpServletRequest.getParameter('type')} , sort = ${#httpServletRequest.getParameter('sort')}">
+    <header class="py-5 d-flex justify-content-center" id="hd">
+        <div class="container d-flex flex-row text-center px-4 px-lg-5 my-5">
+            <div class="text-white">
+                <h2 class="display-4 fw-bold" th:text="${keyword}">키워드</h2>
+            </div>
+            <div class="text-white align-self-center">
+                <h3 class="display-5 fw-border mb-0">(으)로 검색한 결과</h3>
+            </div>
+        </div>
+    </header>
+    <div class="container px-4 px-lg-5 mb-5">
+        <div class="my-3 d-flex flex-row justify-content-between">
+            <div>
+                <button class="btn btn-m btn-secondary my-btn"
+                        th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(keyword=${keyword},sort='createDate,desc',type=${type})}'|" th:classappend="(${sort} == 'createDate,desc' ? 'select-sort' : '')">
+                    최신 순
+                </button>
+                <button class="btn btn-m btn-secondary my-btn"
+                        th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(keyword=${keyword},sort='count,desc',type=${type})}'|" th:classappend="(${sort} == 'count,desc' ? 'select-sort' : '')">
+                    조회 순
+                </button>
+            </div>
+
+            <div class="mr-0">
+                <form th:action="@{${#httpServletRequest.getRequestURI()}}" method="get" class="d-flex flex-row">
+                    <select name="type" class="form-select my-btn" style="width: 93px";>
+                        <option value="title">제목</option>
+                        <option value="hostName">작성자</option>
+                    </select>
+                    <input name="keyword" class="form-control my-btn" type="text" placeholder="검색어를 입력하세요." style=" width: 350px">
+                    <button type="submit" class="btn btn-default"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+        </div>
+        <hr class="mb-4">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
+            <!-- th:each 단락 -->
+            <div class="col mb-5" th:each=" info : *{content}">
+                <div class="card h-100 shadow main-content">
+                    <img class="card-img-top" th:src="${info.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">
+                    <div class="card-header pb-0 bg-light">
+                        <h5 th:text="${info.title}">제목</h5>
+                    </div>
+                    <div class="card-body bg-light border-light">
+                        <p th:text="${info.description}">설명</p>
+                    </div>
+                    <div class="card-footer pt-3 pb-0 px-0 bg-light border-light" style="font-size: smaller">
+                        <div class="d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row">
+                                &emsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
+                                <p th:text="${info.writer}"></p>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <span class="d-flex flex-row">
+                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
+                                    <p th:text="${info.count}">조회수</p>&emsp;
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="stretched-link" th:href="@{/posts/{postId}(postId=${info.id})}" style="text-decoration: none; color: black">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <ul class="pagination text-center d-flex flex-row justify-content-center mt-5" style="margin: 0 auto"
+            th:with="start=${(page.number/maxPage)*maxPage+1},
+            end = (${(page.totalPages == 0) ? 1
+                        : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
+                            : page.totalPages)})">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=0,sort=${sort},type=${type})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=${page.number - maxPage},sort=${sort},type=${type})}" aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">
+                <a class="page-link" th:text="${num}" th:href="@{/posts/search(keyword=${keyword},page=${num - 1},sort=${sort}, type=${type})}">?</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=${start+maxPage - 1},sort=${sort}, type=${type})}" aria-label="Previous">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/search(keyword=${keyword},page=${page.totalPages - 1},sort=${sort}, type=${type})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</section>
+
+<script th:inline="javascript">
+</script>
+</html>

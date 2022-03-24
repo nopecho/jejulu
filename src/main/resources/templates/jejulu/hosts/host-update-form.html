@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style></style>
@@ -15,26 +15,23 @@
             </div>
             <div class="row g-5 justify-content-center">
                 <div class="col-md-7 col-lg-8">
-                    <form class="needs-validation" action="#" method="post">
-                        <input type="hidden" name="_method" value="PATCH" />
+                    <form th:object="${update}" class="needs-validation" th:action="@{/hosts/{hostId}(hostId=*{id})}" method="post">
+                        <input type="hidden" name="_method" value="PATCH"/>
                         <div class="row g-3">
                             <div class="col-10">
-                                <label for="name" class="form-label fw-bold">Host Name</label>
-                                <input type="text" class="form-control is-valid" id="name" placeholder="HOST NAME" required
-                                       value="[SERVER]">
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 호스트 이름은 필수로 입력 해야돼요.
-                                </div>
+                                <label th:for="hostName" class="form-label fw-bold">Host Name</label>
+                                <input th:field="*{hostName}" th:errorclass="is-invalid" type="text" class="form-control" placeholder="HOST NAME" required>
+                                <i th:errors="*{hostName}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                                 <label class="mt-3 mb-0 fw-light fst-italic text-secondary"><i class="bi bi-vector-pen"></i>호스트가 사용하는 이름이에요.</label>
                                 <hr class="mt-0">
                             </div>
 
                             <div class="col-10">
-                                <label for="addr" class="form-label fw-bold">Address *</label>
-                                <input type="text" class="form-control is-valid" id="addr" placeholder="🔍 버튼을 눌러주세요"
-                                       required="required" readonly value="대구광역시 중구 남산동 290" />
+                                <label th:for="address" class="form-label fw-bold">Address *</label>
+                                <input th:field="*{address}" type="text" class="form-control is-valid" placeholder="🔍 버튼을 눌러주세요"
+                                       required="required" readonly />
                                 <div class="valid-feedback">
-                                    <p id="addr-search"><i class="bi bi-check-circle"></i> 현재 주소는 여기에요!</p>
+                                    <p id="address-search"><i class="bi bi-check-circle"></i> 현재 주소는 여기에요!</p>
                                 </div>
                             </div>
                             <div class="col-2 my-auto py-5">
@@ -42,42 +39,41 @@
                                         class="bi bi-search"></i></button>
                             </div>
                             <div id="map" style="width:300px;height:300px;border-radius: 50%;"></div>
-                            <label class="mt-3 mb-0 fw-light fst-italic text-secondary"><i class="bi bi-pin-angle"></i> 호스트가 사용하는 주소에요.</label>
+                            <label class="mt-3 mb-0 fw-light fst-italic text-secondary">
+                                <i class="bi bi-pin-angle"></i> 호스트가 사용하는 주소에요.</label>
                             <hr class="mt-0 col-10">
 
                             <div class="col-10">
-                                <label for="phone" class="form-label fw-bold">Phone *</label>
-                                <input type="tel" class="form-control phoneNumber is-valid" id="phone" placeholder="PHONE NUMBER"
-                                       required maxlength=13 value="[010-0000-0000]">
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 전화번호는 필수로 입력 해야돼요.
-                                </div>
+                                <label th:for="phone" class="form-label fw-bold">Phone *</label>
+                                <input th:field="*{phone}" th:errorclass="is-invalid" type="tel" class="form-control phoneNumber" placeholder="PHONE NUMBER" required maxlength=13>
+                                <i th:errors="*{phone}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                                 <label class="mt-3 mb-0 fw-light fst-italic text-secondary"><i class="bi bi-telephone"></i> 호스트의 전화번호에요.</label>
                                 <hr class="mt-0">
                             </div>
 
                             <div class="col-10 was-validated">
-                                <label for="email" class="form-label fw-bold">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com"
-                                       value="[SERVER@SERVER.com]">
-                                <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-circle"></i> 이메일 형식이 맞지 않아요.
-                                </div>
+                                <label th:for="email" class="form-label fw-bold">Email</label>
+                                <input th:field="*{email}" th:errorclass="is-invalid" type="email" class="form-control" placeholder="you@example.com">
+                                <i th:errors="*{email}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                                 <label class="mt-3 mb-0 fw-light fst-italic text-secondary"><i class="bi bi-envelope-open"></i> 호스트가 사용하는
                                     이메일이에요.</label>
                                 <hr class="mt-0">
                             </div>
                         </div>
-                        <button id="submit" class="btn btn-success btn-lg col-12 my-5" type="submit"
-                                disabled="disabled">UPDATE</button>
+                        <div class="mt-5">
+                            <button class="btn btn-secondary btn-lg col-5" type="button" th:onclick="|location.href='@{/hosts/{hostId}(hostId=*{id})}'|">BACK</button>
+                            <button id="submit" class="btn btn-success btn-lg col-5" type="submit"
+                                    >UPDATE</button>
+                        </div>
+                        <button type="button" class="btn btn-danger btn-lg col-5 mt-3" data-bs-toggle="modal" data-bs-target="#delete">
+                            <i class="bi bi-trash"></i> DELETE
+                        </button>
                     </form>
-                    <form action="" method="post" id="delete-form">
+
+
+                    <form th:action="@{/hosts/{hostId}(hostId=${update.id})}" method="post" id="delete-form">
                         <input type="hidden" name="_method" value="DELETE" />
                     </form>
-                    <button type="button" class="btn btn-danger btn-lg col-12" data-bs-toggle="modal" data-bs-target="#delete">
-                        <i class="bi bi-trash"></i> DELETE
-                    </button>
-
                     <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -119,7 +115,7 @@
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7101ebc2d492a3cb9353b4add07670be&libraries=services"></script>
 <script th:inline="javascript">
     //host name validation check
-    const nameInput = document.getElementById('name');
+    const nameInput = document.getElementById('hostName');
     nameInput.addEventListener('keyup', (e) => {
         if (e.target.value != "") {
             nameInput.classList.remove('is-invalid');
@@ -143,7 +139,7 @@
     });
 
     //addr validation
-    const addrInput = document.getElementById("addr")
+    const addrInput = document.getElementById("address")
     const mapContainer = document.getElementById('map'),
         mapOption = {
             center: new kakao.maps.LatLng(33.361417, 126.529417),

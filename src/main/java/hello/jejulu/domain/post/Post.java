@@ -7,17 +7,19 @@ import hello.jejulu.domain.thumbnail.Thumbnail;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.websocket.server.ServerEndpoint;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Builder
-@AllArgsConstructor
+@Entity@Builder
+@Table(name = "post")
+@Getter@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@AllArgsConstructor
 public class Post extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id@GeneratedValue
+    @Column(name = "post_id")
     private Long id;
 
     @Column(nullable = false)
@@ -27,17 +29,35 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false, length = 1)
+    @Column
+    private String description;
+
+    @Column(nullable = false)
+    private int count;
+
+    @Column(nullable = false,length = 10)
     private Category category;
 
-    @OneToOne
-    @JoinColumn(name = "thumnailId")
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name="thumbnail_Id")
     private Thumbnail thumbnail;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hostId")
+    @JoinColumn(name = "host_Id")
     private Host host;
 
-    @OneToMany(mappedBy = "post")
-    private List<Booking> bookings = new ArrayList<>();
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    private List<Booking> bookings=new ArrayList<>();
+
+    public void countPlus(){
+        this.count++;
+    }
+
+    //연관관계 메서드
+
+    public void setHost(Host host){
+        this.host=host;
+        host.getPost().add(this);
+    }
+
 }

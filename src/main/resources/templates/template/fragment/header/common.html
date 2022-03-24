@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="common-header" class="container">
-    <div class="row mt-3">
-        <div class="col-lg-3 col-sm-6 text-center">
-            <button class="btn text-secondary" type="button" onclick="location.href='#'">ABOUT JEJU</button>
+<div th:fragment="common-header">
+    <div class="container my-2">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 text-center">
+                <button class="btn text-secondary" type="button" th:onclick="|location.href='@{/about}'|">ABOUT JEJU</button>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center">
+                <button class="btn text-secondary" type="button" th:onclick="|location.href='@{/map}'|">MAP</button>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center dropdown">
+                <button class="btn text-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">CATEGORY</button>
+                <ul class="dropdown-menu bg-light shadow">
+                    <a class="dropdown-item" th:href="@{/posts/categorys/Tour}">
+                        <span>🌊&nbsp;&nbsp;여행</span>
+                    </a>
+                    <a class="dropdown-item" th:href="@{/posts/categorys/Restaurant}">
+                        <span>🍊&nbsp;&nbsp;음식</span>
+                    </a>
+                    <a class="dropdown-item" th:href="@{/posts/categorys/Hostel}">
+                        <span>🏠&nbsp;&nbsp;숙박</span>
+                    </a>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center">
+                <button class="btn text-secondary" type="button" th:onclick="|location.href='@{/contact}'|">CONTACT US</button>
+            </div>
         </div>
-        <div class="col-lg-3 col-sm-6 text-center">
-            <button class="btn text-secondary" type="button" onclick="location.href='#'">MAP</button>
-        </div>
-        <div class="col-lg-3 col-sm-6 text-center">
-            <button class="btn text-secondary" type="button" onclick="location.href='#'">CATEGORY</button>
-        </div>
-        <div class="col-lg-3 col-sm-6 text-center">
-            <button class="btn text-secondary" type="button" onclick="location.href='#'">CONTACT US</button>
-        </div>
+
     </div>
 </div>
 </html>

@@ -2,10 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <nav th:fragment="nav" class="navbar navbar-expand navbar-light fixed-top shadow-sm pt-0 pb-0">
     <div class="container">
-        <a class="navbar-brand" href="#"><i class="bi bi-tsunami"></i> Jejulu</a>
-        <form class="navbar-form" action="#" method="get">
+        <a class="navbar-brand" href="#"><i class="bi bi-tsunami text-info"></i> Jejulu</a>
+        <form class="navbar-form" action="/posts/search" method="get">
             <div class="input-group">
-                <input type="text" class="form-control rounded-pill" placeholder="search for post" id="serch-bar">
+                <input name="keyword" type="text" class="form-control rounded-pill" placeholder="제목으로 검색" id="serch-bar">
+                <input name="type" type="hidden" value="title">
                 <div class="input-group-btn">
                     <button type="submit" class="btn btn-default"><i class="bi bi-search"></i></button>
                 </div>
@@ -14,25 +15,25 @@
         <th:block th:if="${#session != null}" >
             <th:block th:switch="${#session.getAttributeNames().nextElement()}">
                 <div th:case="'loginMember'">
-                    <ul th:replace="/template/fragment/navbar/member ::member-nav"></ul>
+                    <ul th:replace="template/fragment/navbar/member ::member-nav"></ul>
                 </div>
 
                 <div th:case="'loginHost'">
-                    <ul th:replace="/template/fragment/navbar/host ::host-nav"></ul>
+                    <ul th:replace="template/fragment/navbar/host ::host-nav"></ul>
                 </div>
 
                 <div th:case="'loginAdmin'">
-                    <ul th:replace="/template/fragment/navbar/admin ::admin-nav"></ul>
+                    <ul th:replace="template/fragment/navbar/admin ::admin-nav"></ul>
                 </div>
 
                 <div th:case="*">
-                    <ul th:replace="/template/fragment/navbar/guests ::guests-nav"></ul>
+                    <ul th:replace="template/fragment/navbar/guests ::guests-nav"></ul>
                 </div>
             </th:block>
         </th:block>
 
         <th:block th:if="${#session == null}">
-            <ul th:replace="/template/fragment/navbar/guests ::guests-nav"></ul>
+            <ul th:replace="template/fragment/navbar/guests ::guests-nav"></ul>
         </th:block>
     </div>
 </nav>

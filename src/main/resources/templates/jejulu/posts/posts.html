@@ -1,90 +1,37 @@
 <!DOCTYPE html>
-<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style>
-    .card {
-        border: none;
-    }
-
     .main-content {
+        border: none;
         position: relative;
         width: 100%;
         max-width: 400px;
         margin: auto;
         overflow: hidden;
+        transition: all 0.3s;
     }
 
-    .main-content .main-content-overlay {
-        background: rgba(0, 0, 0, 0.26);
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        opacity: 0;
-        -webkit-transition: all 0.4s ease-in-out 0s;
-        -moz-transition: all 0.4s ease-in-out 0s;
-        transition: all 0.4s ease-in-out 0s;
+    .main-content:hover {
+        transform: translateY(-15px);
+        transition: all 0.3s;
     }
 
-    .main-content:hover .main-content-overlay {
-        opacity: 1;
+    #TOUR {
+        background-image: url(https://images.unsplash.com/photo-1609766418204-94aae0ecfdfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
+        background-size: cover;
+        flex-direction: column;
     }
 
-    .main-content-details {
-        position: absolute;
-        text-align: center;
-        padding-left: 1em;
-        padding-right: 1em;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        opacity: 0;
-        -webkit-transform: translate(-50%, -50%);
-        -moz-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        -webkit-transition: all 0.3s ease-in-out 0s;
-        -moz-transition: all 0.3s ease-in-out 0s;
-        transition: all 0.3s ease-in-out 0s;
+    #RESTAURANT {
+        background-image: url(https://images.unsplash.com/photo-1507598641400-ec3536ba81bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
+        background-size: cover;
+        flex-direction: column;
     }
 
-    .main-content:hover .main-content-details {
-        top: 50%;
-        left: 50%;
-        opacity: 1;
-    }
-
-    .main-content-details h3 {
-        color: #fff;
-        font-size: 1em;
-        font-weight: 300;
-        letter-spacing: 0.15em;
-        margin-bottom: 0.5em;
-        text-transform: uppercase;
-    }
-
-    .main-content-details p {
-        color: #fff;
-        font-size: 0.8em;
-    }
-
-    .fadeIn-bottom {
-        top: 80%;
-    }
-
-    *, *:before, *:after {
-        margin: 0;
-        padding: 0;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    #category-1 {
-        background-image: url(https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80);
+    #HOTEL {
+        background-image: url(https://images.unsplash.com/photo-1528909257635-429e04fab8d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80);
         background-size: cover;
         flex-direction: column;
     }
@@ -93,38 +40,135 @@
         height: 15rem;
         object-fit: cover;
     }
+
+    .my-btn {
+        border-radius: 20px;
+    }
+
+    .select-sort {
+        background-color: black;
+    }
 </style>
 
-<section>
-    <header class="py-5 d-flex justify-content-center" id="category-1">
+<section th:object="${page}" th:with="keyword = ${#httpServletRequest.getParameter('keyword')}, type = ${#httpServletRequest.getParameter('type')} , sort = ${#httpServletRequest.getParameter('sort')}">
+    <header class="py-5 d-flex justify-content-center" th:id="${category}">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-border">CTEGORY</h1>
+                <h1 class="display-4 fw-bold" th:text="${category}">CTEGORY</h1>
                 <p class="lead fw-normal text-white-50">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             </div>
         </div>
     </header>
-    <div class="p-3"></div>
-    <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
+    <div class="container px-4 px-lg-5 mb-5">
+        <div class="my-3 d-flex flex-row justify-content-between">
+            <div>
+                <button class="btn btn-m btn-secondary my-btn"
+                        th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(keyword=${keyword},sort='createDate,desc',type=${type})}'|" th:classappend="(${sort} == 'createDate,desc' ? 'select-sort' : '')">
+                    최신 순
+                </button>
+                <button class="btn btn-m btn-secondary my-btn"
+                        th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(keyword=${keyword},sort='count,desc',type=${type})}'|" th:classappend="(${sort} == 'count,desc' ? 'select-sort' : '')">
+                    조회 순
+                </button>
+            </div>
+
+            <div class="mr-0">
+                <form th:action="|@{/posts/{cateogry}/search(cateogry=${category})}|" method="get" class="d-flex flex-row">
+                    <select name="type" class="form-select my-btn" style="width: 93px";>
+                        <option value="title">제목</option>
+                        <option value="hostName">작성자</option>
+                    </select>
+                    <input name="keyword" class="form-control my-btn" type="text" placeholder="검색어를 입력하세요." style=" width: 350px">
+                    <button type="submit" class="btn btn-default"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+        </div>
+        <hr class="mb-4">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
             <!-- th:each 단락 -->
-            <div class="col mb-5">
-                <div class="card h-100 text-center main-content">
-                    <a href="#">
-                        <div class="main-content-overlay"></div>
-                        <img class="card-img-top shadow main-content-image"
-                             src="https://images.unsplash.com/photo-1524946274118-e7680e33ccc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJlYWNoJTIwYmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                             alt="">
-                        <div class="main-content-details fadeIn-bottom">
-                            <h3>This is a title</h3>
-                            <p>This is a short description</p>
+            <div class="col mb-5" th:each=" info : *{content}">
+                <div class="card h-100 shadow main-content">
+                    <img class="card-img-top" th:src="${info.path}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">
+                    <div class="card-header pb-0 bg-light">
+                        <h5 th:text="${info.title}">제목</h5>
+                    </div>
+                    <div class="card-body bg-light border-light">
+                        <p th:text="${info.description}">설명</p>
+                    </div>
+                    <div class="card-footer pt-3 pb-0 px-0 bg-light border-light" style="font-size: smaller">
+                        <div class="d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row">
+                                &emsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
+                                <p th:text="${info.writer}"></p>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <span class="d-flex flex-row">
+                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
+                                    <p th:text="${info.count}">조회수</p>&emsp;
+                                </span>
+                            </div>
                         </div>
+                    </div>
+                    <a class="stretched-link" th:href="@{/posts/{postId}(postId=${info.id})}" style="text-decoration: none; color: black">
                     </a>
                 </div>
             </div>
         </div>
+        <div id="posts-container" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
+        </div>
+        <button class="btn btn-class col-12" onclick="loadPosts()">더보기</button>
     </div>
 </section>
 
-<script></script>
+<script th:inline="javascript">
+    const page = [[${page}]]
+    let pageNum = page.number;
+    let sort = [[${#httpServletRequest.getParameter("sort")}]]
+    if(sort === null){
+        sort = '';
+    }
+    function loadPosts(){
+        const category = [[${category}]];
+        fetch(`/posts/${category}/load?page=${++pageNum}&sort=${sort}`)
+            .then(res => res.json())
+            .then(posts => render(posts.content))
+            .catch(e => console.log(e));
+    }
+
+    function render(posts){
+        const container = document.getElementById("posts-container")
+        posts.forEach(post => {
+            const appendPost = document.createElement("div");
+            appendPost.className = "col mb-5";
+            appendPost.innerHTML =
+                `<div class="card h-100 shadow main-content">
+                    <img class="card-img-top" src="${post.path}" onerror="this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'" alt="">
+                    <div class="card-header bg-light">
+                        <h5>${post.title}</h5>
+                    </div>
+                    <div class="card-body bg-light border-light">
+                        <p>${post.description}</p>
+                    </div>
+                    <div class="card-footer pt-3 px-0 bg-light border-light" style="font-size: smaller">
+                        <div class="d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row">
+                                &emsp;<i class="bi bi-megaphone-fill"></i>&nbsp;
+                                <p>${post.writer}</p>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <span class="d-flex flex-row">
+                                    <i class="bi bi-eye-fill" style="font-style: normal"></i>&nbsp;
+                                    <p>${post.count}</p>&emsp;
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="stretched-link" href="/posts/${post.id}" style="text-decoration: none; color: black">
+                    </a>
+                </div>`
+
+            container.append(appendPost);
+        })
+    }
+</script>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style>
@@ -108,7 +108,7 @@
 
             <div class="col mb-5">
                 <div class="card text-center main-content">
-                    <a href="#">
+                    <a th:href="@{/admin/management/members}">
                         <div class="main-content-overlay"></div>
                         <img class="card-img-top shadow" src="../../static/image/category/About_jeju_3.jpg" alt="">
                         <div class="main-content-details fadeIn-bottom">
@@ -119,7 +119,7 @@
             </div>
             <div class="col mb-5">
                 <div class="card h-100 text-center main-content">
-                    <a href="#">
+                    <a th:href="@{/admin/management/hosts}">
                         <div class="main-content-overlay"></div>
                         <img class="card-img-top shadow" src="../../static/image/category/my_page_host.jpg" alt="">
                         <div class="main-content-details fadeIn-bottom">
@@ -130,7 +130,7 @@
             </div>
             <div class="col mb-5">
                 <div class="card h-100 text-center main-content">
-                    <a href="#">
+                    <a th:href="@{/admin/management/posts}">
                         <div class="main-content-overlay"></div>
                         <img class="card-img-top shadow" src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80" alt="">
                         <div class="main-content-details fadeIn-bottom">
@@ -141,7 +141,7 @@
             </div>
             <div class="col mb-5">
                 <div class="card h-100 text-center main-content">
-                    <a href="#">
+                    <a th:href="@{/admin/management/contacts}">
                         <div class="main-content-overlay"></div>
                         <img class="card-img-top shadow" src="https://images.unsplash.com/photo-1496262967815-132206202600?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1523&q=80" alt="">
                         <div class="main-content-details fadeIn-bottom">

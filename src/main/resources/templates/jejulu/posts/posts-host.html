@@ -1,169 +1,164 @@
 <!DOCTYPE html>
-<html th:replace="/template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <link>
 <style>
-    .card {
-        border: none;
+    .my-btn {
+        border-radius: 20px;
     }
-
-    .main-content {
-        position: relative;
-        width: 100%;
-        max-width: 400px;
-        margin: auto;
-        overflow: hidden;
-    }
-
-    .main-content .main-content-overlay {
-        background: rgba(0, 0, 0, 0.26);
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        opacity: 0;
-        -webkit-transition: all 0.4s ease-in-out 0s;
-        -moz-transition: all 0.4s ease-in-out 0s;
-        transition: all 0.4s ease-in-out 0s;
-    }
-
-    .main-content:hover .main-content-overlay {
-        opacity: 1;
-    }
-
-    .main-content-details {
-        position: absolute;
-        text-align: center;
-        padding-left: 1em;
-        padding-right: 1em;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        opacity: 0;
-        -webkit-transform: translate(-50%, -50%);
-        -moz-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        -webkit-transition: all 0.3s ease-in-out 0s;
-        -moz-transition: all 0.3s ease-in-out 0s;
-        transition: all 0.3s ease-in-out 0s;
-    }
-
-    .main-content:hover .main-content-details {
-        top: 50%;
-        left: 50%;
-        opacity: 1;
-    }
-
-    .main-content-details h3 {
-        color: #fff;
-        font-size: 1em;
-        font-weight: 300;
-        letter-spacing: 0.15em;
-        margin-bottom: 0.5em;
-        text-transform: uppercase;
-    }
-
-    .main-content-details p {
-        color: #fff;
-        font-size: 0.8em;
-    }
-
-    .fadeIn-bottom {
-        top: 80%;
-    }
-
-    *, *:before, *:after {
-        margin: 0;
-        padding: 0;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
     #category-1 {
-        background-image: url(https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80);
+        background-image: url(https://images.unsplash.com/photo-1519972064555-542444e71b54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
         background-size: cover;
         flex-direction: column;
     }
-
-    .card-img-top {
-        height: 15rem;
-        object-fit: cover;
+    .select-sort {
+        background-color: black;
     }
 </style>
 
-<section>
-    <header class="py-5 d-flex justify-content-center" id="category-1">
+<section th:object="${page}" th:with="sort = ${#httpServletRequest.getParameter('sort')}">
+    <header class="py-5 d-flex justify-content-center mb-4" id="category-1">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-border">Your Posting List</h1>
-                <p class="lead fw-normal text-white-50">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <h2 class="display-4 fw-bold">내 게시물 관리</h2>
+                <p class="lead fw-normal text-white-50">호스트가 작성한 전체 게시물 목록이에요</p>
             </div>
         </div>
     </header>
-    <div class="p-3"></div>
-    <div class="container-fluid px-4 px-lg-5 mt-5 mb-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-2 row-cols-xl-4 justify-content-center">
-            <!-- 최소 게시글 단위 -->
-            <div class="col mb-5">
-                <div class="card text-center main-content">
-                    <a href="#">
-                        <div class="main-content-overlay"></div>
-                        <img class="card-img-top shadow main-content-image"
-                             src="https://images.unsplash.com/photo-1524946274118-e7680e33ccc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJlYWNoJTIwYmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                             alt="">
-                        <div class="main-content-details fadeIn-bottom">
-                            <h3>This is a title</h3>
-                            <p>This is a short description</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="p-3 text-center">
-                    <button class="btn btn-success col-4 mx-2" type="button" th:onclick="|location.href='@{/13}'|">
-                        UPDATE
-                    </button>
-                    <button type="button" class="btn btn-danger col-4 mx-2" data-bs-toggle="modal" data-bs-target="#delete">
-                        DELETE
-                    </button>
-                    <form action="" method="post" id="delete-form">
-                        <input type="hidden" name="_method" value="DELETE" />
-                    </form>
-                </div>
 
-                <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <h4 class="modal-title" id="test"></h4>
-                            <div class="modal-body text-center pb-5">
-                                <div class="container">
-                                    <div class="row justify-content-center">
-                                        <div class="col-lg-12">
-                                            <h2 class="text-danger text-uppercase mb-0"><i class="bi bi-exclamation-triangle"></i> DELETE
-                                                CHECK</h2>
-                                            <p class="my-4">해당 게시물을 삭제 할까요?</p>
+    <div class="container mt-3">
+        <div class="my-3 d-flex flex-row justify-content-between">
+            <div>
+                <button class="btn btn-m btn-secondary my-btn"
+                        th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(keyword=${keyword},sort='createDate,desc',type=${type})}'|" th:classappend="(${sort} == 'createDate,desc' ? 'select-sort' : '')">
+                    최신 순
+                </button>
+                <button class="btn btn-m btn-secondary my-btn"
+                        th:onclick="|location.href='@{${#httpServletRequest.getRequestURI()}(keyword=${keyword},sort='count,desc',type=${type})}'|" th:classappend="(${sort} == 'count,desc' ? 'select-sort' : '')">
+                    조회 순
+                </button>
+            </div>
+
+            <div class="mr-0">
+                <form action="/posts/search" method="get" class="d-flex flex-row">
+                    <select name="type" class="form-select my-btn" style="width: 85px";>
+                        <option value="title">제목</option>
+                        <option value="hostName">작성자</option>
+                    </select>
+                    <input name="keyword" class="form-control my-btn" type="text" placeholder="검색어를 입력하세요." style=" width: 350px">
+                    <button type="submit" class="btn btn-default"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card bg-light shadow">
+            <div class="table-responsive">
+                <table class="table table-hover table-nowrap text-center">
+                    <thead class="table-light mb-5">
+                        <tr>
+                            <th scope="col">게시물 번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">카테고리</th>
+                            <th scope="col">조회수</th>
+                            <th scope="col">작성일</th>
+                            <th scope="col" class="text-success">수정</th>
+                            <th scope="col" class="text-danger">삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="post : ${page.content}">
+                            <td data-label="게시물 번호">
+                                <p th:text="${post.id}">[FIND NO]</p>
+                            </td>
+                            <td data-label="제목">
+                                <a th:href="|@{/posts/{postId}(postId=${post.id})}|" th:text="${post.title}">제목</a>
+                            </td>
+                            <td data-label="카테고리">
+                                <button class="btn btn-sm btn-warning my-btn" th:text="${post.category}" th:onclick="|location.href='@{/posts/categorys/{category}(category=${post.category})}'|">
+                                    카테고리
+                                </button>
+                            </td>
+                            <td data-label="조회수">
+                                <p th:text="${post.count}">조회수</p>
+                            </td>
+                            <td data-label="작성일">
+                                <p th:text="${post.createDate}">작성일</p>
+                            </td>
+                            <td data-label="수정">
+                                <button type="button" class="btn btn-sm btn-success my-btn" th:onclick="|location.href='@{/posts/{postId}/edit(postId=${post.id})}'|">수정하기</button>
+                            </td>
+
+                            <td data-label="삭제">
+                                 <button type="button" class="btn btn-sm btn-danger my-btn" data-bs-toggle="modal" th:data-bs-target="|#delete${post.id}|" >삭제하기</button>
+                            </td>
+
+                            <div class="modal fade" th:id="delete+${post.id}" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <button class="btn btn-danger col-4 mx-3" data-bs-dismiss="modal" onclick="deleteSubmit()">
-                                            <i class="bi bi-exclamation-triangle"></i> DELETE
-                                        </button>
-                                        <button class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
-                                            CLOSE
-                                        </button>
+                                        <h4 class="modal-title" id="test"></h4>
+                                        <div class="modal-body text-center pb-5">
+                                            <div class="container">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-lg-12">
+                                                        <h2 class="text-danger text-uppercase mb-0">
+                                                            <i class="bi bi-exclamation-triangle"></i>게시물 삭제 확인
+                                                        </h2>
+                                                        <p class="my-4">해당 게시물을 삭제 할까요?</p>
+                                                    </div>
+                                                    <button class="btn btn-danger col-4 mx-3" data-bs-dismiss="modal" th:onclick="|deleteSubmit(${post.id})|">
+                                                        삭제하기
+                                                    </button>
+                                                    <button class="btn btn-secondary col-4 mx-3" data-bs-dismiss="modal" aria-label="Close">
+                                                        돌아가기
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+
+        <ul class="pagination text-center d-flex flex-row justify-content-center mt-5" style="margin: 0 auto"
+            th:with="start=${(page.number/maxPage)*maxPage+1},
+            end = (${(page.totalPages == 0) ? 1
+                        : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
+                            : page.totalPages)})">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=0,sort=${sort})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.number - maxPage},sort=${sort})}" aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">
+                <a class="page-link" th:text="${num}" th:href="@{/posts/host/{hostsId}(hostsId=${session.loginHost.id},page=${num - 1},sort=${sort})}">?</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${start+maxPage - 1},sort=${sort})}" aria-label="Previous">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.totalPages - 1},sort=${sort})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
     </div>
 </section>
 
@@ -173,9 +168,17 @@
 <script th:inline="javascript">
 
     //delete form submit check
-    function deleteSubmit() {
-        const deleteForm = document.getElementById('delete-form')
-        deleteForm.submit()
+    function deleteSubmit(postId) {
+        fetch(`/posts/${postId}/my-page`, {
+            method : "delete"
+        }).then(res => res.json())
+            .then(result => {
+                if(result){
+                    alert("게시물을 삭제 했어요.");
+                    location.reload();
+                }
+            })
+        .catch(e => console.log(e));
     }
 </script>
 </html>
