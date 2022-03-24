@@ -42,6 +42,6 @@ public class UtilController {
 
     @GetMapping("/map")
     public String map(){
-        return "jejulu/etc/";
+        return "jejulu/etc/map";
     }
 }
