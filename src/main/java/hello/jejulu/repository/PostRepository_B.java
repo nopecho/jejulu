@@ -47,7 +47,7 @@ public class PostRepository_B {
     }
 
     // 포스트 삭제
-    public void removeItem(Long postId){
+    public void removePost(Long postId){
         Post post = findOne(postId);
         em.remove(post);
     }

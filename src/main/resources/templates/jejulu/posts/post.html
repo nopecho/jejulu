@@ -113,7 +113,6 @@
             <!-- 게시물 삭제 모달 -->
             <form th:action="@{/posts/{postId}(postId=*{postId})}" method="post" id="delete-form">
                 <input type="hidden" name="_method" value="DELETE" />
-                <input type="hidden" th:field="*{category}">
             </form>
             <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
                 <div class="modal-dialog">
@@ -235,7 +234,7 @@
     });
 
     //delete form submit check
-    function deleteSubmit() {
+    function deleteSubmit(){
         const deleteForm = document.getElementById('delete-form')
         deleteForm.submit()
         console.log("삭제해!")

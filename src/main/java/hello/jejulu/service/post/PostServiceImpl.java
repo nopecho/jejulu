@@ -19,8 +19,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService{
 
-    private final ThumbnailRepository_B thumbnailRepository_B;
+
     private final PostRepository_B postRepositoryB;
+    private final ThumbnailService_B thumbnailServiceB;
 
 
 
@@ -29,8 +30,10 @@ public class PostServiceImpl implements PostService{
     @Transactional
     public void savePost(PostSaveForm form, Host host)throws IOException {
 
-        Thumbnail thumbnail = thumbnailRepository_B.saveThumbnail(form.getFile());
-        Post post = PostSaveForm.toPost(form, thumbnail,host);
+        String thumbnailId = thumbnailServiceB.createThumbnail(form.getFile());
+        Thumbnail entityThumbnail = thumbnailServiceB.findThumbnail(thumbnailId);
+
+        Post post = PostSaveForm.toPost(form, entityThumbnail,host);
         postRepositoryB.save(post);
 
     }
@@ -48,15 +51,38 @@ public class PostServiceImpl implements PostService{
                            String description,Category category,
                            MultipartFile file,String content)throws IOException{
 
-        //썸네일 저장
-        Thumbnail thumbnail = thumbnailRepository_B.saveThumbnail(file);
-        Thumbnail entityThumbnail = thumbnailRepository_B.findThumbnail(thumbnail.getId());
-        //post 수정
+
+
+        //포스트 찾기
         Post post = postRepositoryB.findOne(postId);
+
+        //file null 처리
+
+
+        //썸네일 업데이트
+        String updateThumbnailId = thumbnailServiceB.updateThumbnail(file,post.getThumbnail());
+
+        //영속성 썸네일 조회
+        Thumbnail thumbnail = thumbnailServiceB.findThumbnail(updateThumbnailId);
+        //post 수정
+        //dirty check
         post.setTitle(title);
         post.setDescription(description);
         post.setCategory(category);
-        post.setThumbnail(entityThumbnail);
+        post.setThumbnail(thumbnail);
         post.setContent(content);
+    }
+
+    //포스트 삭제
+
+    @Transactional
+    public void deletePost(Long postId){
+
+        Post post = postRepositoryB.findOne(postId);
+        Thumbnail thumbnail = thumbnailServiceB.findThumbnail(post.getThumbnail().getId());
+        thumbnailServiceB.deleteThumbnail(thumbnail.getId());
+        postRepositoryB.removePost(post.getId());
+
+
     }
 }

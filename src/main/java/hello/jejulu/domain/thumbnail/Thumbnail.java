@@ -1,10 +1,7 @@
 package hello.jejulu.domain.thumbnail;
 
 import hello.jejulu.domain.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,5 +27,12 @@ public class Thumbnail extends BaseTimeEntity {
     //고유이름
     @Column(nullable = false)
     private String originName;
+
+    public void updateEntityThumbnail(String path,String originName){
+
+       this.path=path;
+       this.originName=originName;
+
+    }
 
 }

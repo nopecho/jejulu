@@ -100,12 +100,26 @@ public class PostController {
     //게시물 수정
     @PatchMapping("/{postId}")
     public String editForm(@Validated@ModelAttribute PostSaveForm form,
+                           BindingResult bindingResult,
                            @PathVariable Long postId) throws IOException {
+
+        if(bindingResult.hasErrors()){
+            return "redirect:/posts/{postId}/edit";
+        }
 
         postService.updatePost(postId, form.getTitle(),
                 form.getDescription(), form.getCategory(),
                 form.getFile(), form.getContent());
 
-        return "redirect:/posts/{postId}";
+        return "redirect:/";
+    }
+
+    //게시물 삭제
+    @DeleteMapping("/{postId}")
+    public String deleteForm(@PathVariable Long postId){
+
+        postService.deletePost(postId);
+
+        return "/";
     }
 }
