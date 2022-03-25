@@ -12,7 +12,7 @@
 <section>
     <header>
         <div class="text-center mb-4">
-            <i class="text-danger fs-3 fw-bolder bi bi-exclamation-triangle my-4">서버 내부 오류 입니다!😵‍💫</i>
+            <i th:text="${message}" class="text-danger fs-3 fw-bolder bi bi-exclamation-triangle my-4">오류메시지</i>
             <img id="bs_icon" class="img-fluid mb-2" th:src="@{/image/error.jpeg}" alt="..."/>
         </div>
     </header>

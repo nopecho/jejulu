@@ -5,7 +5,8 @@ import java.util.Arrays;
 public enum Role {
     ADMIN(0),
     MEMBER(1),
-    HOST(2);
+    HOST(2),
+    GUEST(3);
 
     private int value;
 
