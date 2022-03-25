@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=E6E6FA&height=120&section=header&text=JEJULU&fontSize=60&animation=fadeIn&fontColor=auto)
+![header](https://capsule-render.vercel.app/api?type=waving&color=E6E6FA&height=120&section=header&text=JEJULU&fontSize=60&animation=fadeIn&fontColor=D5C2EE)
 
 <div align="center">
 <a href="http://ec2-13-124-147-177.ap-northeast-2.compute.amazonaws.com/">
@@ -33,6 +33,8 @@
 
 > _JEJULU는 스프링부트를 사용한 SSR(서버사이드 렌더링) 방식의 제주도 여행 정보 예약 웹 사이트에요._
 
+<br>
+
 - ***PROJECT BY***
 
 | <img src="https://avatars.githubusercontent.com/u/92011565?v=4" width="150">| <img src="https://avatars.githubusercontent.com/u/92501591?v=4" width="150">  |
@@ -40,12 +42,15 @@
 |<center>nopecho</center>| <center>Boeun's</center>|
 | <center><a href="https://github.com/nopecho"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a></center>| <center><a href="https://github.com/BoeunGu"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a></center> |
 
+<br>
+
+---
 
 ## 📚 목차
-1. [🔗 소개](##-소개)
-2. [🔭 프로젝트 구조](##-프로젝트-구조)
-3. [🔍 주요 기능](##-주요-기능)
-4. [🙇🏻 맺음말](##-맺음말)
+1. [🔗 소개](#-소개)
+2. [🔭 프로젝트 구조](#-프로젝트-구조)
+3. [🔍 주요 기능](#-주요-기능)
+4. [🙇🏻 맺음말](#-맺음말)
 
 <br>
 
