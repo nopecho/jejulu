@@ -61,7 +61,7 @@ public class LoginService {
             return passwordEncoder.matches(rawPassword, ((Host) target).getPassword());
         }
         if(target instanceof Admin){
-            return passwordEncoder.matches(rawPassword, ((Admin) target).getPassword());
+            return ((Admin) target).getPassword().equals(rawPassword);
         }
         return false;
     }
