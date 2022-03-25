@@ -24,6 +24,6 @@ services:
       #TIME ZONE
       TZ: Asia/Seoul
 
-    #외부 디렉토리와 컨테이너 마운트
-    #volumes:
-
+    #외부 디렉토리와 컨테이너 마운트(컨테이너에 있는 데이터 영속화)
+    volumes:
+      - /Users/nopecho/app/db:/var/lib/mysql
