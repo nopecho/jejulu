@@ -32,17 +32,6 @@ public class AdminServiceImpl implements AdminService{
     private final HostRepository hostRepository;
     private final PostRepository postRepository;
 
-    @PostConstruct
-    @Transactional
-    public void initAdmin(){
-        Admin admin = Admin.builder()
-                .loginId("admin")
-                .password(passwordEncoder.encode("admin"))
-                .role(Role.ADMIN)
-                .build();
-        adminRepository.save(admin);
-    }
-
     @Override
     public Page<MemberDto.AdminDetail> getMembersForAdmin(Pageable pageable) {
         Page<Member> members = memberRepository.findAll(pageable);
