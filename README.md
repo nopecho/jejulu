@@ -61,7 +61,7 @@
 - 개발기간 : 22. 02. 14. ~ 22. 03.
 - 참여인원 : <a href="https://github.com/nopecho">조현준</a>, <a href="https://github.com/BoeunGu">구보은</a>
 - 개발과정 :
-  - [Notion](https://www.notion.so/b1e2f699da0041a1bd530f92aa438db5?v=976efadb7a904d35b8cfa66140a95cde)
+  - [Notion](https://rainy-birth-ddb.notion.site/b1e2f699da0041a1bd530f92aa438db5?v=976efadb7a904d35b8cfa66140a95cde)
   - [GitHub](https://github.com/nopecho/jejulu)
 - [⚡️데모 사이트 바로가기](http://ec2-13-124-147-177.ap-northeast-2.compute.amazonaws.com/)
 
@@ -87,9 +87,9 @@
 - 실 서비스를 위한 AWS와 같은 클라우드 컴퓨팅 환경의 배포
 
 ### 🗄 설계 과정
-- [🔗페이지 레이아웃](https://www.notion.so/9bf2fbe7c1f047df9ec93fe48c1a4750)
-- [🔗기능 명세서](https://www.notion.so/bd584363bd9041dba71c7780a5a889e2)
-- [🔗API 명세서](https://www.notion.so/API-3bd8b72b6bf84e2da995be039e1bf75b)
+- [🔗페이지 레이아웃](https://rainy-birth-ddb.notion.site/9bf2fbe7c1f047df9ec93fe48c1a4750)
+- [🔗기능 명세서](https://rainy-birth-ddb.notion.site/bd584363bd9041dba71c7780a5a889e2)
+- [🔗API 명세서](https://rainy-birth-ddb.notion.site/API-3bd8b72b6bf84e2da995be039e1bf75b)
 
 
 ### 🌎 브라우저 지원
