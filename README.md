@@ -49,7 +49,7 @@
 ## 📚 목차
 1. [🔗 프로젝트 소개](#-프로젝트-소개)
 2. [🔭 프로젝트 구조](#-프로젝트-구조)
-3. [🔍 주요 기능](#-주요-기능)
+3. [🔍 주요 기능 미리보기](#-주요-기능-미리보기)
 5. [🙇🏻 맺음말](#-맺음말)
 
 <br>
@@ -91,28 +91,64 @@
 - [🔗기능 명세서](https://www.notion.so/bd584363bd9041dba71c7780a5a889e2)
 - [🔗API 명세서](https://www.notion.so/API-3bd8b72b6bf84e2da995be039e1bf75b)
 
-<br>
+
+### 🌎 브라우저 지원
+<img width="80" src="https://user-images.githubusercontent.com/92011565/160239954-4b965d65-a55f-48df-84b7-51932f5fde86.png">
+
+<img width="80" src="https://user-images.githubusercontent.com/92011565/160239958-18e99e3f-512c-447a-99dd-61b9b248e696.png">
+
+<br><br>
 
 ## 🔭 프로젝트 구조
-- ### 💡 사용 기술
+### 💡 사용 기술
 <img align="center" width="650" alt="스크린샷 2022-03-26 오후 8 26 34" src="https://user-images.githubusercontent.com/92011565/160237306-3db1ff33-6011-4da7-a5f9-db0b6ada4093.png">
 
+#### 버전 정보
+- JAVA : 11
+- SpringBoot : 2.6.3
+- BootStrap : 5.1.3
 
-- ### 🖥 아키텍처 구조
+
+
+### 🖥 아키텍처 구조
 <img align="center" width="650" alt="스크린샷 2022-03-26 오후 9 22 44" src="https://user-images.githubusercontent.com/92011565/160239271-2a8f333d-6eeb-49e4-9507-7a12141b669a.png">
 
-- ### 
+<br><br>
 
+## 🔍 주요 기능 미리보기
+- ### 1.회원가입
+  - 1.1. `호스트` 회원가입
+  
+  - ![호스트-로그인](https://user-images.githubusercontent.com/92011565/160241387-769fc544-a470-41bd-8c5c-8e0f99e56057.gif)
+  
+  - 1.2. `회원` 회원가입
 
-<br>
+  - ![회원-회원가입](https://user-images.githubusercontent.com/92011565/160241601-802f9706-d9d3-4d1f-b367-8c2e9472b1f8.gif)
 
-## 🔍 주요 기능
+- ### 2. 로그인
+  - 2.1. `호스트` 로그인
+  
+  - ![호스트-로그인](https://user-images.githubusercontent.com/92011565/160241899-9f548309-e607-4ef1-be6a-3fc0927b015a.gif)
+  
+  - 2.2. `회원` 로그인
+  
+  - ![회원-로그인](https://user-images.githubusercontent.com/92011565/160241907-ccebc27f-c066-44de-89d0-1b2713b62410.gif)
 
+- ### 3. `호스트` 게시물 등록
+- ### 4. 게시물 목록 조회
+- ### 5. 게시물 상세 조회
+- ### 6. 게시물 검색, 정렬
+- ### 7. 예약
+- ### 8. 예약 내역 조회
+  - 8.1. `호스트` 예약 내역 조회
+  - 8.2. `회원` 예약 내역 조회
 
-<br>
+<br><br>
 
 ## 🙇🏻 맺음말
 
+
+<br><br>
 
 
 
