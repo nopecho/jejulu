@@ -1,7 +1,7 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=E6E6FA&height=120&section=header&text=JEJULU&fontSize=60&animation=fadeIn&fontColor=D5C2EE)
 
 <div align="center">
-<a href="http://www.jejeulu.site/">
+<a href="http://www.jejulu.site/">
 ⚡️JEJULU 사이트 바로가기⚡️
 </a>
 </div>
@@ -63,7 +63,7 @@
 - 개발과정 :
   - [Notion](https://rainy-birth-ddb.notion.site/b1e2f699da0041a1bd530f92aa438db5?v=976efadb7a904d35b8cfa66140a95cde)
   - [GitHub](https://github.com/nopecho/jejulu)
-- [⚡️데모 사이트 바로가기](http://www.jejeulu.site)
+- [⚡️데모 사이트 바로가기](http://www.jejulu.site)
 
 <br>
 
