@@ -95,11 +95,11 @@
 
 ## 🔭 프로젝트 구조
 - ### 💡 사용 기술
-<img width="600" alt="스크린샷 2022-03-26 오후 8 26 34" src="https://user-images.githubusercontent.com/92011565/160237306-3db1ff33-6011-4da7-a5f9-db0b6ada4093.png">
+<img align="center" width="650" alt="스크린샷 2022-03-26 오후 8 26 34" src="https://user-images.githubusercontent.com/92011565/160237306-3db1ff33-6011-4da7-a5f9-db0b6ada4093.png">
 
 
 - ### 🖥 아키텍처 구조
-<img width="600" alt="스크린샷 2022-03-26 오후 9 22 44" src="https://user-images.githubusercontent.com/92011565/160239271-2a8f333d-6eeb-49e4-9507-7a12141b669a.png">
+<img align="center" width="650" alt="스크린샷 2022-03-26 오후 9 22 44" src="https://user-images.githubusercontent.com/92011565/160239271-2a8f333d-6eeb-49e4-9507-7a12141b669a.png">
 
 - ### 
 
