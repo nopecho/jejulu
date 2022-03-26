@@ -37,10 +37,10 @@
 
 - ***PROJECT BY***
 
-| <img src="https://avatars.githubusercontent.com/u/92011565?v=4" width="150">| <img src="https://avatars.githubusercontent.com/u/92501591?v=4" width="150">  |
-| --- | --- |
-|<center>nopecho</center>| <center>Boeun's</center>|
-| <center><a href="https://github.com/nopecho"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a></center>| <center><a href="https://github.com/BoeunGu"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a></center> |
+| 👨🏻‍💻조현준                                                                          | 👩🏻‍💻구보은                                                                           |
+|------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| <img src="https://avatars.githubusercontent.com/u/92011565?v=4" width="150"> | <img src="https://avatars.githubusercontent.com/u/92501591?v=4" width="150">  |
+| <center><a href="https://github.com/nopecho">nopecho</a></center>            | <center><a href="https://github.com/BoeunGu">Boeun's</a></center>             |
 
 <br>
 
@@ -56,6 +56,22 @@
 
 ## 🔗 프로젝트 소개
 
+### 📝 개요
+- 프로젝트 이름 : JEJULU
+- 개발기간 : 22. 02. 14. ~ 22. 03.
+- 참여인원 : <a href="https://github.com/nopecho">조현준</a>, <a href="https://github.com/BoeunGu">구보은</a>
+- 개발과정 :
+  - [Notion](https://www.notion.so/b1e2f699da0041a1bd530f92aa438db5?v=976efadb7a904d35b8cfa66140a95cde)
+  - [GitHub](https://github.com/nopecho/jejulu)
+- [⚡️데모 사이트 바로가기](http://ec2-13-124-147-177.ap-northeast-2.compute.amazonaws.com/)
+
+###저희 프로젝트는 👉🏻
+### ✅ 기획
+- 제주도 여행 정보를 카테고리별로 쉽게 볼 수 있고, 간단한 예약을 진행할 수 있는 웹 사이트를 목표로 기획했어요.
+
+- 실제 동작하는 프로젝트를 개발하고 배포 하는것을 최우선 목표로 했어요, 기획,설계 하다가 끝나는 프로젝트가 아닌 실제 동작하는 살아있는 웹 사이트, 프로젝트를 만드는것을 목표로 기획했어요.
+
+- 제주도 여행 관련 정보를 간편하게 보고 간편하게 예약 해보세요!
 
 <br>
 
