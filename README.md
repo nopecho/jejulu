@@ -107,6 +107,7 @@
 - JAVA : 11
 - SpringBoot : 2.6.3
 - BootStrap : 5.1.3
+- 빌드 도구 : Gradle
 
 ### 🗄 DB 테이블 구조
 <img width="650" alt="스크린샷 2022-03-27 오후 7 52 37" src="https://user-images.githubusercontent.com/92011565/160278104-362e4cf6-debd-4ccd-bd5a-92b520f21656.png">
