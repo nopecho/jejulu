@@ -1,4 +1,4 @@
-package hello.jejulu.web.controller.post.postForm;
+package hello.jejulu.web.controller.post.postDto;
 
 import hello.jejulu.domain.post.Post;
 import lombok.Data;

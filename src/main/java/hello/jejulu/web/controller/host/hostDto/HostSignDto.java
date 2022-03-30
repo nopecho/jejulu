@@ -1,4 +1,4 @@
-package hello.jejulu.web.controller.host.hostFrom;
+package hello.jejulu.web.controller.host.hostDto;
 
 import hello.jejulu.domain.Role;
 import hello.jejulu.domain.host.Host;
@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 
 @Getter@Setter
-public class HostSignForm {
+public class HostSignDto {
     @NotBlank
     @Size(min = 4, max = 20)
     private String loginId;
@@ -37,7 +37,7 @@ public class HostSignForm {
 
 
 
-    public static Host signHost(HostSignForm param){
+    public static Host signHost(HostSignDto param){
         return Host.builder()
                 .loginId(param.getLoginId())
                 .password(param.password)

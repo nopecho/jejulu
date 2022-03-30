@@ -5,8 +5,7 @@ import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.thumbnail.Thumbnail;
 import hello.jejulu.repository.PostRepository_B;
-import hello.jejulu.repository.ThumbnailRepository_B;
-import hello.jejulu.web.controller.post.postForm.PostSaveForm;
+import hello.jejulu.web.controller.post.postDto.PostSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,11 +28,11 @@ public class PostServiceImpl {
 
     //포스트 저장
     @Transactional
-    public void savePost(PostSaveForm form, Host host)throws IOException{
+    public void savePost(PostSaveDto form, Host host)throws IOException{
 
 
         Thumbnail thumbnail = thumbnailServiceB.createThumbnail(form.getFile());
-        Post post = PostSaveForm.toPost(form, thumbnail,host);
+        Post post = PostSaveDto.toPost(form, thumbnail,host);
         postRepositoryB.save(post);
 
     }
@@ -94,4 +93,12 @@ public class PostServiceImpl {
 
         return posts;
     }
+
+    public List<Post> findPostCategory_Button(Category category,int offset){
+
+        List<Post> posts = postRepositoryB.findByCategory_Button(category,offset);
+
+        return posts;
+    }
+
 }

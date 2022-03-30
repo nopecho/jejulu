@@ -1,7 +1,6 @@
-package hello.jejulu.web.controller.post.postForm;
+package hello.jejulu.web.controller.post.postDto;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
 public class postCategoryDto {

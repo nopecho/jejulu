@@ -58,6 +58,17 @@ public class PostRepository_B {
 
     }
 
+    //카테고리별 포스트 버튼 조회
+    public List<Post> findByCategory_Button(Category category,int offset){
+        int pageCount =12*offset;
+        return em.createQuery("select p from Post p where p.category=:category",Post.class)
+                .setParameter("category",category)
+                .setFirstResult(pageCount)
+                .setMaxResults(pageCount+12)
+                .getResultList();
+
+    }
+
     // 포스트 삭제
     public void removePost(Long postId){
         Post post = findOne(postId);

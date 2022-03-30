@@ -8,12 +8,11 @@ import hello.jejulu.repository.HostRepository_B;
 import hello.jejulu.service.post.PostServiceImpl;
 import hello.jejulu.service.post.ThumbnailService_B;
 import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.controller.post.postForm.PostForm;
-import hello.jejulu.web.controller.post.postForm.PostSaveForm;
-import hello.jejulu.web.controller.post.postForm.postPagingDto;
+import hello.jejulu.web.controller.post.postDto.PostDto;
+import hello.jejulu.web.controller.post.postDto.PostSaveDto;
+import hello.jejulu.web.controller.post.postDto.postPagingDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -41,7 +39,7 @@ public class PostController implements SessionConst {
      * @return
      */
     @GetMapping("/create")
-    public String getPostForm(@ModelAttribute(name="save") PostSaveForm form){
+    public String getPostForm(@ModelAttribute(name="save") PostSaveDto form){
 
         return "jejulu/posts/post-form";
     }
@@ -51,7 +49,7 @@ public class PostController implements SessionConst {
      * 게시물 등록
      */
     @PostMapping
-    public String savePost(@Validated@ModelAttribute PostSaveForm form,
+    public String savePost(@Validated@ModelAttribute PostSaveDto form,
                            BindingResult bindingResult,
                            HttpServletRequest request) throws IOException {
 
@@ -90,7 +88,7 @@ public class PostController implements SessionConst {
 
         //포스트 가져오기
         Post post = postService.searchPost(postId);
-        PostForm postView = PostForm.createPostView(post,entityHost);
+        PostDto postView = PostDto.createPostView(post,entityHost);
 
         model.addAttribute("detail", postView);
         return "jejulu/posts/post";
@@ -115,7 +113,7 @@ public class PostController implements SessionConst {
     *게시물 수정
      */
     @PatchMapping("/{postId}")
-    public String editForm(@Validated@ModelAttribute PostSaveForm form,
+    public String editForm(@Validated@ModelAttribute PostSaveDto form,
                            BindingResult bindingResult,
                            @PathVariable Long postId) throws IOException {
 
@@ -172,9 +170,18 @@ public class PostController implements SessionConst {
      * JSON으로 응답 - Single Page Application 형식 (비동기요청)으로 내려줌
      */
     @ResponseBody
-    @GetMapping("/${category}/load?countClick=${offset++}")
-    public String buttonCategory(@PathVariable Category category,
-                                 @PathVariable int offset){
+    @GetMapping("/{category}/load")
+    public postPagingDto buttonCategory(@PathVariable Category category,
+                                 @RequestParam(name = "countClick") int offset){
+        // Entity 조회
+        List<Post> postCategory = postService.findPostCategory_Button(category,offset);
+
+        //DTO 변환 (12개)
+        postPagingDto postPagingDto = new postPagingDto(postCategory);
+
+        return postPagingDto;
+
+
 
 
     }
