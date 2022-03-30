@@ -41,6 +41,8 @@ public class PostServiceImpl {
     //포스트 조회
     public Post searchPost(Long postId){
         Post post = postRepositoryB.findOne(postId);
+        //조회수 증가
+        post.countPlus();
 
         return post;
     }

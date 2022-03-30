@@ -52,6 +52,8 @@ public class PostRepository_B {
     public List<Post> findByCategory(Category category){
         return em.createQuery("select p from Post p where p.category=:category",Post.class)
                 .setParameter("category",category)
+                .setFirstResult(0)
+                .setMaxResults(12)
                 .getResultList();
 
     }

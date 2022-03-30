@@ -4,28 +4,26 @@ package hello.jejulu.web.controller.post;
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
-import hello.jejulu.domain.thumbnail.Thumbnail;
 import hello.jejulu.repository.HostRepository_B;
-import hello.jejulu.repository.ThumbnailRepository_B;
-import hello.jejulu.service.host.HostServiceImpl;
 import hello.jejulu.service.post.PostServiceImpl;
 import hello.jejulu.service.post.ThumbnailService_B;
 import hello.jejulu.web.consts.SessionConst;
 import hello.jejulu.web.controller.post.postForm.PostForm;
 import hello.jejulu.web.controller.post.postForm.PostSaveForm;
+import hello.jejulu.web.controller.post.postForm.postPagingDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.method.P;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -37,14 +35,21 @@ public class PostController implements SessionConst {
     private final HostRepository_B hostRepositoryB;
     private final ThumbnailService_B thumbnailServiceB;
 
-    //게시물 등록 폼 요청
+    /**
+     * //게시물 등록 폼 요청
+     * @param form
+     * @return
+     */
     @GetMapping("/create")
     public String getPostForm(@ModelAttribute(name="save") PostSaveForm form){
 
         return "jejulu/posts/post-form";
     }
 
-    //게시물 등록
+
+    /**
+     * 게시물 등록
+     */
     @PostMapping
     public String savePost(@Validated@ModelAttribute PostSaveForm form,
                            BindingResult bindingResult,
@@ -71,7 +76,9 @@ public class PostController implements SessionConst {
         return"redirect:/";
     }
 
-    //게시물 상세 조회
+    /**
+     * 게시물 상세 조회
+     */
     @GetMapping("/{postId}")
     public String viewPost(@PathVariable Long postId, Model model,
                            HttpServletRequest request){
@@ -89,7 +96,10 @@ public class PostController implements SessionConst {
         return "jejulu/posts/post";
     }
 
-    //게시물 수정 Form
+
+    /**
+     *  게시물 수정 Form
+     */
     @GetMapping("/{postId}/edit")
     public String postEditForm(@PathVariable Long postId,
                                Model model){
@@ -101,7 +111,9 @@ public class PostController implements SessionConst {
 
     }
 
-    //게시물 수정
+    /**
+    *게시물 수정
+     */
     @PatchMapping("/{postId}")
     public String editForm(@Validated@ModelAttribute PostSaveForm form,
                            BindingResult bindingResult,
@@ -118,7 +130,10 @@ public class PostController implements SessionConst {
         return "redirect:/posts/{postId}";
     }
 
-    //게시물 삭제
+    /**
+     * 게시물 삭제
+     */
+
     @DeleteMapping("/{postId}")
     public String deleteForm(@PathVariable Long postId){
 
@@ -127,13 +142,40 @@ public class PostController implements SessionConst {
         return "redirect:/";
     }
 
+
+    /**
+     * 카테고리별 게시물 조회
+     * @param category
+     * @param model
+     * @return
+     */
     @GetMapping("/categorys/{category}")
     public String viewPostCategory(@PathVariable Category category,Model model){
         log.info("category={}",category);
 
+        //Entity 조회
         List<Post> postList = postService.findPostCategory(category);
-        model.addAttribute("posts",postList);
 
-        return "redirect:/";
+        //Entity -> DTO로 변환
+        postPagingDto dto = new postPagingDto(postList);
+
+
+        model.addAttribute("page",dto);
+        model.addAttribute("category",category);
+
+        return "jejulu/posts/posts";
+    }
+
+
+    /**
+     * 카테고리별 게시물 조회 더보기버튼 요청
+     * JSON으로 응답 - Single Page Application 형식 (비동기요청)으로 내려줌
+     */
+    @ResponseBody
+    @GetMapping("/${category}/load?countClick=${offset++}")
+    public String buttonCategory(@PathVariable Category category,
+                                 @PathVariable int offset){
+
+
     }
 }
