@@ -23,7 +23,7 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
     private final AdminRepository adminRepository;
-    private final HostRepository hostRepository;
+//    private final HostRepository hostRepository;
 
     public MemberDto.Info loginByMember(LoginDto loginDto){
         Member loginMember = memberRepository.findByLoginId(loginDto.getLoginId()).orElse(null);
@@ -33,13 +33,13 @@ public class LoginService {
         return new MemberDto.Info(loginMember);
     }
 
-    public HostDto.Info loginByHost(LoginDto loginDto){
-        Host loginHost = hostRepository.findByLoginId(loginDto.getLoginId()).orElse(null);
-        if(!isLogin(loginHost, loginDto.getPassword())){
-            return null;
-        }
-        return new HostDto.Info(loginHost);
-    }
+//    public HostDto.Info loginByHost(LoginDto loginDto){
+//        Host loginHost = hostRepository.findByLoginId(loginDto.getLoginId()).orElse(null);
+//        if(!isLogin(loginHost, loginDto.getPassword())){
+//            return null;
+//        }
+//        return new HostDto.Info(loginHost);
+//    }
 
     public Admin loginByAdmin(LoginDto loginDto){
         Admin admin = adminRepository.findByLoginId(loginDto.getLoginId()).orElse(null);

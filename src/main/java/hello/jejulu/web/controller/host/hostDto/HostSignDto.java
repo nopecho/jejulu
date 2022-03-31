@@ -1,7 +1,7 @@
 package hello.jejulu.web.controller.host.hostDto;
 
-import hello.jejulu.domain.Role;
 import hello.jejulu.domain.host.Host;
+import hello.jejulu.domain.util.Role;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,11 +1,9 @@
 package hello.jejulu;
 
-import hello.jejulu.domain.Role;
 import hello.jejulu.domain.host.Host;
-import hello.jejulu.domain.post.Category;
+import hello.jejulu.domain.util.Role;
 import hello.jejulu.service.host.HostServiceImpl;
 import hello.jejulu.service.post.PostServiceImpl;
-import hello.jejulu.web.controller.post.postDto.PostSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

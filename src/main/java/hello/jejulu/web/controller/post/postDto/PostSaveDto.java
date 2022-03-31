@@ -1,9 +1,9 @@
 package hello.jejulu.web.controller.post.postDto;
 
 import hello.jejulu.domain.host.Host;
-import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.thumbnail.Thumbnail;
+import hello.jejulu.domain.util.Category;
 import hello.jejulu.repository.ThumbnailRepository_B;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;

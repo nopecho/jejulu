@@ -28,7 +28,7 @@ public class PostDto {
             this.title = post.getTitle();
             this.category = post.getCategory();
             this.count = post.getCount();
-            this.hostName = post.getHost().getName();
+            this.hostName = post.getHost().getHostName();
             this.createDate = post.getCreateDate();
         }
     }
@@ -89,10 +89,10 @@ public class PostDto {
             this.category = post.getCategory();
             this.createDate = post.getCreateDate().toLocalDate();
             this.hostId = host.getId();
-            this.hostName = host.getName();
+            this.hostName = host.getHostName();
             this.hostPhone = host.getPhone();
             this.hostEmail = host.getEmail();
-            this.hostAddr = host.getAddr();
+            this.hostAddr = host.getAddress();
         }
     }
 
@@ -115,7 +115,7 @@ public class PostDto {
             this.category = post.getCategory();
             this.createDate = post.getCreateDate().toLocalDate();
             this.imagePath = imagePath;
-            this.writer = post.getHost().getName();
+            this.writer = post.getHost().getHostName();
         }
     }
 

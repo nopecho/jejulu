@@ -2,8 +2,8 @@ package hello.jejulu.web.controller.post;
 
 
 import hello.jejulu.domain.host.Host;
-import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
+import hello.jejulu.domain.util.Category;
 import hello.jejulu.repository.HostRepository_B;
 import hello.jejulu.service.post.PostServiceImpl;
 import hello.jejulu.service.post.ThumbnailService_B;
@@ -148,7 +148,7 @@ public class PostController implements SessionConst {
      * @return
      */
     @GetMapping("/categorys/{category}")
-    public String viewPostCategory(@PathVariable Category category,Model model){
+    public String viewPostCategory(@PathVariable Category category, Model model){
         log.info("category={}",category);
 
         //Entity 조회

@@ -1,9 +1,9 @@
 package hello.jejulu.service.post;
 
 import hello.jejulu.domain.host.Host;
-import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.thumbnail.Thumbnail;
+import hello.jejulu.domain.util.Category;
 import hello.jejulu.repository.PostRepository_B;
 import hello.jejulu.web.controller.post.postDto.PostSaveDto;
 import lombok.RequiredArgsConstructor;
@@ -65,11 +65,8 @@ public class PostServiceImpl {
      */
     @Transactional
     public void updatePost(Long postId, String title,
-                           String description,Category category,
-                           MultipartFile file,String content)throws IOException{
-
-
-
+                           String description, Category category,
+                           MultipartFile file, String content)throws IOException{
         //포스트 찾기
         Post post = postRepositoryB.findOne(postId);
 

@@ -2,8 +2,8 @@ package hello.jejulu.web.controller.post.postDto;
 
 
 import hello.jejulu.domain.host.Host;
-import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
+import hello.jejulu.domain.util.Category;
 import lombok.*;
 import org.springframework.stereotype.Component;
 

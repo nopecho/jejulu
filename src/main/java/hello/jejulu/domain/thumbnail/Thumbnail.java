@@ -1,12 +1,10 @@
 package hello.jejulu.domain.thumbnail;
 
-import hello.jejulu.domain.BaseTimeEntity;
+import hello.jejulu.domain.util.BaseTimeEntity;
 import lombok.*;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.UUID;
 
 @Getter
 @AllArgsConstructor

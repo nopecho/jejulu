@@ -1,7 +1,7 @@
 package hello.jejulu.web.controller.post.postDto;
 
 
-import hello.jejulu.domain.post.Category;
+import hello.jejulu.domain.util.Category;
 import lombok.Data;
 
 import java.time.LocalDate;

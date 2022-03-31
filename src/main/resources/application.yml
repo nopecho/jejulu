@@ -13,7 +13,7 @@ spring:
     group:
       "prod" : "proddb,common"
       "dev" : "localdb,common"
-    active: prod
+    active: dev
 
   thymeleaf:
     cache: false
@@ -47,7 +47,7 @@ logging:
       jejulu: debug
 
 firebase:
-  config : /home/ec2-user/app/config/jejulu/firebase/firebaseAdminSdk.json
+  config : /Users/app/config/firebase/firebaseAdminSdk.json
   bucket: jejulu-3b679.appspot.com
 
 #공통 환경#

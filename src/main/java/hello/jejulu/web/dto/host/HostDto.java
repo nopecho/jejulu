@@ -27,10 +27,10 @@ public class HostDto {
         public AdminDetail(Host host) {
             this.id = host.getId();
             this.loginId = host.getLoginId();
-            this.name = host.getName();
+            this.name = host.getHostName();
             this.phone = host.getPhone();
             this.email = host.getEmail();
-            this.addr = host.getAddr();
+            this.addr = host.getAddress();
             this.createDate = host.getCreateDate();
         }
     }
@@ -44,7 +44,7 @@ public class HostDto {
         public Info(Host host){
             this.id = host.getId();
             this.loginId = host.getLoginId();
-            this.name = host.getName();
+            this.name = host.getHostName();
         }
     }
 
@@ -59,10 +59,10 @@ public class HostDto {
 
         public Detail(Host host){
             this.id = host.getId();
-            this.name = host.getName();
+            this.name = host.getHostName();
             this.phone = host.getPhone();
             this.email = host.getEmail();
-            this.addr = host.getAddr();
+            this.addr = host.getAddress();
             this.updateDate = host.getModifiedDate();
         }
     }
@@ -96,8 +96,8 @@ public class HostDto {
             return Host.builder()
                     .loginId(this.loginId)
                     .password(passwordEncoder.encode(this.password))
-                    .name(this.name)
-                    .addr(this.addr)
+                    .hostName(this.name)
+                    .address(this.addr)
                     .phone(this.phone)
                     .email(this.email)
                     .role(Role.HOST)

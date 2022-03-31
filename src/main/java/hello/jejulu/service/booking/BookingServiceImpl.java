@@ -19,16 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookingServiceImpl implements BookingService{
 
     private final MemberRepository memberRepository;
-    private final PostRepository postRepository;
+//    private final PostRepository postRepository;
     private final BookingRepository bookingRepository;
 
     @Transactional
     @Override
     public BookingDto.Info addBooking(BookingDto.Save bookingSaveDto, Long memberId, Long postId) {
-        Member member = ServiceUtil.getEntityByNullCheck(memberRepository.findById(memberId));
-        Post post = ServiceUtil.getEntityByNullCheck(postRepository.findById(postId));
-        Booking result = bookingRepository.save(bookingSaveDto.toEntity(member, post));
-        return new BookingDto.Info(result);
+//        Member member = ServiceUtil.getEntityByNullCheck(memberRepository.findById(memberId));
+//        Post post = ServiceUtil.getEntityByNullCheck(postRepository.findById(postId));
+//        Booking result = bookingRepository.save(bookingSaveDto.toEntity(member, post));
+//        return new BookingDto.Info(result);
+
+        return null;
     }
 
     @Override

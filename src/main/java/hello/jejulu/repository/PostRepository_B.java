@@ -1,7 +1,7 @@
 package hello.jejulu.repository;
 
-import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
+import hello.jejulu.domain.util.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -77,7 +77,7 @@ public class PostRepository_B {
      * @param offset
      * @return
      */
-    public List<Post> findByCategory_Button(Category category,int offset){
+    public List<Post> findByCategory_Button(Category category, int offset){
         int pageCount =12*offset;
         return em.createQuery("select p from Post p where p.category=:category",Post.class)
                 .setParameter("category",category)

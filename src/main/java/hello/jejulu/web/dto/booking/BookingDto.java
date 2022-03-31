@@ -129,10 +129,10 @@ public class BookingDto {
             this.postTitle = booking.getPost().getTitle();
             this.description = booking.getPost().getDescription();
             this.imagePath = ServiceUtil.extractedPath(booking.getPost().getThumbnail());
-            this.hostName = booking.getPost().getHost().getName();
+            this.hostName = booking.getPost().getHost().getHostName();
             this.hostPhone = booking.getPost().getHost().getPhone();
             this.hostEmail = booking.getPost().getHost().getEmail();
-            this.hostAddr = booking.getPost().getHost().getAddr();
+            this.hostAddr = booking.getPost().getHost().getAddress();
         }
     }
 

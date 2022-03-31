@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class HostServiceImpl implements HostService{
+public class HostServiceImpl{
 
     private final HostRepository_B hostRepositoryB;
 

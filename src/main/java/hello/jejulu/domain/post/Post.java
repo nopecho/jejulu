@@ -1,15 +1,12 @@
 package hello.jejulu.domain.post;
 
-import hello.jejulu.domain.converter.CategoryConverter;
 import hello.jejulu.domain.util.BaseTimeEntity;
 import hello.jejulu.domain.booking.Booking;
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.thumbnail.Thumbnail;
 import hello.jejulu.domain.util.Category;
 import lombok.*;
-
 import javax.persistence.*;
-import javax.websocket.server.ServerEndpoint;
 import java.util.ArrayList;
 import java.util.List;
 

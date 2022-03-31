@@ -54,7 +54,7 @@
                                 <label>CATEGORY *</label>
                                 <select class="form-select" required th:field="*{category}">
                                     <option value="">*SELECT CATEGORY*</option>
-                                    <option th:each="category : ${T(hello.jejulu.domain.post.Category).values()}" th:value="${category.name()}" th:text="${category.name()}">category</option>
+                                    <option th:each="category : ${T(hello.jejulu.domain.util.Category).values()}" th:value="${category.name()}" th:text="${category.name()}">category</option>
                                 </select>
                             </div>
                         </div>

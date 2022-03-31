@@ -1,7 +1,7 @@
 package hello.jejulu.web.interceptor;
 
 import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.exception.CustomException;
 import hello.jejulu.web.exception.ErrorCode;
 import org.springframework.web.servlet.HandlerInterceptor;
