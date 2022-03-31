@@ -3,7 +3,6 @@ package hello.jejulu.service.web;
 import hello.jejulu.domain.admin.Admin;
 import hello.jejulu.domain.admin.AdminRepository;
 import hello.jejulu.domain.host.Host;
-import hello.jejulu.domain.host.HostRepository;
 import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.member.MemberRepository;
 import hello.jejulu.web.dto.host.HostDto;

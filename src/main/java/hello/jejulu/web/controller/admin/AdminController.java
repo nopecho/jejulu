@@ -1,9 +1,7 @@
 package hello.jejulu.web.controller.admin;
 
-import hello.jejulu.domain.util.Role;
 import hello.jejulu.service.admin.AdminService;
 import hello.jejulu.service.contact.ContactService;
-import hello.jejulu.service.host.HostService;
 import hello.jejulu.service.member.MemberService;
 import hello.jejulu.web.dto.contact.ContactDto;
 import hello.jejulu.web.dto.host.HostDto;
@@ -30,7 +28,7 @@ public class AdminController {
 
     private final AdminService adminService;
     private final MemberService memberService;
-    private final HostService hostService;
+//    private final HostService hostService;
     private final ContactService contactService;
 
     @GetMapping("/login")
@@ -69,9 +67,9 @@ public class AdminController {
 
     @ResponseBody
     @DeleteMapping("/hosts/{hostId}")
-    public boolean adminHostDelete(@PathVariable Long hostId) {
-        return hostService.remove(hostId);
-    }
+//    public boolean adminHostDelete(@PathVariable Long hostId) {
+//        return hostService.remove(hostId);
+//    }
 
     @GetMapping("/management/posts")
     public String managementPosts(@PageableDefault(size = 15, sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable,

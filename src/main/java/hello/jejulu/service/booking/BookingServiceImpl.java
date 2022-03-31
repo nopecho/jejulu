@@ -5,7 +5,6 @@ import hello.jejulu.domain.booking.BookingRepository;
 import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.member.MemberRepository;
 import hello.jejulu.domain.post.Post;
-import hello.jejulu.domain.post.PostRepository;
 import hello.jejulu.service.util.ServiceUtil;
 import hello.jejulu.web.dto.booking.BookingDto;
 import lombok.RequiredArgsConstructor;
