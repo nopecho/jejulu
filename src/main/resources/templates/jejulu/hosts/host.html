@@ -20,7 +20,7 @@
                             <div class="col-10">
                                 <div class="d-flex">
                                     <h5 class="text-secondary">🏷 Name |</h5>&nbsp;&nbsp;&nbsp;
-                                    <i th:text="*{name}" class="fw-bold fs-5">이름</i>
+                                    <i th:text="*{hostName}" class="fw-bold fs-5">이름</i>
                                 </div>
                                 <label class="mt-2 mb-0 fw-light fst-italic text-secondary">호스트가 사용하는 이름이에요.</label>
                                 <hr class="mt-0 mb-5">
@@ -29,7 +29,7 @@
                             <div class="col-10">
                                 <div class="d-flex">
                                     <h5 class="text-secondary">📍 Address |</h5>&nbsp;&nbsp;&nbsp;
-                                    <i id="addr" th:text="*{addr}" class="fw-bold fs-5">주소</i>
+                                    <i id="addr" th:text="*{address}" class="fw-bold fs-5">주소</i>
                                 </div>
                             </div>
                             <div id="map" style="width:300px;height:300px;border-radius: 50%;"></div>
@@ -55,10 +55,10 @@
                                 <hr class="mt-0 mb-5">
                             </div>
 
-                            <div class="col-12">
-                                <label class="fw-light text-secondary fst-italic">마지막 수정일 : </label>
-                                <p class="text-primary" th:text="*{updateDate}">날짜</p>
-                            </div>
+<!--                            <div class="col-12">-->
+<!--                                <label class="fw-light text-secondary fst-italic">마지막 수정일 : </label>-->
+<!--                                <p class="text-primary" th:text="*{updateDate}">날짜</p>-->
+<!--                            </div>-->
                         </div>
                         <button class="btn btn-success btn-lg col-12 my-5" type="button"
                         th:onclick="|location.href='@{/hosts/{hostId}/edit(hostId=*{id})}'|">
@@ -76,7 +76,7 @@
         crossorigin="anonymous"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7101ebc2d492a3cb9353b4add07670be&libraries=services"></script>
 <script th:inline="javascript">
-    const addrInput = document.getElementById("addr")
+    const addrInput = document.getElementById("address")
     const mapContainer = document.getElementById('map'),
         mapOption = {
             center: new kakao.maps.LatLng(33.361417, 126.529417),

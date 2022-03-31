@@ -1,15 +1,18 @@
 package hello.jejulu.web.controller.login;
 
 import hello.jejulu.domain.admin.Admin;
+import hello.jejulu.domain.host.Host;
+import hello.jejulu.service.host.HostServiceImpl;
 import hello.jejulu.service.web.LoginService;
 import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.dto.host.HostDto;
-import hello.jejulu.web.dto.member.MemberDto;
+import hello.jejulu.web.controller.host.hostDto.HostLoginDto;
+import hello.jejulu.web.dto.MemberDto;
 import hello.jejulu.web.dto.login.LoginDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +24,10 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @Slf4j
 @Controller
-public class LoginController {
+public class LoginController implements SessionConst{
 
     private final LoginService loginService;
+    private final HostServiceImpl hostService;
 
     /**
      * 로그인 폼 페이지 요청 핸들러
@@ -57,24 +61,42 @@ public class LoginController {
 
     /**
      * 호스트 로그인 핸들러
-     * @param loginDto
+     * @param form
      * @param request
      * @return
      */
+
     @PostMapping("/login/host")
-    public String hostLogin(@ModelAttribute LoginDto loginDto,
+    public String hostLogin(@Validated @ModelAttribute HostLoginDto form,
                             BindingResult bindingResult,
-                            HttpServletRequest request,
-                            @RequestParam(defaultValue = "/") String uri){
-        HostDto.Info loginHost = loginService.loginByHost(loginDto);
-        if(loginHost == null){
-            bindingResult.reject("loginFail.Host");
-            return "jejulu/login/login-form";
+                            @RequestParam(defaultValue = "/")String redirectURL,
+                            HttpServletRequest request){
+
+        // 에러있으면 다시 홈으로 리턴
+        if(bindingResult.hasErrors()){
+            log.info("errors={}",bindingResult.getTarget());
+            return "redirect:/";
+
         }
+
+        Host loginHost = hostService.hostLogin(form.getLoginId(), form.getPassword());
+
+        if(loginHost==null){
+            bindingResult.reject("loginFail.Host","아이디 또는 비밀번호가 맞지 않습니다"); //글로벌 오류
+            log.info("errors1={}",bindingResult.getFieldError());
+            return "redirect:/login";
+        }
+
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.HOST,loginHost);
-        return "redirect:"+uri;
+        if(session.getAttribute(SessionConst.HOST)==null){
+            session.setAttribute(SessionConst.HOST,loginHost);
+        }else{
+            return "redirect:/";
+        }
+
+        return "redirect:/";
     }
+
 
     /**
      * 관리자 로그인 핸들러

@@ -1,3 +1,11 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 1800
+      tracking-modes: COOKIE
+  tomcat:
+    uri-encoding: utf-8
 #spring 환경 설정 그룹
 #실제 운영 application-prod.yml은 프로젝트 외부에 보관 (보안)
 spring:
@@ -6,6 +14,10 @@ spring:
       "prod" : "proddb,common"
       "dev" : "localdb,common"
     active: prod
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
 
 #local 환경(개발)#
 ---
@@ -57,12 +69,4 @@ spring:
     cache: true
     prefix: classpath:/templates/
 
-server:
-  port: 8080
-  servlet:
-    session:
-      timeout: 1800
-      tracking-modes: COOKIE
-  tomcat:
-    uri-encoding: utf-8
 

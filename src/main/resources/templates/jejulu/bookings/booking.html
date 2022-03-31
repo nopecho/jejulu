@@ -66,31 +66,30 @@
             </button>
             <div class="inner-card p-5 row g-2 mt-1 shadow pt-2">
                 <div class="col-12 mb-3 col text-center">
-                    <h2 class="fw-bold">✨ 예약상세 ✨</h2>
+                    <h2 class="fw-bold">✨ 예 약 상 세 ✨</h2>
                 </div>
                 <hr>
-                <div class="col-8 px-5">
-                    <h4 class="fw-bold text-center">예약자 정보 🌏</h4>
-                    <div class="card bg-light shadow" style="margin: 0 auto">
-                        <div class="card-body bg-light border-light mt-4 px-5">
+                <div class="col-8 text-center p-5">
+                    <div class="card h-100 bg-light shadow" style="margin: 0 auto">
+                        <div class="card-body bg-light border-light mt-4 p-5">
                             <div class="px-5">
-                                <h4 class="text-center">상세 정보</h4>
-                                <hr class="mb-4">
+                                <h3 class="fw-bold">예약자 정보 🌏</h3>
+                                <hr>
                                 <span class="d-flex flex-row mb-5">
-                                    <h5>예 약 자 ✏️ :&nbsp;&nbsp;</h5>
-                                    <h4 th:text="*{name}" class="fw-bold text-success">예약자 이름</h4>
+                                    <h4>예 약 자 ✏️ :&nbsp;&nbsp;</h4>
+                                    <h3 th:text="*{name}" class="fw-bold text-success">예약자 이름</h3>
                                 </span>
                                 <span class="d-flex flex-row mb-5">
-                                    <h5>‍인 원 수 🙋🏻 :&nbsp;&nbsp;</h5>
-                                    <h4 th:text="*{personCount}" class="fw-bold text-success">인원수</h4>
+                                    <h4>‍인 원 수 🙋🏻 :&nbsp;&nbsp;</h4>
+                                    <h3 th:text="*{personCount}" class="fw-bold text-success">인원수</h3>
                                 </span>
                                 <span class="d-flex flex-row mb-5">
-                                    <h5>연 락 처 📞 :&nbsp;&nbsp;</h5>
-                                    <h4 th:text="*{phone}" class="fw-bold text-success">전화번호</h4>
+                                    <h4>연 락 처 📞 :&nbsp;&nbsp;</h4>
+                                    <h3 th:text="*{phone}" class="fw-bold text-success">전화번호</h3>
                                 </span>
-                                <span class="d-flex flex-row mb-5">
-                                    <h5>예 약 일 🗓 :&nbsp;&nbsp;</h5>
-                                    <h4 th:text="*{bookDate}" class="fw-bold text-success">예약일</h4>
+                                <span class="d-flex flex-row">
+                                    <h4>예 약 일 🗓 :&nbsp;&nbsp;</h4>
+                                    <h3 th:text="*{bookDate}" class="fw-bold text-success">예약일</h3>
                                 </span>
                             </div>
                         </div>
@@ -98,7 +97,7 @@
                 </div>
 
                 <div class="col-4">
-                    <h4 class="fw-bold text-center">게시물 정보 🌏</h4>
+                    <h5 class="fw-bold">게시물 정보</h5>
                     <div class="col-12">
                         <div class="card h-100 shadow main-content">
                             <img class="card-img-top" th:src="*{imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|">

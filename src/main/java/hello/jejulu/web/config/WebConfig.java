@@ -1,8 +1,7 @@
 package hello.jejulu.web.config;
 
-import hello.jejulu.web.annotation.LoginArgumentResolver;
-import hello.jejulu.web.converter.CategoryConverter;
 import hello.jejulu.web.interceptor.AdminAuthInterceptor;
+import hello.jejulu.web.interceptor.HostAuthInterceptor;
 import hello.jejulu.web.interceptor.MemberAuthInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
         HOST_INTERCEPTOR_EXCLUDE_LIST.add("/hosts");
         HOST_INTERCEPTOR_EXCLUDE_LIST.add("/hosts/sign-up");
         HOST_INTERCEPTOR_EXCLUDE_LIST.add("/hosts/id-check");
+        //HOST_INTERCEPTOR_EXCLUDE_LIST.add("/posts/category/**");
     }
 
     @Bean //HttpHiddenMethodFilter 활성화 Spring빈 등록
@@ -36,10 +36,10 @@ public class WebConfig implements WebMvcConfigurer {
         return new HiddenHttpMethodFilter();
     }
 
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new CategoryConverter());
-    }
+//    @Override
+//    public void addFormatters(FormatterRegistry registry) {
+//        registry.addConverter(new CategoryConverter());
+//    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -48,23 +48,19 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/bookings/**")
                 .excludePathPatterns(MEMBER_INTERCEPTOR_EXCLUDE_LIST);
 
-//        registry.addInterceptor(new HostAuthInterceptor())
-//                .addPathPatterns("/hosts/**")
-//                .addPathPatterns("/posts/create")
-//                .addPathPatterns("/posts/host/**")
-//                .addPathPatterns("/posts")
-//                .addPathPatterns("/posts/{postId}/edit")
-//                .addPathPatterns("/bookings/hosts/**")
-//                .excludePathPatterns(HOST_INTERCEPTOR_EXCLUDE_LIST);
+        registry.addInterceptor(new HostAuthInterceptor())
+                .addPathPatterns("/hosts/**","/posts/{postId}/edit","/posts/create",
+                        "/posts/hosts/{hostId}")
+                .excludePathPatterns(HOST_INTERCEPTOR_EXCLUDE_LIST);
 
         registry.addInterceptor(new AdminAuthInterceptor())
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns("/admin/login");
     }
 
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new LoginArgumentResolver());
-    }
+//    @Override
+//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+//        resolvers.add(new LoginArgumentResolver());
+//    }
 }
 

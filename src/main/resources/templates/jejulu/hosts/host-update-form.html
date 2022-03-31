@@ -15,23 +15,23 @@
             </div>
             <div class="row g-5 justify-content-center">
                 <div class="col-md-7 col-lg-8">
-                    <form th:object="${update}" class="needs-validation" th:action="@{/hosts/{hostId}(hostId=${id})}" method="post">
+                    <form th:object="${update}" class="needs-validation" th:action="@{/hosts/{hostId}(hostId=*{id})}" method="post">
                         <input type="hidden" name="_method" value="PATCH"/>
                         <div class="row g-3">
                             <div class="col-10">
-                                <label th:for="name" class="form-label fw-bold">Host Name</label>
-                                <input th:field="*{name}" th:errorclass="is-invalid" type="text" class="form-control" placeholder="HOST NAME" required>
-                                <i th:errors="*{name}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
+                                <label th:for="hostName" class="form-label fw-bold">Host Name</label>
+                                <input th:field="*{hostName}" th:errorclass="is-invalid" type="text" class="form-control" placeholder="HOST NAME" required>
+                                <i th:errors="*{hostName}" class="bi bi-exclamation-circle invalid-feedback">오류 메시지</i>
                                 <label class="mt-3 mb-0 fw-light fst-italic text-secondary"><i class="bi bi-vector-pen"></i>호스트가 사용하는 이름이에요.</label>
                                 <hr class="mt-0">
                             </div>
 
                             <div class="col-10">
-                                <label th:for="addr" class="form-label fw-bold">Address *</label>
-                                <input th:field="*{addr}" type="text" class="form-control is-valid" placeholder="🔍 버튼을 눌러주세요"
+                                <label th:for="address" class="form-label fw-bold">Address *</label>
+                                <input th:field="*{address}" type="text" class="form-control is-valid" placeholder="🔍 버튼을 눌러주세요"
                                        required="required" readonly />
                                 <div class="valid-feedback">
-                                    <p id="addr-search"><i class="bi bi-check-circle"></i> 현재 주소는 여기에요!</p>
+                                    <p id="address-search"><i class="bi bi-check-circle"></i> 현재 주소는 여기에요!</p>
                                 </div>
                             </div>
                             <div class="col-2 my-auto py-5">
@@ -61,9 +61,9 @@
                             </div>
                         </div>
                         <div class="mt-5">
-                            <button class="btn btn-secondary btn-lg col-5" type="button" th:onclick="|location.href='@{/hosts/{hostId}(hostId=${id})}'|">BACK</button>
+                            <button class="btn btn-secondary btn-lg col-5" type="button" th:onclick="|location.href='@{/hosts/{hostId}(hostId=*{id})}'|">BACK</button>
                             <button id="submit" class="btn btn-success btn-lg col-5" type="submit"
-                                    disabled="disabled">UPDATE</button>
+                                    >UPDATE</button>
                         </div>
                         <button type="button" class="btn btn-danger btn-lg col-5 mt-3" data-bs-toggle="modal" data-bs-target="#delete">
                             <i class="bi bi-trash"></i> DELETE
@@ -71,7 +71,7 @@
                     </form>
 
 
-                    <form th:action="@{/hosts/{hostId}(hostId=${id})}" method="post" id="delete-form">
+                    <form th:action="@{/hosts/{hostId}(hostId=${update.id})}" method="post" id="delete-form">
                         <input type="hidden" name="_method" value="DELETE" />
                     </form>
                     <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
@@ -115,7 +115,7 @@
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7101ebc2d492a3cb9353b4add07670be&libraries=services"></script>
 <script th:inline="javascript">
     //host name validation check
-    const nameInput = document.getElementById('name');
+    const nameInput = document.getElementById('hostName');
     nameInput.addEventListener('keyup', (e) => {
         if (e.target.value != "") {
             nameInput.classList.remove('is-invalid');
@@ -139,7 +139,7 @@
     });
 
     //addr validation
-    const addrInput = document.getElementById("addr")
+    const addrInput = document.getElementById("address")
     const mapContainer = document.getElementById('map'),
         mapOption = {
             center: new kakao.maps.LatLng(33.361417, 126.529417),
