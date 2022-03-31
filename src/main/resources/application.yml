@@ -5,7 +5,7 @@ spring:
     group:
       "prod" : "proddb,common"
       "dev" : "localdb,common"
-    active: dev
+    active: prod
 
 #local 환경(개발)#
 ---
@@ -35,7 +35,7 @@ logging:
       jejulu: debug
 
 firebase:
-  config : /users/nopecho/app/config/jejulu/firebase/firebaseAdminSdk.json
+  config : /home/ec2-user/app/config/jejulu/firebase/firebaseAdminSdk.json
   bucket: jejulu-3b679.appspot.com
 
 #공통 환경#
@@ -54,7 +54,7 @@ spring:
     basename: errors
 
   thymeleaf:
-    cache: false
+    cache: true
     prefix: classpath:/templates/
 
 server:

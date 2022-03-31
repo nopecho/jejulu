@@ -18,11 +18,20 @@ public class ContactController {
 
     private final ContactService contactService;
 
+    /**
+     * 문의글 작성 Form요청 핸들러
+     */
     @GetMapping
     public String contactForm(@ModelAttribute ContactDto contactDto){
         return "jejulu/etc/contact-form";
     }
 
+    /**
+     * 문의글 작성 핸들러
+     * @param contactDto 문의글 정보 DTO
+     * @param bindingResult validation 검증 객체
+     * @param request session값 얻기 위한 HttpServletRequest 객체
+     */
     @PostMapping
     public String contactCreate(@ModelAttribute @Validated ContactDto contactDto,
                                 BindingResult bindingResult,
@@ -35,6 +44,10 @@ public class ContactController {
         return "redirect:/success/contact";
     }
 
+    /**
+     * 문의글 삭제 핸들러
+     * @param contactId 문의글 번호
+     */
     @ResponseBody
     @DeleteMapping("/{contactId}")
     public boolean removeContact(@PathVariable Long contactId){

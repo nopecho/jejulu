@@ -29,6 +29,12 @@ public class BookingController {
 
     private final BookingService bookingService;
 
+    /**
+     * 회원 예약 상세 조회 핸들러
+     * @param bookingId 조회할 예약 번호
+     * @param loginMember 세션에 담긴 로그인 회원 정보
+     * @param model view로 넘겨줄 모델
+     */
     @GetMapping("/{bookingId}")
     public String lookupBookingDetail(@PathVariable Long bookingId,
                                       @Login MemberDto.Info loginMember,
@@ -41,11 +47,22 @@ public class BookingController {
         return "jejulu/bookings/booking";
     }
 
+    /**
+     * 예약한 게시물 redirect 핸들러
+     * @param postId 게시물 번호
+     */
     @GetMapping("/posts/{postId}")
     public String bookingPost(@PathVariable Long postId){
         return "redirect:/posts/{postId}";
     }
 
+    /**
+     * 예약 핸들러
+     * @param postId 예약 할 게시물 번호
+     * @param bookingSaveDto 예약 정보 DTO
+     * @param bindingResult validation 검증 결과 객체
+     * @param loginMember session에 있는 로그인한 회원 정보
+     */
     @PostMapping("/posts/{postId}")
     public ResponseEntity<?> bookingCreate(@PathVariable Long postId,
                                            @RequestBody @Validated BookingDto.Save bookingSaveDto,
@@ -60,6 +77,12 @@ public class BookingController {
                 .build();
     }
 
+    /**
+     * 예약 수정 핸들러
+     * @param bookingId 예약 번호
+     * @param bookingUpdateDto 예약 수정 정보 DTO
+     * @param bindingResult validation 검증 결과 객체
+     */
     @PatchMapping("/{bookingId}")
     public ResponseEntity<?> bookingUpdate(@PathVariable Long bookingId,
                                            @RequestBody @Validated BookingDto.Update bookingUpdateDto,
@@ -70,6 +93,11 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.isUpdateBookingSuccess(bookingId,bookingUpdateDto));
     }
 
+    /**
+     * 예약 취소 핸들러
+     * @param bookingId 예약 번호
+     * @param loginMember session에 있는 로그인한 회원
+     */
     @ResponseBody
     @DeleteMapping("/{bookingId}")
     public boolean deleteBooking(@PathVariable Long bookingId,
@@ -80,6 +108,11 @@ public class BookingController {
         return bookingService.isDeleteBookingSuccess(bookingId);
     }
 
+    /**
+     * 예약 성공 페이지 핸들러
+     * @param bookingId 예약 번호
+     * @param loginMember session에 있는 로그인한 회원
+     */
     @GetMapping("/{bookingId}/success")
     public String successBooking(@PathVariable Long bookingId,
                                  @Login MemberDto.Info loginMember,
@@ -92,6 +125,10 @@ public class BookingController {
         return "jejulu/success/success-bookings";
     }
 
+    /**
+     * 회원 예약 내역 조회 redirect 핸들러
+     * @param loginMember session에 있는 로그인한 회원
+     */
     @GetMapping("/members/info")
     public String lookupMemberInfo(@Login MemberDto.Info loginMember,
                                    RedirectAttributes redirectAttributes){
@@ -99,6 +136,12 @@ public class BookingController {
         return "redirect:/bookings/members/{memberId}";
     }
 
+    /**
+     * 회원 예약 내역 조회
+     * @param memberId redirect받은 회원 id
+     * @param loginMember session에 있는 로그인한 회원
+     * @param pageable 예약 내역 페이징 객체
+     */
     @GetMapping("/members/{memberId}")
     public String lookupMemberBookings(@PathVariable Long memberId,
                                        @Login MemberDto.Info loginMember,
@@ -113,6 +156,10 @@ public class BookingController {
         return "jejulu/bookings/bookings-member";
     }
 
+    /**
+     * 호스트 예약 현황 조회 redirect 핸들러
+     * @param loginHost session에 있는 로그인한 호스트
+     */
     @GetMapping("/hosts/info")
     public String lookupHostInfo(@Login HostDto.Info loginHost,
                                  RedirectAttributes redirectAttributes){
@@ -120,6 +167,12 @@ public class BookingController {
         return "redirect:/bookings/hosts/{hostId}";
     }
 
+    /**
+     * 호스트 예약 현황 조회 핸들러
+     * @param hostId 호스트 번호
+     * @param loginHost 로그인한 호스트
+     * @param pageable 예약 현황 페이징 객체
+     */
     @GetMapping("/hosts/{hostId}")
     public String lookupHostBookings(@PathVariable Long hostId,
                                      @Login HostDto.Info loginHost,
