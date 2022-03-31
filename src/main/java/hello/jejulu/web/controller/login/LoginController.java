@@ -5,7 +5,7 @@ import hello.jejulu.domain.host.Host;
 import hello.jejulu.service.host.HostServiceImpl;
 import hello.jejulu.service.web.LoginService;
 import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.controller.host.hostFrom.HostLoginFrom;
+import hello.jejulu.web.controller.host.hostDto.HostLoginDto;
 import hello.jejulu.web.dto.MemberDto;
 import hello.jejulu.web.dto.login.LoginDto;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +66,7 @@ public class LoginController implements SessionConst{
      */
 
     @PostMapping("/login/host")
-    public String hostLogin(@Validated @ModelAttribute HostLoginFrom form,
+    public String hostLogin(@Validated @ModelAttribute HostLoginDto form,
                             BindingResult bindingResult,
                             @RequestParam(defaultValue = "/")String redirectURL,
                             HttpServletRequest request){

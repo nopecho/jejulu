@@ -1,4 +1,4 @@
-package hello.jejulu.web.controller.host.hostFrom;
+package hello.jejulu.web.controller.host.hostDto;
 
 
 import hello.jejulu.domain.host.Host;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter@Setter
 @Builder
-public class HostUpdateForm {
+public class HostUpdateDto {
 
 
     private Long id;
@@ -27,8 +27,8 @@ public class HostUpdateForm {
     @NotBlank
     private String email;
 
-    public static HostUpdateForm updateHost(Host host){
-        return HostUpdateForm.builder()
+    public static HostUpdateDto updateHost(Host host){
+        return HostUpdateDto.builder()
                 .hostName(host.getHostName())
                 .address(host.getAddress())
                 .phone(host.getPhone())

@@ -14,7 +14,11 @@ public class ThumbnailRepository_B {
 
     private final EntityManager em;
 
-    //썸네일 저장
+    /**
+     * 썸네일 저장
+     * @param thumbnail
+     * @return
+     */
     public String save(Thumbnail thumbnail) {
         if (thumbnail.getId() == null) {
             em.persist(thumbnail);
@@ -25,13 +29,20 @@ public class ThumbnailRepository_B {
         return thumbnail.getId();
     }
 
-    //썸네일 조회
+    /**
+     * 썸네일 조회
+     * @param id
+     * @return
+     */
     public Thumbnail find(String id) {
         return em.find(Thumbnail.class, id);
     }
 
 
-    //썸네일 삭제
+    /**
+     * 썸네일 삭제
+     * @param id
+     */
     public void delete(String id) {
         Thumbnail thumbnail = find(id);
         em.remove(thumbnail);

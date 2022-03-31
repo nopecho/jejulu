@@ -5,10 +5,8 @@ import hello.jejulu.domain.host.Host;
 import hello.jejulu.repository.HostRepository_B;
 import hello.jejulu.service.host.HostServiceImpl;
 import hello.jejulu.web.consts.SessionConst;
-import hello.jejulu.web.controller.host.hostFrom.HostSignForm;
-import hello.jejulu.web.controller.host.hostFrom.HostUpdateForm;
-import hello.jejulu.web.dto.HostDto;
-import lombok.Getter;
+import hello.jejulu.web.controller.host.hostDto.HostSignDto;
+import hello.jejulu.web.controller.host.hostDto.HostUpdateDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -32,15 +30,19 @@ public class HostController {
     private final HostServiceImpl hostService;
     private final HostRepository_B hostRepository_B;
 
-    //회원가입 폼 요청
+    /**
+     회원가입 폼 요청
+     */
     @GetMapping("/sign-up")
-    public String hostSaveForm(@ModelAttribute(name = "save")HostSignForm host){
+    public String hostSaveForm(@ModelAttribute(name = "save") HostSignDto host){
         return "jejulu/sign/sign-up-host-form";
     }
 
-    //회원가입
+    /**
+     회원가입
+     */
     @PostMapping
-    public String hostSignForm(@Validated @ModelAttribute HostSignForm host,
+    public String hostSignForm(@Validated @ModelAttribute HostSignDto host,
                                BindingResult bindingResult,HttpServletRequest request){
 
         if(bindingResult.hasErrors()){
@@ -49,7 +51,7 @@ public class HostController {
 
         }
 
-        Host signedHost = HostSignForm.signHost(host);
+        Host signedHost = HostSignDto.signHost(host);
         Host joinedHost = hostService.join(signedHost);
         log.info("signedHost name={}", signedHost.getHostName());
 
@@ -60,7 +62,10 @@ public class HostController {
         return "redirect:/";
     }
 
-    //호스트 정보수정
+    /**
+     * 호스트 정보수정
+     */
+
     @GetMapping("/info")
     public String searchHost(HttpServletRequest request,
                              RedirectAttributes redirectAttributes){
@@ -77,7 +82,9 @@ public class HostController {
 
     }
 
-    //호스트 정보수정 페이지
+    /**
+     *  호스트 정보수정 페이지
+     */
     @GetMapping("/{hostId}")
     public String hostPage(@PathVariable Long hostId,
                                Model model){
@@ -87,20 +94,24 @@ public class HostController {
     }
 
 
-    //호스트 회원 정보 수정 페이지 요청
+    /**
+     * 호스트 회원 정보 수정 페이지 요청
+     */
     @GetMapping("/{hostId}/edit")
     public String hostEditPage(@PathVariable Long hostId,
                                Model model){
         Host findHost = hostRepository_B.findByPk(hostId);
-        HostUpdateForm hostForUpdate = HostUpdateForm.updateHost(findHost);
+        HostUpdateDto hostForUpdate = HostUpdateDto.updateHost(findHost);
         model.addAttribute("update", hostForUpdate);
         return "jejulu/hosts/host-update-form";
     }
 
 
-    //호스트 회원정보 수정 요청
+    /**
+     *  호스트 회원정보 수정 요청
+     */
     @PatchMapping("/{hostId}")
-    public String updateHost(@Validated @ModelAttribute HostUpdateForm form,
+    public String updateHost(@Validated @ModelAttribute HostUpdateDto form,
                              @PathVariable Long hostId,
                              BindingResult bindingResult){
 
@@ -113,6 +124,13 @@ public class HostController {
         return "redirect:/hosts/{hostId}";
     }
 
+
+    /**
+     * 호스트 탈퇴
+     * @param hostId
+     * @param request
+     * @return
+     */
     @DeleteMapping("/{hostId}")
     public String deleteHost(@PathVariable Long hostId,
                              HttpServletRequest request){
@@ -123,6 +141,22 @@ public class HostController {
            session.invalidate();
         }
         return "redirect:/";
+    }
+
+
+    /**
+     * 호스트 아이디 중복 검사
+     */
+    @ResponseBody
+    @GetMapping("/id-check")
+    public boolean checkHostId(@RequestParam(name = "v")String hostId){
+
+        Optional<Host> findHost = hostService.findHostId(hostId);
+
+        if(findHost !=null){
+            return false;
+        }
+        return true;
     }
 
 

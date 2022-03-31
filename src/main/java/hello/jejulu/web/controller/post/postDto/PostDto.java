@@ -1,15 +1,12 @@
-package hello.jejulu.web.controller.post.postForm;
+package hello.jejulu.web.controller.post.postDto;
 
 
-import hello.jejulu.domain.Role;
 import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.post.Category;
 import hello.jejulu.domain.post.Post;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter@Setter
@@ -17,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Component
-public class PostForm {
+public class PostDto {
 
 
     //post
@@ -42,8 +39,8 @@ public class PostForm {
 
 
 
-    public static PostForm createPostView(Post post,Host host){
-       return  PostForm.builder()
+    public static PostDto createPostView(Post post, Host host){
+       return  PostDto.builder()
                .postId(post.getId())
                .hostId(host.getId())
                .hostName(host.getHostName())

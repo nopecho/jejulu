@@ -127,9 +127,10 @@
     if(sort === null){
         sort = '';
     }
+    let offset = 1;
     function loadPosts(){
         const category = [[${category}]];
-        fetch(`/posts/${category}/load?page=${++pageNum}&sort=${sort}`)
+        fetch(`/posts/${category}/load?countClick=${offset++}`)
             .then(res => res.json())
             .then(posts => render(posts.content))
             .catch(e => console.log(e));
