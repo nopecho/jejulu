@@ -81,9 +81,9 @@
                             <td data-label="조회수">
                                 <p th:text="${post.count}">조회수</p>
                             </td>
-<!--                            <td data-label="작성일">-->
-<!--                                <p th:text="${post.createDate}">작성일</p>-->
-<!--                            </td>-->
+                            <td data-label="작성일">
+                                <p th:text="${post.createDate}">작성일</p>
+                            </td>
                             <td data-label="수정">
                                 <button type="button" class="btn btn-sm btn-success my-btn" th:onclick="|location.href='@{/posts/{postId}/edit(postId=${post.id})}'|">수정하기</button>
                             </td>

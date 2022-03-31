@@ -11,6 +11,8 @@ import hello.jejulu.web.consts.SessionConst;
 import hello.jejulu.web.controller.post.postDto.PostDto;
 import hello.jejulu.web.controller.post.postDto.PostSaveDto;
 import hello.jejulu.web.controller.post.postDto.postPagingDto;
+import hello.jejulu.web.exception.CustomException;
+import hello.jejulu.web.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -200,5 +204,15 @@ public class PostController implements SessionConst {
 
         return "jejulu/posts/posts-host";
 
+    }
+
+    @GetMapping("/host/info")
+    public String redirectSessionHost(@SessionAttribute(name = SessionConst.HOST) Host loginHost,
+                                      RedirectAttributes redirectAttributes){
+        if( loginHost == null){
+            throw new CustomException(ErrorCode.INVALID_AUTH);
+        }
+        redirectAttributes.addAttribute("hostId",loginHost.getId());
+        return "redirect:/posts/hosts/{hostId}";
     }
 }

@@ -4,6 +4,7 @@ import hello.jejulu.domain.host.Host;
 import hello.jejulu.domain.util.Category;
 import hello.jejulu.domain.post.Post;
 import hello.jejulu.domain.thumbnail.Thumbnail;
+import hello.jejulu.service.util.ServiceUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -107,14 +108,14 @@ public class PostDto {
         private String imagePath;
         private String writer;
 
-        public Info(Post post,String imagePath){
+        public Info(Post post){
             this.id = post.getId();
             this.title = post.getTitle();
             this.description = post.getDescription();
             this.count=post.getCount();
             this.category = post.getCategory();
             this.createDate = post.getCreateDate().toLocalDate();
-            this.imagePath = imagePath;
+            this.imagePath = ServiceUtil.extractedPath(post.getThumbnail());
             this.writer = post.getHost().getHostName();
         }
     }
