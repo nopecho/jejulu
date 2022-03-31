@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html th:replace="template/layout/base ::layout(~{::link}, ~{::style}, ~{::section}, ~{::script})" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<link>
+<style>
+    #bs_icon {
+        width: 10%;
+        height: 10%;
+    }
+</style>
+
+<section>
+    <header class="pt-5">
+        <div class="text-center">
+            <img id="bs_icon" class="img-fluid rounded-circle mb-4" th:src="@{/image/success.png}" alt="..."/>
+            <h1 class="text-success fs-1 fw-bolder">문의글 등록 완료!</h1>
+        </div>
+    </header>
+
+    <div class="py-5 text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h2>문의글이 등록 돼었어요. 감사합니다</h2>
+                    <br />
+                    <h3>Enjoy service</h3>
+                    <p class="lead"></p>
+                    <br />
+                    <button class="btn btn-secondary btn-lg" type="button"
+                            th:onclick="|location.href='@{/}'|">홈으로
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:inline="javascript"></script>
+</html>

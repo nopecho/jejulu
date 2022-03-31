@@ -1,6 +1,6 @@
 package hello.jejulu.domain.booking;
 
-import hello.jejulu.domain.BaseTimeEntity;
+import hello.jejulu.domain.util.BaseTimeEntity;
 import hello.jejulu.domain.member.Member;
 import hello.jejulu.domain.post.Post;
 import lombok.*;
@@ -38,4 +38,10 @@ public class Booking extends BaseTimeEntity {
     @JoinColumn(name = "postId")
     private Post post;
 
+    public void update(String name, int personCount, String phone, LocalDate date){
+        this.name = name;
+        this.personCount = personCount;
+        this.phone = phone;
+        this.date = date;
+    }
 }

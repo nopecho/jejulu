@@ -4,11 +4,12 @@
 <link>
 <style>
     #about {
-        background-image: url(../../static/image/category/About_jeju_3.jpg);
+        background-image: url(/static/image/boeuns.jpeg);
     }
 
     .about_background {
-        background-image: url(../../static/image/category/About_jeju_7.jpg);
+        background-image: url(/static/image/boeuns.jpeg);
+        background-size: auto;
     }
 </style>
 
@@ -17,24 +18,25 @@
         <div id="about" class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
             <div class="col-md-6 px-0">
                 <h1 class="display-4 fst-italic">Trip to Jeju Island</h1>
-                <p class="lead my-3">
-                    Our philosophy is built on our motto ‘Grow, Feed, Educate’. Grow
-                    your food, your people and your community. Feed and nourish your
-                    physical self, your soul and the land on which you live. Educate
-                    yourself, your family and your community so that we can all actively
-                    participate as sustainable food growers, producers and consumers.
+                <p class="lead my-3 text-secondary">
+                    JEJULU 사이트는 2명의 4개월차 개발자가 약 7주동안 개발한 토이 프로젝트 웹 사이트 입니다.
+                    기획, 설계, 개발, 배포까지 모든 개발 과정을 직접 몸으로 부딪쳐 가며 만들었습니다.
+                    "호스트"가 게시물을 작성하면 "회원"은 게시물들을 보고 간단한 예약을 진행할 수 있습니다.
+                    "호스트"의 주요 기능은 게시물 작성, 수정, 삭제, 목록 관리 와 예약 현황 조회 등이있고,
+                    "회원"의 주요 기능은 게시물 조회, 예약하기, 예약내역 조회 등이 있습니다.
+                    또한 공통으로 내 정보 수정, 게시물 검색, 정렬 기능을 제공합니다.
                 </p>
                 <p class="lead mb-0"></p>
             </div>
         </div>
-        <br/><br/>
+        <br/>
 
         <div class="row mb-2">
             <div class="col-md-6">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static about_background">
-                        <strong class="d-inline-block mb-2 text-primary">Guests</strong>
-                        <h3 class="mb-0">Become a Guests!</h3>
+                        <strong class="d-inline-block mb-2 text-primary">HOST</strong>
+                        <h3 class="mb-0">"호스트" 가 돼 주세요!</h3>
                         <div class="mb-1 text-muted"><br/></div>
                         <p class="card-text mb-auto">
                             Our intention was to build a farm for ‘the people’. We invite
@@ -43,8 +45,8 @@
                             mind and the community....!
                         </p>
                         <p></p>
-                        <button class="btn btn-secondary btn-lg" type="button">
-                            Button
+                        <button class="btn btn-primary btn-lg" type="button" th:onclick="|location.href='@{/hosts/sign-up}'|">
+                            호스트로 시작
                         </button>
                     </div>
                 </div>
@@ -52,8 +54,8 @@
             <div class="col-md-6">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static about_background">
-                        <strong class="d-inline-block mb-2 text-primary">Host</strong>
-                        <h3 class="mb-0">Become a Host!</h3>
+                        <strong class="d-inline-block mb-2 text-primary">MEMBER</strong>
+                        <h3 class="mb-0">"회원"으로 즐겨보세요!</h3>
                         <div class="mb-1 text-muted"><br/></div>
                         <p class="mb-auto">
                             With environmental sustainability and nurturing the land top of
@@ -62,8 +64,8 @@
                             back to the local community.
                         </p>
                         <p></p>
-                        <button class="btn btn-secondary btn-lg" type="button">
-                            Button
+                        <button class="btn btn-primary btn-lg" type="button" th:onclick="|location.href='@{/members/sign-up}'|">
+                            회원으로 시작
                         </button>
                     </div>
                 </div>

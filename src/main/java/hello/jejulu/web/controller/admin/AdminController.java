@@ -1,15 +1,22 @@
 package hello.jejulu.web.controller.admin;
 
 import hello.jejulu.service.admin.AdminService;
-import hello.jejulu.web.dto.MemberDto;
+import hello.jejulu.service.contact.ContactService;
+import hello.jejulu.service.member.MemberService;
+import hello.jejulu.web.dto.contact.ContactDto;
+import hello.jejulu.web.dto.host.HostDto;
+import hello.jejulu.web.dto.member.MemberDto;
 import hello.jejulu.web.dto.login.LoginDto;
+import hello.jejulu.web.dto.post.PostDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,36 +27,65 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final MemberService memberService;
+//    private final HostService hostService;
+    private final ContactService contactService;
 
     @GetMapping("/login")
-    public String adminLoginForm(@ModelAttribute LoginDto loginDto){
+    public String adminLoginForm(@ModelAttribute LoginDto loginDto) {
         return "jejulu/admin/admin-login-form";
     }
 
     @GetMapping("/management")
-    public String management(){
+    public String management() {
         return "jejulu/admin/management";
     }
 
     @GetMapping("/management/members")
-    public String managementMembers(Model model){
-        List<MemberDto> members = adminService.findMembers();
-        model.addAttribute("members",members);
+    public String managementMembers(@PageableDefault(size = 15, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
+                                    Model model) {
+        Page<MemberDto.AdminDetail> page = adminService.getMembersForAdmin(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage", 10);
         return "jejulu/admin/management-members";
     }
 
+    @ResponseBody
+    @DeleteMapping("/members/{memberId}")
+    public boolean adminMemberDelete(@PathVariable Long memberId) {
+        return memberService.remove(memberId);
+    }
+
     @GetMapping("/management/hosts")
-    public String managementHosts(Model model){
+    public String managementHosts(@PageableDefault(size = 15, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable
+            , Model model) {
+        Page<HostDto.AdminDetail> page = adminService.getHostsForAdmin(pageable);
+        model.addAttribute("page",page);
+        model.addAttribute("maxPage",10);
         return "jejulu/admin/management-hosts";
     }
 
+    @ResponseBody
+    @DeleteMapping("/hosts/{hostId}")
+//    public boolean adminHostDelete(@PathVariable Long hostId) {
+//        return hostService.remove(hostId);
+//    }
+
     @GetMapping("/management/posts")
-    public String managementPosts(Model model){
+    public String managementPosts(@PageableDefault(size = 15, sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable,
+                                  Model model) {
+        Page<PostDto.AdminDetail> page = adminService.getPostsForAdmin(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage",10);
         return "jejulu/admin/management-posts";
     }
 
     @GetMapping("/management/contacts")
-    public String managementContacts(Model model){
+    public String managementContacts(@PageableDefault(size = 15, sort = "createDate",direction = Sort.Direction.DESC) Pageable pageable,
+                                     Model model) {
+        Page<ContactDto.Detail> page = contactService.getContacts(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage",10);
         return "jejulu/admin/management-contact";
     }
 }

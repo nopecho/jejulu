@@ -1,7 +1,8 @@
 package hello.jejulu.domain.host;
 
-import hello.jejulu.domain.BaseTimeEntity;
-import hello.jejulu.domain.Role;
+import hello.jejulu.domain.converter.RoleConverter;
+import hello.jejulu.domain.util.BaseTimeEntity;
+import hello.jejulu.domain.util.Role;
 import hello.jejulu.domain.post.Post;
 import lombok.*;
 

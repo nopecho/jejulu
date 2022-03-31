@@ -47,15 +47,16 @@ public class LoginController implements SessionConst{
     @PostMapping("/login/member")
     public String memberLogin(@ModelAttribute LoginDto loginDto,
                               BindingResult bindingResult,
-                              HttpServletRequest request){
-        MemberDto.Info memberInfoDto = loginService.loginByMember(loginDto);
-        if(memberInfoDto == null){
+                              HttpServletRequest request,
+                              @RequestParam(defaultValue = "/") String uri){
+        MemberDto.Info loginMember = loginService.loginByMember(loginDto);
+        if(loginMember == null){
             bindingResult.reject("loginFail.Member");
             return "jejulu/login/login-form";
         }
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.MEMBER,memberInfoDto);
-        return "redirect:/";
+        session.setAttribute(SessionConst.MEMBER,loginMember);
+        return "redirect:"+uri;
     }
 
     /**

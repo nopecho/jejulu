@@ -1,8 +1,10 @@
 package hello.jejulu.web.exception;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@RequiredArgsConstructor
+@Getter
+@AllArgsConstructor
 public class CustomException extends RuntimeException{
 
     private final ErrorCode errorCode;

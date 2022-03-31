@@ -49,7 +49,7 @@
                 <div class="card h-100 shadow main-content">
                     <img class="card-img-top" th:src="${info.imagePath}" th:onerror="|this.src='https://images.unsplash.com/photo-1564944062924-57874442ddea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80'|" alt="">
                     <div class="card-body bg-light border-light pb-0 pt-5">
-                        <span class="d-flex flex-row">글 제목 🏷 :&nbsp;
+                        <span class="d-flex flex-row">게시물 🏷 :&nbsp;
                             <p th:text="${info.postTitle}" class="fw-bold text-primary">제목</p>
                         </span>
 
@@ -61,7 +61,7 @@
                             <p th:text="${info.name}" class="fw-bold text-success">예약자</p>
                         </span>
 
-                        <span class="d-flex flex-row">전화번호 ☎️ :&nbsp;
+                        <span class="d-flex flex-row">연락처 ☎️ :&nbsp;
                             <p th:text="${info.phone}" class="fw-bold text-success">전화번호</p>
                         </span>
 
@@ -69,7 +69,7 @@
                             <p th:text="${info.bookDate}" class="fw-bold text-success">예약일</p>
                         </span>
 
-                        <span class="d-flex flex-row">인원 🙋🏻‍ :&nbsp;
+                        <span class="d-flex flex-row">인원수 🙋🏻‍ :&nbsp;
                             <p th:text="${info.personCount}" class="fw-bold text-success">인원</p> 명
                         </span>
                     </div>
