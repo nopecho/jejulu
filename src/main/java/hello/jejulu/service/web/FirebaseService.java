@@ -19,19 +19,34 @@ import java.io.InputStream;
 @Service
 public class FirebaseService {
 
+
+    // Firebase Bucket 명
     @Value("${firebase.bucket}")
     private String firebaseBucket;
 
+    /**
+     * Firebase 이미지 업로드
+     * @param file 업로드할 이미지 파일
+     * @param storeFileName Firebase에 저장할 파일명
+     * @return 저장된 Firebase 이미지 경로
+     */
     public String uploadImage(MultipartFile file, String storeFileName) throws IOException {
         Blob blob = firebaseUpload(file, storeFileName);
         return getFirebaseImagePath(blob.getMediaLink());
     }
-    
+
+    /**
+     * Firebase 이미지 수정
+     * @param file 수정할 이미지 파일
+     * @param oldStoreFileName 기존 저장된 이미지 파일명
+     * @return 저장된 Firebase 이미지 경로
+     */
     public String updateImage(MultipartFile file, String oldStoreFileName) throws IOException{
         Blob blob = firebaseUpload(file, oldStoreFileName);
         return getFirebaseImagePath(blob.getMediaLink());
     }
 
+    // 이미지 경로 추출
     private String getFirebaseImagePath(String meadiaLink){
         int start = meadiaLink.lastIndexOf("%");
         int last = meadiaLink.lastIndexOf("?");
