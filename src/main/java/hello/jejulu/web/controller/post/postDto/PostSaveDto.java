@@ -8,7 +8,7 @@ import hello.jejulu.repository.ThumbnailRepository_B;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter @Setter @Builder
+@Getter @Setter
 @RequiredArgsConstructor
 public class PostSaveDto {
 

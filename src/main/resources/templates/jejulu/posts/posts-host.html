@@ -81,9 +81,9 @@
                             <td data-label="조회수">
                                 <p th:text="${post.count}">조회수</p>
                             </td>
-                            <td data-label="작성일">
-                                <p th:text="${post.createDate}">작성일</p>
-                            </td>
+<!--                            <td data-label="작성일">-->
+<!--                                <p th:text="${post.createDate}">작성일</p>-->
+<!--                            </td>-->
                             <td data-label="수정">
                                 <button type="button" class="btn btn-sm btn-success my-btn" th:onclick="|location.href='@{/posts/{postId}/edit(postId=${post.id})}'|">수정하기</button>
                             </td>
@@ -126,39 +126,39 @@
             </div>
         </div>
 
-        <ul class="pagination text-center d-flex flex-row justify-content-center mt-5" style="margin: 0 auto"
-            th:with="start=${(page.number/maxPage)*maxPage+1},
-            end = (${(page.totalPages == 0) ? 1
-                        : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)
-                            : page.totalPages)})">
-            <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=0,sort=${sort})}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+<!--        <ul class="pagination text-center d-flex flex-row justify-content-center mt-5" style="margin: 0 auto"-->
+<!--            th:with="start=${(page.number/maxPage)*maxPage+1},-->
+<!--            end = (${(page.totalPages == 0) ? 1-->
+<!--                        : ( (start + (maxPage - 1) < page.totalPages) ? start + (maxPage - 1)-->
+<!--                            : page.totalPages)})">-->
+<!--            <li class="page-item">-->
+<!--                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=0,sort=${sort})}" aria-label="Previous">-->
+<!--                    <span aria-hidden="true">&laquo;</span>-->
+<!--                </a>-->
+<!--            </li>-->
 
-            <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.number - maxPage},sort=${sort})}" aria-label="Previous">
-                    <span aria-hidden="true">&lt;</span>
-                </a>
-            </li>
+<!--            <li class="page-item">-->
+<!--                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.number - maxPage},sort=${sort})}" aria-label="Previous">-->
+<!--                    <span aria-hidden="true">&lt;</span>-->
+<!--                </a>-->
+<!--            </li>-->
 
-            <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">
-                <a class="page-link" th:text="${num}" th:href="@{/posts/host/{hostsId}(hostsId=${session.loginHost.id},page=${num - 1},sort=${sort})}">?</a>
-            </li>
+<!--            <li class="page-item" th:each="num : ${#numbers.sequence(start,end,1)}">-->
+<!--                <a class="page-link" th:text="${num}" th:href="@{/posts/host/{hostsId}(hostsId=${session.loginHost.id},page=${num - 1},sort=${sort})}">?</a>-->
+<!--            </li>-->
 
-            <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${start+maxPage - 1},sort=${sort})}" aria-label="Previous">
-                    <span aria-hidden="true">&gt;</span>
-                </a>
-            </li>
+<!--            <li class="page-item">-->
+<!--                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${start+maxPage - 1},sort=${sort})}" aria-label="Previous">-->
+<!--                    <span aria-hidden="true">&gt;</span>-->
+<!--                </a>-->
+<!--            </li>-->
 
-            <li class="page-item">
-                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.totalPages - 1},sort=${sort})}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
+<!--            <li class="page-item">-->
+<!--                <a class="page-link" th:href="@{/posts/host/{hostId}(hostId=${session.loginHost.id},page=${page.totalPages - 1},sort=${sort})}" aria-label="Next">-->
+<!--                    <span aria-hidden="true">&raquo;</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        </ul>-->
     </div>
 </section>
 

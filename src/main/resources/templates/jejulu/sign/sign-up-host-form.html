@@ -136,24 +136,24 @@
     });
 
     //id validation check 비동기
-    // function checkId() {
-    //     const idInput = document.getElementById('loginId');
-    //     fetch(`/hosts/id-check?v=${idInput.value}`)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             if (!data) {
-    //                 idInput.classList.remove('is-invalid')
-    //                 idInput.classList.add('is-valid')
-    //             } else {
-    //                 idInput.classList.remove('is-valid')
-    //                 idInput.classList.add('is-invalid')
-    //                 const invalidId = document.getElementById('id-invalid');
-    //                 invalidId.innerText='';
-    //                 invalidId.innerHTML=`<i class="bi bi-exclamation-circle"></i> 이미 사용중인 ID에요!`;
-    //             }
-    //         })
-    //         .catch(e => console.log(e))
-    // }
+    function checkId() {
+        const idInput = document.getElementById('loginId');
+        fetch(`/hosts/id-check?v=${idInput.value}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (!data) {
+                    idInput.classList.remove('is-invalid')
+                    idInput.classList.add('is-valid')
+                } else {
+                    idInput.classList.remove('is-valid')
+                    idInput.classList.add('is-invalid')
+                    const invalidId = document.getElementById('id-invalid');
+                    invalidId.innerText='';
+                    invalidId.innerHTML=`<i class="bi bi-exclamation-circle"></i> 이미 사용중인 ID에요!`;
+                }
+            })
+            .catch(e => console.log(e))
+    }
 
 
     //submit validstion check

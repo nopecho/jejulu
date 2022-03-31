@@ -24,9 +24,12 @@ public class PostServiceImpl {
     private final ThumbnailService_B thumbnailServiceB;
 
 
-
-
-    //포스트 저장
+    /**
+     * 포스트 저장
+     * @param form
+     * @param host
+     * @throws IOException
+     */
     @Transactional
     public void savePost(PostSaveDto form, Host host)throws IOException{
 
@@ -37,7 +40,11 @@ public class PostServiceImpl {
 
     }
 
-    //포스트 조회
+    /**
+     * 포스트 조회
+     * @param postId
+     * @return
+     */
     public Post searchPost(Long postId){
         Post post = postRepositoryB.findOne(postId);
         //조회수 증가
@@ -46,7 +53,16 @@ public class PostServiceImpl {
         return post;
     }
 
-    //포스트 업데이트
+    /**
+     * 포스트 업데이트
+     * @param postId
+     * @param title
+     * @param description
+     * @param category
+     * @param file
+     * @param content
+     * @throws IOException
+     */
     @Transactional
     public void updatePost(Long postId, String title,
                            String description,Category category,
@@ -75,8 +91,10 @@ public class PostServiceImpl {
         post.setContent(content);
     }
 
-    //포스트 삭제
-
+    /**
+     * 포스트 삭제
+     * @param postId
+     */
     @Transactional
     public void deletePost(Long postId){
 
@@ -87,6 +105,11 @@ public class PostServiceImpl {
 
     }
 
+    /**
+     * 카데고리별 포스트 조회
+     * @param category
+     * @return
+     */
     public List<Post> findPostCategory(Category category){
 
         List<Post> posts = postRepositoryB.findByCategory(category);
@@ -94,11 +117,29 @@ public class PostServiceImpl {
         return posts;
     }
 
+    /**
+     * 카테코리별 포스트 조회 - 버튼 클식시 요청
+     * @param category
+     * @param offset
+     * @return
+     */
     public List<Post> findPostCategory_Button(Category category,int offset){
 
         List<Post> posts = postRepositoryB.findByCategory_Button(category,offset);
 
         return posts;
+    }
+
+
+    /**
+     * 호스트별 포스트 조회
+     * @param hostId
+     * @return
+     */
+    public List<Post> findPostHost(Long hostId){
+        List<Post> postHost = postRepositoryB.findPostHost(hostId);
+
+        return postHost;
     }
 
 }

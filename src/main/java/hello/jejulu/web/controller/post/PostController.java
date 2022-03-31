@@ -181,8 +181,24 @@ public class PostController implements SessionConst {
 
         return postPagingDto;
 
+    }
 
 
+    /**
+     * 호스트 게시물 조회
+     */
+    @GetMapping("/hosts/{hostId}")
+    public String postOfHost(@PathVariable Long hostId,Model model){
+
+        //Entity 조회
+        List<Post> postHost = postService.findPostHost(hostId);
+
+        //DTO 변환
+        postPagingDto postPagingDto = new postPagingDto(postHost);
+
+        model.addAttribute("page",postPagingDto);
+
+        return "jejulu/posts/posts-host";
 
     }
 }

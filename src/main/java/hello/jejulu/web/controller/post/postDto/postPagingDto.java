@@ -22,7 +22,7 @@ public class postPagingDto {
     public postPagingDto(List<Post> postList) {
         this.content=postList.stream()
                 .map(p -> new postCategoryDto(p.getId(),p.getThumbnail().getPath(),p.getTitle(),
-                        p.getDescription(),p.getHost().getHostName(),p.getCount()))
+                        p.getDescription(),p.getHost().getHostName(),p.getCount(),p.getCategory(),p.getCreateDate().toLocalDate()))
                 .collect(Collectors.toList());
         this.totalPages=getTotalPages(postList);
 

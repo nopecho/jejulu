@@ -127,7 +127,7 @@
     if(sort === null){
         sort = '';
     }
-    let offset = 0;
+    let offset = 1;
     function loadPosts(){
         const category = [[${category}]];
         fetch(`/posts/${category}/load?countClick=${offset++}`)
