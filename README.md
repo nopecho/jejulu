@@ -63,6 +63,10 @@
 - 개발과정 :
   - [Notion](https://vanilla-flea-0ad.notion.site/Jejulu-Project-fbd42ab9255749c89bd38f6bbb08d439)
   - [GitHub](https://github.com/nopecho/jejulu)
+- 구현기능 :
+  - 공동 작업 : 기획, DB 설계, 페이지 와이어 프레임, 기능 명세 및 API 명세 문서 작성 
+  - 구보은 : 게시물, 호스트 관련 Back-End 기능 구현
+  - 조현준 : 회원, 예약, 관리자 관련 Back-End 기능 구현 / Thymeleaf, JavaScript 관련 Front-End 기능 구현 / Infra 영역 환경 설정 및 배포
 - [⚡️데모 사이트 바로가기](http://www.jejulu.site)
 
 <br>
