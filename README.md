@@ -61,7 +61,7 @@
 - 개발기간 : 22. 02. 14. ~ 22. 03.
 - 참여인원 : <a href="https://github.com/nopecho">조현준</a>, <a href="https://github.com/BoeunGu">구보은</a>
 - 개발과정 :
-  - [Notion](https://rainy-birth-ddb.notion.site/b1e2f699da0041a1bd530f92aa438db5?v=976efadb7a904d35b8cfa66140a95cde)
+  - [Notion](https://vanilla-flea-0ad.notion.site/Jejulu-Project-fbd42ab9255749c89bd38f6bbb08d439)
   - [GitHub](https://github.com/nopecho/jejulu)
 - [⚡️데모 사이트 바로가기](http://www.jejulu.site)
 
