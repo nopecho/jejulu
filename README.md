@@ -61,8 +61,12 @@
 - 개발기간 : 22. 02. 14. ~ 22. 03.
 - 참여인원 : <a href="https://github.com/nopecho">조현준</a>, <a href="https://github.com/BoeunGu">구보은</a>
 - 개발과정 :
-  - [Notion](https://rainy-birth-ddb.notion.site/b1e2f699da0041a1bd530f92aa438db5?v=976efadb7a904d35b8cfa66140a95cde)
+  - [Notion](https://vanilla-flea-0ad.notion.site/Jejulu-Project-fbd42ab9255749c89bd38f6bbb08d439)
   - [GitHub](https://github.com/nopecho/jejulu)
+- 구현기능 :
+  - 공동 작업 : 기획, DB 설계, 페이지 와이어 프레임, 기능 명세 및 API 명세 문서 작성
+  - 구보은 : 게시물, 호스트 관련 Back-End 기능 구현
+  - 조현준 : 회원, 예약, 관리자 관련 Back-End 기능 구현 / Thymeleaf, JavaScript 관련 Front-End 기능 구현 / Infra 영역 환경 설정 및 배포
 - [⚡️데모 사이트 바로가기](http://www.jejulu.site)
 
 <br>
@@ -120,20 +124,20 @@
 ## 🔍 주요 기능 미리보기
 - ### 1.회원가입
   - 1.1. `호스트` 회원가입
-  
+
   - ![호스트-로그인](https://user-images.githubusercontent.com/92011565/160241387-769fc544-a470-41bd-8c5c-8e0f99e56057.gif)
-  
+
   - 1.2. `회원` 회원가입
 
   - ![회원-회원가입](https://user-images.githubusercontent.com/92011565/160241601-802f9706-d9d3-4d1f-b367-8c2e9472b1f8.gif)
 
 - ### 2. 로그인
   - 2.1. `호스트` 로그인
-  
+
   - ![호스트-로그인](https://user-images.githubusercontent.com/92011565/160241899-9f548309-e607-4ef1-be6a-3fc0927b015a.gif)
-  
+
   - 2.2. `회원` 로그인
-  
+
   - ![회원-로그인](https://user-images.githubusercontent.com/92011565/160241907-ccebc27f-c066-44de-89d0-1b2713b62410.gif)
 
 - ### 3. `호스트` 게시물 등록
