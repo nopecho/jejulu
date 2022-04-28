@@ -40,6 +40,14 @@ jobs:
       with:
         username: ${{secrets.DOCKERHUB_USERNAME}}
         password: ${{secrets.DOCKERHUB_TOKEN}}
+        
+    - name : DockerImage build and push for DockerHub
+      env:
+        REPO: jejulu
+      run: |
+        docker build -t $REPO .
+        docker tag $REPO:latest ${{secrets.DOCKERHUB_USERNAME}}/$REPO:latest
+        docker push ${{secrets.DOCKERHUB_USERNAME}}/$REPO:latest
       
       
     
