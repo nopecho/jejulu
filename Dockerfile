@@ -8,4 +8,4 @@ RUN mkdir /app
 COPY build/libs/*.jar /app/app.jar
 
 #컨테이너 띄울시 실행 될 shell 명령어
-ENTRYPOINT ["java","-jar","-Dspring.profiles.active=prod", "/app/app.jar"]
+ENTRYPOINT ["java","-jar", "/app/app.jar"]
